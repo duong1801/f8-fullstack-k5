@@ -1,0 +1,71 @@
+/** @format */
+*:focus {
+	outline: none;
+}
+
+.contact-us {
+	padding: 50px;
+}
+
+.contact-us .sub-title {
+	font-size: 30px;
+	margin-bottom: 30px;
+}
+.contact-us .contact-title {
+	font-size: 50px;
+	margin-bottom: 60px;
+	position: relative;
+}
+
+.contact-us .contact-title::after {
+	position: absolute;
+	content: "";
+	width: 60px;
+	height: 2px;
+	background-color: orange;
+	bottom: -15px;
+	left: 0;
+}
+.contact-us .contact-content {
+	display: flex;
+	justify-content: space-around;
+}
+.contact-content {
+	display: flex;
+}
+.contact-content .contact-info {
+	width: 30%;
+}
+
+.contact-content .contact-form {
+	width: 70%;
+}
+
+.info-list .info-detail {
+	line-height: 1.7;
+	font-size: 18px;
+	color: #090909;
+}
+
+.info-list .info-icon {
+	margin-right: 10px;
+}
+
+.contact-form .form-control {
+	margin-bottom: 20px;
+}
+
+.form-control * {
+	width: 100%;
+	padding: 10px;
+	border-radius: 5px;
+	border: 1px solid #ccc;
+}
+
+.contact-form .btn-submit {
+	padding: 10px 20px;
+	background-color: #6dbec6;
+	border-radius: 999px;
+	color: #fff;
+	border: none;
+}

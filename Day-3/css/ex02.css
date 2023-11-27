@@ -1,0 +1,50 @@
+/** @format */
+.content {
+	padding: 30px;
+}
+
+.feedback-title {
+	font-size: 35px;
+	text-align: center;
+	margin-bottom: 100px;
+	font-weight: bold;
+	text-transform: uppercase;
+	position: relative;
+}
+
+.list-feedback {
+	display: flex;
+	flex-wrap: wrap;
+}
+
+.list-feedback .feedback-item {
+	max-width: 30%;
+	display: flex;
+	align-items: flex-start;
+	margin: 0 20px 60px 0;
+}
+.list-feedback .feedback-item:nth-child(3n) {
+	margin-right: 0px;
+}
+
+.feedback-title::after {
+	content: "";
+	width: 100px;
+	height: 5px;
+	background-color: blue;
+	bottom: -20px;
+	left: 50%;
+	transform: translateX(-50%);
+	position: absolute;
+}
+
+.feedback-item .avatar-customer {
+	width: 200px;
+	margin-right: 20px;
+}
+
+.feedback-info .feedback-customer {
+	font-size: 25px;
+	font-weight: bold;
+	margin-top: 6px;
+}
