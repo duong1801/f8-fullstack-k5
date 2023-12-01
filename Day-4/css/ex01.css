@@ -1,0 +1,50 @@
+/** @format */
+
+.form-subscribe {
+	margin: 30px;
+	height: 200px;
+	padding: 50px;
+	background-color: #324454;
+	border-radius: 7px;
+}
+
+.form-subscribe .title-form {
+	font-size: 40px;
+	color: white;
+}
+
+.title-form .highlight {
+	color: orange;
+}
+
+.form-subscribe .description {
+	color: white;
+	margin-top: 20px;
+	line-height: 1.3;
+}
+
+.form-subscribe .form-action {
+	margin-top: 20px;
+}
+
+.form-subscribe .form-action > * {
+	padding: 5px;
+}
+
+.form-action .btn-submit {
+	background-color: yellow;
+}
+
+.form-subscribe:hover .form-action input::placeholder,
+.form-action input {
+	color: orange;
+}
+
+.form-subscribe:hover .form-action input {
+	background-color: #ddd;
+}
+
+.form-subscribe:hover .btn-submit {
+	background-color: orange;
+	color: #fff;
+}
