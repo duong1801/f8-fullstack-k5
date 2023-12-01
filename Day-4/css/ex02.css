@@ -1,0 +1,57 @@
+/** @format */
+.col {
+	flex: 1;
+	padding: 0 30px;
+}
+
+.form-reservation {
+	padding: 50px;
+}
+
+.form-reservation .title-groups {
+	text-align: center;
+}
+
+.form-reservation .main-title {
+	font-family: "Bebas Neue";
+	font-size: 30px;
+	margin-bottom: 30px;
+}
+
+.form-reservation .sub-title {
+	font-family: "Alfa Slab One";
+	font-size: 50px;
+}
+
+.form-action {
+	margin-top: 40px;
+}
+
+.form-groups {
+	display: flex;
+}
+.form-control {
+	margin-bottom: 20px;
+	width: 100%;
+}
+
+.btn-submit {
+	font-family: "Alfa Slab One";
+	padding: 12px 0;
+	width: 100%;
+	background-color: red;
+	border: none;
+	border-radius: 5px;
+	color: white;
+}
+
+.form-control > * {
+	width: 100%;
+	box-sizing: border-box;
+	padding: 12px 10px;
+	border: 1px solid #333;
+}
+
+.form-control > *::placeholder {
+	color: black;
+}
