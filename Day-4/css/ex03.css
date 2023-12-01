@@ -2,6 +2,7 @@
 
 .product-selling {
 	padding: 40px;
+	min-height: 800px;
 }
 
 .product-selling .title-page {
@@ -41,6 +42,7 @@
 	display: inline-block;
 	max-width: 23%;
 	margin-right: 15px;
+	text-decoration: none;
 }
 
 .list-products .product-link:last-child {
@@ -92,4 +94,13 @@
 	margin-top: 30px;
 	text-align: center;
 	color: deepskyblue;
+}
+
+.product-item .product-name {
+	margin: 10px 0;
+}
+
+.product-item .product-price {
+	font-weight: bold;
+	font-size: 20px;
 }
