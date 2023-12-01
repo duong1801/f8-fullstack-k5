@@ -1,0 +1,85 @@
+/** @format */
+
+.product-selling {
+	padding: 40px;
+}
+
+.product-selling .title-page {
+	font-size: 50px;
+	text-align: center;
+}
+
+.product-selling .list-categories {
+	text-align: center;
+	margin-top: 30px;
+}
+
+.list-categories .category-item {
+	display: inline-block;
+}
+
+.list-categories .category-item:hover .category-link {
+	background-color: skyblue;
+	color: white;
+}
+
+.category-item .category-link {
+	display: block;
+	text-decoration: none;
+	background-color: #ccc;
+	color: black;
+	height: 50px;
+	line-height: 50px;
+	padding: 0 20px;
+}
+
+.list-products {
+	margin-top: 50px;
+}
+
+.list-products .product-link {
+	display: inline-block;
+	max-width: 23%;
+	margin-right: 15px;
+}
+
+.list-products .product-link:last-child {
+	margin-right: 0;
+}
+.list-products .product-link:hover .interact-product {
+	display: block;
+}
+
+.list-products .product-item {
+	max-width: 100%;
+	position: relative;
+}
+
+.product-item .product-image {
+	max-width: 100%;
+}
+
+.product-item .interact-product {
+	position: absolute;
+	top: 65%;
+	width: 100%;
+	display: none;
+}
+
+.interact-product .wish-list {
+	display: flex;
+	justify-content: space-evenly;
+}
+.interact-product .btn-add-cart {
+	color: white;
+	background-color: deepskyblue;
+	margin-top: 30px;
+	width: 100%;
+	border: none;
+	padding: 23px 0;
+}
+
+.wish-list i {
+	color: deepskyblue;
+	font-size: 20px;
+}
