@@ -49,6 +49,9 @@
 .list-products .product-link:hover .interact-product {
 	display: block;
 }
+.list-products .product-link:focus .interact-product {
+	display: block;
+}
 
 .list-products .product-item {
 	max-width: 100%;
@@ -61,7 +64,8 @@
 
 .product-item .interact-product {
 	position: absolute;
-	top: 65%;
+	top: 50%;
+	left: 0;
 	width: 100%;
 	display: none;
 }
@@ -82,4 +86,10 @@
 .wish-list i {
 	color: deepskyblue;
 	font-size: 20px;
+}
+
+.product-item .product-desc {
+	margin-top: 30px;
+	text-align: center;
+	color: deepskyblue;
 }
