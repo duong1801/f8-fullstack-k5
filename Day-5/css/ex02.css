@@ -1,0 +1,50 @@
+/** @format */
+.main {
+	padding-top: 50px;
+}
+
+.content-box {
+	position: relative;
+	margin-bottom: 20px;
+}
+.content-box .sub-title {
+	background-color: rgb(255, 115, 0);
+	font-size: 25px;
+	padding: 10px 30px;
+	color: white;
+	user-select: none;
+}
+.content-box .description {
+	padding: 20px;
+	display: none;
+}
+
+.content-box .icon-open {
+	position: absolute;
+	top: 15px;
+	left: 8px;
+	color: white;
+}
+
+.content-box .icon-close {
+	position: absolute;
+	top: 10px;
+	left: 8px;
+	color: white;
+}
+
+.content-box .icon-close {
+	display: none;
+}
+
+.content-box input:checked ~ .icon-open {
+	display: none;
+}
+
+.content-box input:checked ~ .icon-close {
+	display: block;
+}
+
+.content-box input:checked ~ .description {
+	display: block;
+}

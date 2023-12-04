@@ -1,0 +1,192 @@
+/** @format */
+body {
+	font-family: "Lato", sans-serif;
+}
+.main {
+	padding: 50px 100px;
+}
+
+.main .page-title {
+	font-family: "Lobster Two", sans-serif;
+	font-size: 40px;
+	font-weight: 700;
+	font-style: italic;
+	margin-bottom: 20px;
+}
+
+.page-description {
+	color: #ccc;
+	margin-bottom: 30px;
+}
+
+.page-description .highlight {
+	color: red;
+}
+
+.form-body .form-control {
+	display: flex;
+	height: 40px;
+	position: relative;
+	flex-direction: row-reverse;
+}
+
+.form-control .input-focus {
+	position: absolute;
+	padding: 10px 6px;
+	background-color: #000;
+	color: white;
+	top: -70px;
+	left: 100px;
+	display: none;
+}
+
+.form-control .input-focus::after {
+	position: absolute;
+	content: "";
+	display: inline-block;
+	border: 16px solid;
+	border-color: #000 transparent transparent transparent;
+	top: 100%;
+	left: 25%;
+}
+
+.form-control input:focus,
+.form-control select:focus,
+.form-control textarea:focus,
+.form-control input:active,
+.form-control select:active,
+.form-control textarea:active,
+.form-control input:hover,
+.form-control select:hover,
+.form-control textarea:hover,
+.form-control input:hover,
+.form-control select:hover,
+.form-control textarea:hover {
+	border: 2px solid #000;
+}
+
+.form-control input:focus ~ .input-focus,
+.form-control select:focus ~ .input-focus,
+.form-control textarea:focus ~ .input-focus,
+.form-control input:active ~ .input-focus,
+.form-control select:active ~ .input-focus,
+.form-control textarea:active ~ .input-focus {
+	display: block;
+}
+
+.form-control input:hover ~ .box-icon,
+.form-control select:hover ~ .box-icon,
+.form-control textarea:hover ~ .box-icon,
+.form-control input:hover ~ .box-icon,
+.form-control select:hover ~ .box-icon,
+.form-control textarea:hover ~ .box-icon,
+.form-control input:focus ~ .box-icon,
+.form-control select:focus ~ .box-icon,
+.form-control textarea:focus ~ .box-icon,
+.form-control input:active ~ .box-icon,
+.form-control select:active ~ .box-icon,
+.form-control textarea:active ~ .box-icon {
+	background-color: #000;
+	color: white;
+}
+
+.form-control input:focus ~ .icon-input,
+.form-control select:focus ~ .icon-input,
+.form-control textarea:focus ~ .icon-input,
+.form-control input:active ~ .icon-input,
+.form-control select:active ~ .icon-input,
+.form-control textarea:active ~ .icon-input {
+	display: none;
+}
+
+.form-control input:focus ~ .icon-close,
+.form-control select:focus ~ .icon-close,
+.form-control textarea:focus ~ .icon-close,
+.form-control input:active ~ .icon-close,
+.form-control select:active ~ .icon-close,
+.form-control textarea:active ~ .icon-close {
+	display: block;
+	font-size: 15px;
+}
+
+.form-control .icon-input,
+.form-control .icon-close {
+	position: absolute;
+	top: 10px;
+	right: 10px;
+	color: #ccc;
+	font-size: 10px;
+}
+
+.form-control .icon-close {
+	display: none;
+}
+.form-control:last-child,
+.form-control textarea {
+	height: 200px;
+}
+.form-control + .form-control {
+	margin-top: 40px;
+}
+.form-control input,
+.form-control select,
+.form-control textarea {
+	flex: 9;
+	border: 1px solid #ccc;
+	padding-left: 10px;
+	color: #ccc;
+}
+
+.form-control textarea {
+	resize: none;
+	box-sizing: border-box;
+	padding: 20px;
+}
+
+.form-page .box-icon {
+	background-color: #ccc;
+	flex: 0.5;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.box-icon .form-icon {
+	display: block;
+	align-items: center;
+	color: white;
+}
+
+.form-page .form-footer {
+	display: flex;
+	justify-content: space-around;
+	margin-top: 30px;
+}
+
+.form-checkbox input {
+	all: unset;
+}
+
+.form-checkbox input:before {
+	font-family: "FontAwesome";
+	content: "\f00c";
+	font-size: 15px;
+	color: transparent;
+	background: #fef2e0;
+	display: inline-block;
+	padding: 4px 4px;
+	border: 2px solid #ccc;
+	margin-right: 10px;
+}
+
+.form-checkbox input:checked:before {
+	color: black;
+}
+
+.form-footer .btn-submit {
+	padding: 10px 25px;
+	background-color: red;
+	border: none;
+	color: white;
+	text-transform: uppercase;
+}
