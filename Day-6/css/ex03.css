@@ -11,4 +11,16 @@ body {
 	background-color: #ff574d;
 	height: 70vh;
 	margin-top: 70px;
+	display: flex;
+	border-radius: 5px;
+	overflow: hidden;
+}
+
+.form-login .just-log {
+	flex: 4;
+}
+
+.form-login .form-action {
+	flex: 6;
+	background-color: white;
 }
