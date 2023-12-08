@@ -66,6 +66,7 @@ body {
 	border: none;
 	margin-right: 5px;
 	border-radius: 3px;
+	cursor: pointer;
 }
 
 .btn-social i {
@@ -74,7 +75,49 @@ body {
 	font-size: 16px;
 }
 
-.form-login .form-action {
+.form-login .form {
 	flex: 6;
 	background-color: white;
+	text-align: center;
+	padding: 0 50px;
+}
+
+.form .form-title {
+	margin-top: 80px;
+	font-size: 25px;
+	font-weight: bold;
+	position: relative;
+}
+
+.form .form-title::after {
+	content: "";
+	width: 40px;
+	height: 2px;
+	background-color: #ff574d;
+	position: absolute;
+	display: inline-block;
+	top: 40px;
+	left: 50%;
+	transform: translateX(-50%);
+}
+
+.form-title .highlight {
+	color: #ff574d;
+}
+
+.form-action {
+	margin-top: 40px;
+}
+
+.form-control > input {
+	width: 100%;
+	padding: 12px 10px;
+	border: 1px solid #ccc;
+	border-radius: 3px;
+	box-shadow: 1px 1px 4px 1px #ccc;
+	background-color: #fff;
+}
+
+.form-control + .form-control {
+	margin-top: 20px;
 }
