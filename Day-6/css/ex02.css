@@ -4,6 +4,7 @@
 	background-color: #ebf5fe;
 	font-family: "Roboto Slab", serif;
 	color: #666666;
+	height: 100vh;
 }
 .list-box {
 	display: flex;
