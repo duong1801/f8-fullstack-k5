@@ -83,7 +83,7 @@ body {
 }
 
 .form .form-title {
-	margin-top: 80px;
+	margin-top: 50px;
 	font-size: 25px;
 	font-weight: bold;
 	position: relative;
@@ -112,6 +112,7 @@ body {
 .form-control > input {
 	width: 100%;
 	padding: 12px 10px;
+	box-sizing: border-box;
 	border: 1px solid #ccc;
 	border-radius: 3px;
 	box-shadow: 1px 1px 4px 1px #ccc;
@@ -120,4 +121,35 @@ body {
 
 .form-control + .form-control {
 	margin-top: 20px;
+}
+
+.form-action .form-sp {
+	display: flex;
+	justify-content: space-between;
+	margin-top: 20px;
+}
+
+.form-sp .forgot-password {
+	text-decoration: none;
+	color: initial;
+}
+
+.form-action .btn-submit {
+	margin-top: 20px;
+	cursor: pointer;
+	width: 100%;
+	padding: 15px;
+	background-color: #ff574d;
+	border: none;
+	border-radius: 5px;
+	color: white;
+}
+
+.form-action .register {
+	margin-top: 10px;
+}
+
+.register .register-link {
+	text-decoration: none;
+	color: initial;
 }
