@@ -1,0 +1,46 @@
+/** @format */
+
+body {
+	font-family: "Open Sans", sans-serif;
+}
+
+nav {
+	max-width: 900px;
+	margin: 50px auto;
+	display: flex;
+	justify-content: space-between;
+	border: 1px solid #ccc;
+}
+
+.main-menu {
+	background-color: #fff;
+	display: flex;
+	justify-content: space-between;
+}
+
+.main-menu .menu-item {
+	position: relative;
+}
+
+.menu-link {
+	color: #959595;
+	display: block;
+	text-align: center;
+	padding: 0 10px;
+	height: 50px;
+	line-height: 50px;
+	text-decoration: none;
+	border-right: 1px solid #ccc;
+}
+
+.contact-menu .menu-link {
+	border-left: 1px solid #ccc;
+	border-right: none;
+}
+
+.sub-menu {
+	/* display: none; */
+	width: 200px;
+	position: absolute;
+	background-color: #ccc;
+}
