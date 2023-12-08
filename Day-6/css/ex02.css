@@ -1,57 +1,72 @@
 /** @format */
-.col {
-	flex: 1;
-	padding: 0 30px;
-}
-
-.form-reservation {
+.main {
 	padding: 50px;
+	background-color: #ebf5fe;
+	font-family: "Roboto Slab", serif;
+	color: #666666;
 }
-
-.form-reservation .title-groups {
-	text-align: center;
-}
-
-.form-reservation .main-title {
-	font-family: "Bebas Neue";
-	font-size: 30px;
-	margin-bottom: 30px;
-}
-
-.form-reservation .sub-title {
-	font-family: "Alfa Slab One";
-	font-size: 50px;
-}
-
-.form-action {
-	margin-top: 40px;
-}
-
-.form-groups {
+.list-box {
 	display: flex;
+	justify-content: space-around;
+	background-color: #ebf5fe;
+	font-family: "Roboto Slab", serif;
+	color: #666666;
+	margin-bottom: 15px;
 }
-.form-control {
-	margin-bottom: 20px;
-	width: 100%;
-}
-
-.btn-submit {
-	font-family: "Alfa Slab One";
-	padding: 12px 0;
-	width: 100%;
-	background-color: red;
-	border: none;
+.list-box .box-content {
+	border: 2px solid transparent;
 	border-radius: 5px;
+	width: 30%;
+	background-color: white;
+	padding: 15px;
+}
+
+.list-box .box-content:hover {
+	border: 2px solid orange;
+}
+.box-content + .box-content {
+	margin-left: 15px;
+}
+
+.box-content .box-info {
+	margin-bottom: 20px;
+}
+.box-content .box-icon {
+	width: 50px;
+	height: 50px;
+	background-color: #0093e9;
+	background-image: linear-gradient(160deg, #0093e9 0%, #80d0c7 100%);
+	border-radius: 50%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	float: left;
+	margin-right: 10px;
+}
+
+.box-icon i {
+	font-size: 30px;
 	color: white;
+	text-shadow: 1px 1px 5px #0093e9;
 }
 
-.form-control > * {
-	width: 100%;
-	box-sizing: border-box;
-	padding: 12px 10px;
-	border: 1px solid #333;
+.box-content .box-title {
+	font-weight: bold;
+	font-size: 25px;
+	margin-left: 20px;
+	width: 200px;
+	line-height: 1.2;
 }
 
-.form-control > *::placeholder {
-	color: black;
+.box-content .box-desc {
+	margin-top: 20px;
+}
+
+.box-content .learn-more {
+	display: inline-block;
+	text-decoration: none;
+	margin-top: 20px;
+	font-size: 14px;
+	font-weight: bold;
+	color: deepskyblue;
 }
