@@ -3,6 +3,7 @@
 body {
 	background: url(http://uiwebsoft.com/justlog/login-one/images/login-bg2.jpg)
 		no-repeat;
+	font-family: "Nunito Sans", sans-serif;
 }
 
 .form-login {
@@ -17,7 +18,60 @@ body {
 }
 
 .form-login .just-log {
+	margin-top: 100px;
+	text-align: center;
 	flex: 4;
+}
+
+.just-log .justlog-head {
+	display: flex;
+	justify-content: center;
+	font-size: 30px;
+	font-weight: 700;
+}
+.justlog-head .logo {
+	display: inline-block;
+	background-color: #fff;
+	color: #ff574d;
+	padding: 2px 4px;
+	border-radius: 5px;
+	margin-right: 10px;
+}
+
+.justlog-head .title {
+	color: white;
+}
+
+.just-log .justlog-desc {
+	margin-top: 20px;
+	color: white;
+	line-height: 1.5;
+}
+
+.just-log .justlog-btn {
+	margin-top: 10px;
+	border: none;
+	padding: 10px 20px;
+	color: #ff574d;
+	border-radius: 3px;
+	cursor: pointer;
+}
+
+.login-social {
+	margin-top: 20px;
+}
+
+.login-social .btn-social {
+	background-color: #a31b14;
+	border: none;
+	margin-right: 5px;
+	border-radius: 3px;
+}
+
+.btn-social i {
+	color: white;
+	padding: 8px;
+	font-size: 16px;
 }
 
 .form-login .form-action {
