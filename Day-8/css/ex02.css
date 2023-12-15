@@ -1,0 +1,73 @@
+/** @format */
+.main {
+	padding: 50px;
+	background-color: #ebf5fe;
+	font-family: "Roboto Slab", serif;
+	color: #666666;
+	height: 100vh;
+}
+.list-box {
+	display: flex;
+	justify-content: space-around;
+	background-color: #ebf5fe;
+	font-family: "Roboto Slab", serif;
+	color: #666666;
+	margin-bottom: 15px;
+}
+.list-box .box-content {
+	border: 2px solid transparent;
+	border-radius: 5px;
+	width: 30%;
+	background-color: white;
+	padding: 15px;
+}
+
+.list-box .box-content:hover {
+	border: 2px solid orange;
+}
+.box-content + .box-content {
+	margin-left: 15px;
+}
+
+.box-content .box-info {
+	margin-bottom: 20px;
+}
+.box-content .box-icon {
+	width: 50px;
+	height: 50px;
+	background-color: #0093e9;
+	background-image: linear-gradient(160deg, #0093e9 0%, #80d0c7 100%);
+	border-radius: 50%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	float: left;
+	margin-right: 10px;
+}
+
+.box-icon i {
+	font-size: 30px;
+	color: white;
+	text-shadow: 1px 1px 5px #0093e9;
+}
+
+.box-content .box-title {
+	font-weight: bold;
+	font-size: 25px;
+	margin-left: 20px;
+	width: 200px;
+	line-height: 1.2;
+}
+
+.box-content .box-desc {
+	margin-top: 20px;
+}
+
+.box-content .learn-more {
+	display: inline-block;
+	text-decoration: none;
+	margin-top: 20px;
+	font-size: 14px;
+	font-weight: bold;
+	color: deepskyblue;
+}
