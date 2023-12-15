@@ -1,5 +1,7 @@
 /** @format */
-
+body {
+	font-family: "Roboto", sans-serif;
+}
 .main {
 	padding: 30px 50px;
 }

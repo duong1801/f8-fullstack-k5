@@ -1,73 +1,62 @@
 /** @format */
-.main {
-	padding: 50px;
-	background-color: #ebf5fe;
-	font-family: "Roboto Slab", serif;
-	color: #666666;
+
+body {
+	font-family: "Nunito Sans", sans-serif;
+}
+
+.overlay {
+	background-color: #4d4c4c;
 	height: 100vh;
 }
-.list-box {
+
+.cart {
+	float: right;
+	width: 400px;
+	height: inherit;
+	background-color: #fff;
+}
+
+.cart .cart-header {
+	background-color: #f3f3f3;
+	height: 100px;
 	display: flex;
+	align-items: center;
 	justify-content: space-around;
-	background-color: #ebf5fe;
-	font-family: "Roboto Slab", serif;
-	color: #666666;
-	margin-bottom: 15px;
-}
-.list-box .box-content {
-	border: 2px solid transparent;
-	border-radius: 5px;
-	width: 30%;
-	background-color: white;
-	padding: 15px;
 }
 
-.list-box .box-content:hover {
-	border: 2px solid orange;
+.cart-header .cart-title {
+	font-size: 28px;
+	position: relative;
 }
-.box-content + .box-content {
-	margin-left: 15px;
+.cart-header .cart-title::after {
+	content: "4";
+	width: 25px;
+	height: 25px;
+	border-radius: 50%;
+	background-color: #4060f3;
+	display: inline-block;
+	font-size: 15px;
+	color: #fff;
+	position: absolute;
+	text-align: center;
+	line-height: 25px;
+	top: -13px;
+	right: -28px;
 }
 
-.box-content .box-info {
-	margin-bottom: 20px;
-}
-.box-content .box-icon {
-	width: 50px;
-	height: 50px;
-	background-color: #0093e9;
-	background-image: linear-gradient(160deg, #0093e9 0%, #80d0c7 100%);
+.cart-header .btn-close {
+	border: none;
+	width: 25px;
+	height: 25px;
+	background-color: red;
 	border-radius: 50%;
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	float: left;
-	margin-right: 10px;
+	cursor: pointer;
 }
 
-.box-icon i {
-	font-size: 30px;
-	color: white;
-	text-shadow: 1px 1px 5px #0093e9;
-}
-
-.box-content .box-title {
-	font-weight: bold;
-	font-size: 25px;
-	margin-left: 20px;
-	width: 200px;
-	line-height: 1.2;
-}
-
-.box-content .box-desc {
-	margin-top: 20px;
-}
-
-.box-content .learn-more {
-	display: inline-block;
-	text-decoration: none;
-	margin-top: 20px;
-	font-size: 14px;
-	font-weight: bold;
-	color: deepskyblue;
+.cart-header .btn-close i {
+	font-size: 16px;
+	color: #fff;
 }
