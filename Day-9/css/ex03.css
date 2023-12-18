@@ -1,60 +1,133 @@
 /** @format */
+
 body {
-	font-family: "Roboto", sans-serif;
-}
-.main {
-	padding: 30px 50px;
+	font-family: sans-serif;
 }
 
-.main .main-title {
-	font-size: 50px;
-	color: black;
+/* container */
+.container {
+	width: 1200px;
+	margin: 0 auto;
+}
+
+.form {
+	background: #fdfdfd;
 	text-align: center;
-	margin-bottom: 20px;
-}
-.main .main-description {
-	text-align: center;
-}
-.main .list-item {
-	display: flex;
-	margin-top: 50px;
-	justify-content: space-between;
-	text-align: center;
-}
-
-.list-item .item {
-	flex: 4;
-	padding: 20px 10px;
-	cursor: pointer;
-}
-.item img {
-	object-fit: cover;
-	margin: 0px auto;
-	width: 80px;
-	height: 80px;
-	border-radius: 5px;
-}
-
-.item-avatar i {
-	font-size: 40px;
-}
-
-.item .item-title {
-	font-size: 20px;
-	margin: 15px 0;
-}
-
-.item .item-description {
-	min-height: 50px;
-	font-size: 13px;
-	color: #9f9c9c;
-}
-
-.item .btn-detail {
 	margin-top: 10px;
-	background-color: deepskyblue;
-	border: none;
+}
+
+.form-heading {
+	color: #353e4f;
+	font-size: 2.8rem;
+}
+
+.form-desc {
+	margin-top: 22px;
+	color: #646568;
+	font-size: 1.4rem;
+}
+
+form {
+	margin: 0 auto;
+	width: 900px;
+	color: #777;
+	text-align: center;
+	margin-top: 50px;
+}
+
+.row {
+	position: relative;
+	display: flex;
+	justify-content: center;
+	margin-top: 30px;
+	gap: 20px;
+}
+
+input,
+select,
+textarea {
+	flex: 1;
+	padding: 20px 10px 10px;
+	outline: none;
+	border: 1px solid #777;
+}
+
+input,
+select,
+textarea {
+	border-radius: 7px;
+	font-size: 16px;
+}
+
+input,
+label,
+select textarea {
+	transition: 0.5s;
+}
+
+input:focus {
+	border: 1px solid blue;
+}
+
+input:not(:placeholder-shown),
+textarea:not(:placeholder-shown) {
+	background: rgba(0, 0, 255, 0.1);
+}
+
+input:focus + label,
+input:not(:placeholder-shown) + label,
+textarea:focus + label,
+textarea:not(:placeholder-shown) + label {
+	translate: 0 -20px;
+	font-size: 12px;
+}
+
+select {
 	padding: 10px;
+	color: gray;
+}
+
+option:disabled {
+	color: #393d52;
+}
+
+option {
+	color: gray;
+}
+
+label {
+	position: absolute;
+	left: 0px;
+	top: 50%;
+	translate: 0 -50%;
+	padding: 0 20px;
+}
+
+.row:first-child label:last-of-type {
+	left: 454px;
+}
+
+textarea {
+	font-family: sans-serif;
+	resize: none;
+	width: 100%;
+}
+
+textarea + label {
+	top: 22px;
+}
+
+button {
+	margin-top: 20px;
 	color: white;
+	background: #4d77d8;
+	padding: 14px 24px;
+	border: 1px solid #4d77d8;
+	border-radius: 999px;
+	font-weight: bolder;
+}
+
+button:hover {
+	opacity: 0.7;
 	cursor: pointer;
 }

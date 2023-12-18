@@ -30,7 +30,7 @@
 	top: -12px;
 	right: -125px;
 	text-align: left;
-	padding: 20px 0 20px 0;
+	padding: 17px 0 20px 0;
 }
 
 .each-phase .time::before {
@@ -42,7 +42,7 @@
 	background-color: #00f884;
 	background-image: linear-gradient(to bottom, #0bf0ca, #1e5c51);
 	position: absolute;
-	top: 24px;
+	top: 20px;
 	left: -25px;
 	outline: 6px solid #e8e6e6;
 }
@@ -54,7 +54,7 @@
 	width: 2px;
 	height: 155px;
 	background-color: #eee;
-	top: 48px;
+	top: 45px;
 	left: -21px;
 	pointer-events: none;
 }
