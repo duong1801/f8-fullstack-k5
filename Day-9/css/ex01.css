@@ -70,12 +70,12 @@
 	border-radius: 9999px;
 	min-width: 100px;
 	cursor: pointer;
+	transition: 0.7s ease-in-out;
 }
 
 .each-phase:hover .company-name {
 	background-color: #a36f5b;
 	color: #fff;
-	transition: 0.7s ease-in-out;
 }
 
 .each-phase:hover .wrap-name {
@@ -84,18 +84,15 @@
 
 .each-phase:hover .time {
 	left: -120px;
-	transition: 0.7s ease-in-out;
 }
 .each-phase:hover {
 	text-align: left;
 }
 .each-phase:hover .time::after {
 	left: 93px;
-	transition: 0.7s ease-in-out;
 }
 .each-phase:hover .time::before {
 	left: 90px;
-	transition: 0.7s ease-in-out;
 }
 .box-image {
 	display: flex;
@@ -105,17 +102,17 @@
 }
 
 .box-image img {
-	width: 400px;
-	height: 450px;
+	width: 300px;
+	height: 350px;
 	object-fit: cover;
 }
 
 .box-image .background-awards {
 	position: absolute;
-	left: 60px;
+	left: 80px;
 	top: 200px;
-	width: 300px;
-	height: 350px;
+	width: 200px;
+	height: 300px;
 	background: url(https://images.unsplash.com/photo-1578269174936-2709b6aeb913?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8YXdhcmR8ZW58MHx8MHx8fDA%3D)
 		center / cover;
 }
@@ -129,7 +126,7 @@
 .awards .awards-content {
 	position: absolute;
 	bottom: 30px;
-	right: 20px;
+	right: 10px;
 	color: transparent;
 	background-image: url(https://plus.unsplash.com/premium_photo-1683749805319-2c481ae54bc1?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTd8fGF3YXJkfGVufDB8fDB8fHww);
 	background-clip: text;
