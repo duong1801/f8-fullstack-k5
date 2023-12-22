@@ -1,0 +1,28 @@
+/** @format */
+h2 {
+	font-family: "Space Grotesk", sans-serif;
+}
+
+p {
+	font-family: "Inter", sans-serif;
+}
+.row {
+	display: flex;
+}
+.col-6 {
+	flex: 1;
+}
+
+.flex-center {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.flex-end {
+	justify-content: flex-end;
+}
+
+.col-4 {
+	flex: 3;
+}

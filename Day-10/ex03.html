@@ -1,0 +1,76 @@
+<!-- @format -->
+
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Bài tập 3</title>
+		<link rel="stylesheet" href="./css/reset.css" />
+		<link rel="stylesheet" href="./css/ex03.css" />
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap"
+			rel="stylesheet" />
+		<link
+			rel="stylesheet"
+			href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css"
+			integrity="sha512-10/jx2EXwxxWqCLX/hHth/vu2KY3jCF70dCQB8TSgNjbCVAC/8vai53GfMDrO2Emgwccf2pJqxct9ehpzG+MTw=="
+			crossorigin="anonymous"
+			referrerpolicy="no-referrer" />
+	</head>
+	<body>
+		<!DOCTYPE html>
+		<html lang="en">
+			<head>
+				<meta charset="UTF-8" />
+				<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+				<title>Form</title>
+
+				<link rel="stylesheet" href="../css/baitap3.css" />
+			</head>
+			<body>
+				<div class="container">
+					<div class="form">
+						<!-- heading -->
+						<h1 class="form-heading">Drop us a line</h1>
+
+						<!-- desc -->
+						<p class="form-desc">
+							Reach out to us from our contact form and we will get back to you
+							shortly.
+						</p>
+
+						<!-- form input -->
+						<form>
+							<div class="row">
+								<input type="text" id="firstname" placeholder=" " />
+								<label for="firstname">First Name *</label>
+								<input type="text" id="lastname" placeholder=" " />
+								<label for="lastname">Last Name *</label>
+							</div>
+
+							<div class="row">
+								<input type="email" id="email" placeholder=" " />
+								<label for="email">Email *</label>
+								<select name="" id="sale">
+									<option value="0" disabled>Select a department</option>
+									<option value="1">Sales</option>
+									<option value="2">Marketing</option>
+									<option value="3">Cusomer Support</option>
+								</select>
+							</div>
+
+							<div class="row">
+								<textarea placeholder=" " rows="10"></textarea>
+								<label for="message">Message *</label>
+							</div>
+							<button class="form-btn">Send Message</button>
+						</form>
+					</div>
+				</div>
+			</body>
+		</html>
+	</body>
+</html>
