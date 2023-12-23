@@ -1,1 +1,45 @@
 /** @format */
+
+body {
+	background-color: rgb(206, 206, 206);
+}
+.menu {
+	margin: 30px 200px;
+	font-size: 0;
+	display: flex;
+	flex-direction: row;
+}
+.btn button {
+	padding: 10px;
+	border: rgb(188, 188, 188) 1px solid;
+	background-color: white;
+}
+.btn button:focus,
+.btn button:hover {
+	border: white 1px solid;
+	background-color: #4198da;
+	color: white;
+}
+.btn {
+	position: relative;
+}
+.btn .info {
+	font-size: initial;
+	background-color: white;
+	position: absolute;
+	left: 0;
+	right: 0;
+	padding: 10px 0 10px 20px;
+	overflow-x: scroll;
+	transform: rotatex(-90deg);
+	transform-style: preserve-3d;
+	transform-origin: top;
+	transition: transform, 0.5s;
+	opacity: 0;
+	transition: opacity, 0.5s;
+}
+.btn button:focus + .info {
+	transform: rotatex(0);
+	opacity: 1;
+	transition-delay: 0.3s;
+}
