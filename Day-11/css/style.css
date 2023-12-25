@@ -48,16 +48,28 @@ a {
 	display: flex;
 }
 
+.col-4 {
+	flex: 0 0 auto;
+	width: 33.3333333333%;
+}
+.col-5 {
+	flex: 0 0 auto;
+	width: 41.6666666667%;
+}
+
 .col-6 {
+	flex: 0 0 auto;
 	width: 50%;
 }
 
 .col-7 {
+	flex: 0 0 auto;
 	width: 58.3333333333%;
 }
 
-.col-5 {
-	width: 41.6666666667%;
+.col-8 {
+	flex: 0 0 auto;
+	width: 66.6666666667%;
 }
 
 /* =============== Header ================ */
@@ -356,6 +368,14 @@ a {
 	margin: 0 0 8px 0;
 }
 
+.feature:first-child .sub-title {
+	color: #03a66b;
+}
+
+.feature:last-child .sub-title {
+	color: #f9ba45;
+}
+
 .feature .title {
 	font-size: 3.2rem;
 	line-height: 1.4;
@@ -377,4 +397,112 @@ a {
 	padding: 18px 20px;
 	font-size: 1.6rem;
 	margin: 50px 0 20px;
+}
+
+/* =============== Dowload ================ */
+
+.dowload {
+	background: #fef5f5;
+	padding: 100px 0;
+}
+
+.dowload-inner {
+	align-items: center;
+}
+
+.dowload-image {
+	text-align: center;
+}
+
+.dowload .sub-title {
+	font-size: 1.6rem;
+	font-weight: 500;
+	line-height: 1.5;
+	letter-spacing: 0.01em;
+	color: #f54748;
+	margin: 0 0 8px 0;
+}
+
+.dowload .title {
+	font-weight: 700;
+	font-size: 3.2rem;
+	line-height: 1.375;
+	color: #2e2e2e;
+	margin: 0 0 22px 0;
+	max-width: 80%;
+}
+
+.dowload .desc {
+	font-weight: 400;
+	font-size: 1.8rem;
+	line-height: 1.7;
+	max-width: 90%;
+	color: #676767;
+}
+
+.cta-btn {
+	display: flex;
+	margin-top: 60px;
+}
+
+.btn-app {
+	align-items: center;
+	font-size: 1.6rem;
+	padding: 12px 2px;
+	justify-content: space-evenly;
+	min-width: 200px;
+	border: 1px solid #eedcdc;
+	border-radius: 12px;
+	line-height: 1.25;
+	color: #2e2e2e;
+	font-weight: 500;
+}
+.btn-app + .btn-app {
+	margin-left: 60px;
+}
+/* ============== Footer ================ */
+
+.footer {
+	padding-top: 50px;
+}
+
+.footer-inner {
+	align-items: flex-start;
+	padding: 30px 0;
+}
+
+.content-logo {
+	font-weight: 400;
+	font-size: 1.6rem;
+	line-height: 1.625;
+	color: #676767;
+	max-width: 75%;
+	margin: 25px 0 10px 0;
+}
+
+.footer-content {
+	padding: 10px;
+}
+.footer-content h4 {
+	font-weight: 600;
+	font-size: 1.8rem;
+	line-height: 1.1;
+	letter-spacing: -0.01em;
+	color: #2e2e2e;
+	margin-bottom: 30px;
+}
+
+.company-info a,
+.service-info a {
+	font-weight: 400;
+	font-size: 1.6rem;
+	line-height: 2.5;
+	color: #676767;
+}
+
+.contact p {
+	font-weight: 400;
+	font-size: 1.6rem;
+	line-height: 1.625;
+	color: #888888;
 }
