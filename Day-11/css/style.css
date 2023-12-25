@@ -501,6 +501,11 @@ a {
 	color: #676767;
 }
 
+.company-info a:hover,
+.service-info a:hover {
+	color: #000;
+}
+
 .contact p {
 	font-weight: 400;
 	font-size: 1.6rem;
@@ -532,4 +537,7 @@ a {
 	color: #747474;
 	margin: 0 10px;
 	display: block;
+}
+.copyright-links a:hover {
+	color: #000;
 }
