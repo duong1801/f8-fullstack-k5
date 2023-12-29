@@ -28,6 +28,14 @@ a {
 	color: var(--text-primary-color);
 }
 
+.flex {
+	display: flex;
+}
+
+.space-between {
+	justify-content: space-between;
+}
+
 .flex-center {
 	display: flex;
 	justify-content: center;
@@ -168,4 +176,43 @@ a {
 
 .form-input + .form-input {
 	margin-top: 28px;
+}
+
+.form-checkbox {
+	margin-top: 28px;
+}
+.form-checkbox label,
+.form-checkbox a {
+	display: flex;
+	font-size: 1.4rem;
+	font-weight: 700;
+	line-height: 22px;
+	cursor: pointer;
+}
+
+.form-checkbox label span {
+	height: 20px;
+	width: 20px;
+	border-radius: 5px;
+	border: 1px solid #ccc;
+	display: inline-block;
+	position: relative;
+	margin-right: 10px;
+	top: -3px;
+	overflow: hidden;
+}
+
+.form-checkbox input:checked + span:before {
+	content: "\58";
+	position: absolute;
+	top: -2px;
+	left: -5px;
+	font-weight: bold;
+	background: #22d2e2;
+	padding: 5px 10px;
+	color: #fff;
+}
+
+.form-checkbox input:checked + span {
+	border: none;
 }
