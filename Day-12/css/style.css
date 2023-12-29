@@ -114,6 +114,10 @@ a {
 	color: #fff;
 }
 
+.login-form {
+	/* display: none; */
+}
+
 .form-box {
 	width: 484px;
 	padding: 64px;
@@ -270,4 +274,31 @@ a {
 }
 .lined-text:after {
 	right: 0;
+}
+
+.social-links {
+	margin-top: 30px;
+}
+
+.social-links a {
+	display: inline-block;
+	margin-right: 12px;
+	padding: 11px 12px;
+	border-radius: 10px;
+	color: #fff;
+}
+
+.facebook {
+	background-color: #3663d2;
+}
+
+.twitter {
+	background: #1abcff;
+}
+
+.twitch {
+	background: #7b5dfa;
+}
+.youtube {
+	background: #fd4350;
 }
