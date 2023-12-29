@@ -113,9 +113,20 @@ a {
 	background-color: transparent;
 	color: #fff;
 }
-
 .login-form {
-	/* display: none; */
+	display: none;
+}
+
+.register-form {
+	display: block;
+}
+
+#active:checked ~ .login-form {
+	display: block;
+}
+
+#active:checked ~ .register-form {
+	display: none;
 }
 
 .form-box {
