@@ -46,7 +46,7 @@ a {
 .landing {
 	background-image: url(https://hoanganf8.github.io/htmlcss_project02/image/landing-background.jpg);
 	background-size: cover;
-	min-height: 1200px;
+	min-height: 1300px;
 	padding: 80px 0 100px;
 }
 
@@ -243,23 +243,34 @@ a {
 	border: none;
 }
 
-.login-form .btn-submit {
+.btn-submit {
 	margin-top: 28px;
 	width: 100%;
-	background-color: #615dfa;
-	box-shadow: 4px 7px 12px 0 rgba(97, 93, 250, 0.2);
 	height: 54px;
 	line-height: 54px;
 	display: inline-block;
 	border-radius: 10px;
-	color: #fff;
+	box-shadow: 4px 7px 12px 0 rgba(97, 93, 250, 0.2);
 	font-size: 1.4rem;
 	font-weight: 700;
 	cursor: pointer;
+	color: #fff;
+}
+
+.login-form .btn-submit {
+	background-color: #615dfa;
 }
 
 .login-form .btn-submit:hover {
 	background-color: #5753e4;
+}
+
+.register-form .btn-submit {
+	background-color: #22d2e2;
+}
+
+.register-form .btn-submit:hover {
+	background: #1bc5d4;
 }
 
 .lined-text {
@@ -297,6 +308,11 @@ a {
 	padding: 11px 12px;
 	border-radius: 10px;
 	color: #fff;
+	transition: transform 0.2s ease-in;
+}
+
+.social-links a:hover {
+	transform: translateY(-5px);
 }
 
 .facebook {
@@ -312,4 +328,17 @@ a {
 }
 .youtube {
 	background: #fd4350;
+}
+
+.form-text {
+	margin-top: 30px;
+	font-size: 1.4rem;
+	line-height: 1.7142857143em;
+	font-weight: 500;
+	color: #3e3f5e;
+}
+
+.form-text a {
+	color: #00c7d9;
+	font-weight: 600;
 }
