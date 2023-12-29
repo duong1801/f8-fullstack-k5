@@ -151,6 +151,7 @@ a {
 	border: 1px solid #dedeea;
 	color: #3e3f5e;
 	transition: border-color 0.2s ease-in-out;
+	box-sizing: border-box;
 }
 
 .form-input input:focus + label {
