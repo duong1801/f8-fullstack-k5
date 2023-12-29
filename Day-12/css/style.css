@@ -189,6 +189,17 @@ a {
 	line-height: 22px;
 	cursor: pointer;
 }
+.form-checkbox label {
+	color: #3e3f5e;
+}
+
+.form-checkbox a {
+	color: #adafca;
+}
+
+.form-checkbox a:hover {
+	color: #00c7d9;
+}
 
 .form-checkbox label span {
 	height: 20px;
@@ -198,7 +209,7 @@ a {
 	display: inline-block;
 	position: relative;
 	margin-right: 10px;
-	top: -3px;
+	top: 1px;
 	overflow: hidden;
 }
 
@@ -209,7 +220,7 @@ a {
 	left: -5px;
 	font-weight: bold;
 	background: #22d2e2;
-	padding: 5px 10px;
+	padding: 2px 11px;
 	color: #fff;
 }
 
