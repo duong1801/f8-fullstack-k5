@@ -31,11 +31,12 @@ console.log(`Số lớn nhất là ${maxNumber}`);
 // Bài 4: Kiểm tra số cùng dấu
 var a, b;
 var result;
-if (a * b > 0) {
-	result = "Hai số cùng dấu";
-}
-if (a * b > 0) {
-	result = "Hai số trái dấu";
+if (a * b !== 0) {
+	if (a * b > 0) {
+		result = "Hai số cùng dấu";
+	} else {
+		result = "Hai số trái dấu";
+	}
 }
 console.log(result);
 
