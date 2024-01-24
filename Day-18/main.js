@@ -75,7 +75,7 @@ function checkPrime(number) {
 	}
 	return result;
 }
-console.log(checkPrime(2.5));
+console.log(checkPrime(2));
 
 // Bài 5: Vẽ tam giác số
 
@@ -90,6 +90,22 @@ for (var row = 1; row <= n; row++) {
 }
 
 // Bài 6: Vẽ bàn cờ vua
+
+document.write(`<div>`);
+for (let row = 1; row <= 8; row++) {
+	for (let col = 1; col <= 4; col++) {
+		cellOdd = "white";
+		cellEven = "black";
+
+		if (row % 2 === 0) {
+			[cellOdd, cellEven] = [cellEven, cellOdd];
+		}
+		document.write(`<span class = "${cellOdd}"></span>`);
+		document.write(`<span class = "${cellEven}"></span>`);
+	}
+	document.write(`</br>`);
+}
+document.write(`</div>`);
 
 //Bài 7: Vẽ bảng cửu chương
 
