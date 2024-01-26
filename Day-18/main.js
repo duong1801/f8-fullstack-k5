@@ -92,8 +92,8 @@ for (var row = 1; row <= n; row++) {
 // Bài 6: Vẽ bàn cờ vua
 
 document.write(`<div>`);
-for (let row = 1; row <= 8; row++) {
-	for (let col = 1; col <= 4; col++) {
+for (var row = 1; row <= 8; row++) {
+	for (var col = 1; col <= 4; col++) {
 		cellOdd = "white";
 		cellEven = "black";
 
