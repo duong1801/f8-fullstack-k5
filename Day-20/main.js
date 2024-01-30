@@ -5,7 +5,7 @@ var myString =
 
 var index = 0;
 setInterval(function () {
-	if (index >= myString.length) {
+	if (index > myString.length) {
 		index = 0;
 	}
 	applyColorToEachword(index);
