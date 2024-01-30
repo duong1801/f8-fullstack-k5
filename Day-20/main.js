@@ -8,11 +8,11 @@ setInterval(function () {
 	if (index > myString.length) {
 		index = 0;
 	}
-	applyColorToEachword(index);
+	applyColorToEachWord(index);
 	index++;
 }, 150);
 
-function applyColorToEachword(index) {
+function applyColorToEachWord(index) {
 	var start, end;
 	if (index === 0) {
 		start = 0;
