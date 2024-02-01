@@ -24,10 +24,10 @@ function applyColorToEachWord(index) {
 	}
 
 	if (typeof start !== "undefined" && typeof end !== "undefined") {
-		hightlightWord = myString.slice(start, end);
+		highlightWord = myString.slice(start, end);
 		box.innerHTML = myString.replace(
-			hightlightWord,
-			`<span>${hightlightWord}</span>`
+			highlightWord,
+			`<span>${highlightWord}</span>`
 		);
 	}
 }
