@@ -26,7 +26,7 @@ function isPrime(number) {
 	if (number < 2) {
 		return false;
 	}
-	for (let i = 2; i <= Math.sqrt(number); i++) {
+	for (var i = 2; i <= Math.sqrt(number); i++) {
 		if (number % i === 0) {
 			return false;
 		}
@@ -35,10 +35,10 @@ function isPrime(number) {
 }
 
 function averageOfPrimes(arr) {
-	let sum = 0;
-	let count = 0;
+	var sum = 0;
+	var count = 0;
 
-	for (let i = 0; i < arr.length; i++) {
+	for (var i = 0; i < arr.length; i++) {
 		if (isPrime(arr[i])) {
 			sum += arr[i];
 			count++;
@@ -60,7 +60,7 @@ averageOfPrimes(numbers);
 
 // Bài 3: Cho trước 1 mảng bất kỳ, nếu trong mảng có các phần tử trùng nhau thì chỉ giữa lại 1 (Gọi là lọc trùng). In ra mảng sau khi đã xử lý
 
-var array = [1, 2, 6, 3, 1, 3, 5, 7, 6];
+var array = [1, 2, 6, 6, 3, 1, 3, 5, 7, 6];
 
 var arrUnique = [];
 
@@ -84,10 +84,10 @@ console.log(arrUnique);
 var numbers = [5, 2, 11, 15, 1, 9, 8, 10];
 var element = 4;
 
-for (let i = 0; i < numbers.length - 1; i++) {
-	for (let j = 0; j < numbers.length - 1; j++) {
+for (var i = 0; i < numbers.length - 1; i++) {
+	for (var j = 0; j < numbers.length - 1; j++) {
 		if (numbers[j] > numbers[j + 1]) {
-			let temp = numbers[j];
+			var temp = numbers[j];
 			numbers[j] = numbers[j + 1];
 			numbers[j + 1] = temp;
 		}
@@ -98,7 +98,7 @@ console.log(numbers);
 
 function insertElement(array, element, index) {
 	array[array.length] = 0;
-	for (let i = array.length - 2; i >= index; i--) {
+	for (var i = array.length - 2; i >= index; i--) {
 		array[i + 1] = array[i];
 	}
 	array[index] = element;
