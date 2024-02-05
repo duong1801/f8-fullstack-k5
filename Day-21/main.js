@@ -85,7 +85,7 @@ var numbers = [5, 2, 11, 15, 1, 9, 8, 10];
 var element = 4;
 
 for (var i = 0; i < numbers.length - 1; i++) {
-	for (var j = 0; j < numbers.length - 1; j++) {
+	for (var j = 0; j < numbers.length - 1 - i; j++) {
 		if (numbers[j] > numbers[j + 1]) {
 			var temp = numbers[j];
 			numbers[j] = numbers[j + 1];
