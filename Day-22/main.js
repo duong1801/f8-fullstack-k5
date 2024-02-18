@@ -36,24 +36,28 @@ var array = [
 ];
 
 function separateByDataType(arr) {
-	return arr.reduce((acc, innerArr) => {
-		innerArr.forEach((value, index) => {
-			if (typeof value === "string") {
-				if (!acc[index]) acc[index] = [];
-				acc[index].push(value);
-			} else if (typeof value === "number") {
-				if (!acc[index]) acc[index] = [];
-				acc[index].push(value);
-			} else if (typeof value === "boolean") {
-				if (!acc[index]) acc[index] = [];
-				acc[index].push(value);
+	var result = {};
+
+	for (var i = 0; i < arr.length; i++) {
+		for (var j = 0; j < arr[i].length; j++) {
+			var dataType = typeof arr[i][j];
+
+			if (!result[dataType]) {
+				result[dataType] = [];
 			}
-		});
-		return acc;
-	}, []);
+			result[dataType].push(arr[i][j]);
+		}
+	}
+
+	return Object.values(result);
 }
 
-console.log(separateByDataType(array));
+var arr = [
+	["a", 1, true],
+	["b", 2, false],
+	[null, undefined, "string"],
+];
+console.log(separateByDataType(arr));
 
 // Bài 4
 
