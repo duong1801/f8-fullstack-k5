@@ -30,11 +30,6 @@ console.log(flatArray(arr));
 
 // Bài 3: Tách phần tử trong mảng theo đúng kiểu dữ liệu
 
-var array = [
-	["a", 1, true],
-	["b", 2, false],
-];
-
 function separateByDataType(arr) {
 	var result = {};
 
