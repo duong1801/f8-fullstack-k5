@@ -99,8 +99,7 @@ console.log(numbers);
 function insertElement(array, element, index) {
 	array[array.length] = 0;
 	for (var i = array.length - 2; i >= index; i--) {
-		array[i + 1] = array[i];
-	}
+		array[i + 1] = array[i];	}
 	array[index] = element;
 }
 
