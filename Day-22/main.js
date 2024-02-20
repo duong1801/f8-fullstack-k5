@@ -43,6 +43,7 @@ function separateByDataType(arr) {
 			result[dataType].push(arr[i][j]);
 		}
 	}
+	console.log(result);
 
 	return Object.values(result);
 }
@@ -79,3 +80,14 @@ var posts = [
 			"https://images.unsplash.com/photo-1707343843982-f8275f3994c5?w=400&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxlZGl0b3JpYWwtZmVlZHwxfHx8ZW58MHx8fHx8",
 	},
 ];
+
+var arr = [0, 1, [2, 3], [4, 5, [6, [10, 11], 7]], [8, [9, 10, [11, 12]]]];
+
+var newArr = arr
+	.toString()
+	.split(",")
+	.map(function (number) {
+		return +number;
+	});
+
+console.log(newArr);
