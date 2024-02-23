@@ -17,10 +17,23 @@ var errors = {
 };
 
 function getError(field) {
-	return Object.values(errors[field])[0];
+	var key = field,
+		subKey = "required";
+
+	if (field.includes(".")) {
+		keyArr = field.split(".");
+		key = keyArr[0];
+		subKey = keyArr[1];
+	}
+
+	return errors[key][subKey];
 }
 
+console.log(getError("name"));
+console.log(getError("name.min"));
+
 console.log(getError("email"));
+console.log(getError("email.unique"));
 
 // Bài 2:
 
