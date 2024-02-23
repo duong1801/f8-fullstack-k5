@@ -26,11 +26,14 @@ function getError(field) {
 		subKey = keyArr[1];
 	}
 
-	return errors[key][subKey];
+	return errors[key][subKey]
+		? errors[key][subKey]
+		: "Kiểm tra lại field nhập vào!";
 }
 
 console.log(getError("name"));
 console.log(getError("name.min"));
+console.log(getError("name.same"));
 
 console.log(getError("email"));
 console.log(getError("email.unique"));
