@@ -98,49 +98,16 @@ function buildNestedMenu(arr, parentId = 0) {
 	for (var item of arr) {
 		if (item.parent === parentId) {
 			var children = buildNestedMenu(arr, item.id);
-			if (children.length > 0) {
+			if (children.length) {
 				item.children = children;
 			}
 			delete item.parent;
 			result.push(item);
 		}
 	}
-
+	console.log(result);
 	return result;
 }
-
-var item2 = {
-	id: 2,
-	name: "Chuyên mục 2",
-	children: [
-		{
-			id: 4,
-			name: "Chuyên mục 2.1",
-		},
-		{
-			id: 5,
-			name: "Chuyên mục 2.2",
-			children: [
-				{
-					id: 10,
-					name: "Chuyên mục 2.2.1",
-				},
-				{
-					id: 11,
-					name: "Chuyên mục 2.2.2",
-				},
-				{
-					id: 12,
-					name: "Chuyên mục 2.2.3",
-				},
-			],
-		},
-		{
-			id: 6,
-			name: "Chuyên mục 2.3",
-		},
-	],
-};
 
 console.log(buildNestedMenu(arr));
 
