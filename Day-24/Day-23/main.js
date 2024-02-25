@@ -146,24 +146,24 @@ console.log(buildNestedMenu(arr));
 
 // Bài 4: Viết lại vòng lặp reduce() trong Array bằng cách sử dụng Prototype trong Javascript
 
-// Array.prototype.reduce2 = function (callback, result) {
-// 	var index = 0;
+Array.prototype.reduce2 = function (callback, result) {
+	var index = 0;
 
-// 	if (!result) {
-// 		result = this[0];
-// 		index = 1;
-// 	}
+	if (!result) {
+		result = this[0];
+		index = 1;
+	}
 
-// 	for (; index < this.length; index++) {
-// 		result = callback(result, this[index], index, this);
-// 	}
-// 	return result;
-// };
+	for (; index < this.length; index++) {
+		result = callback(result, this[index], index, this);
+	}
+	return result;
+};
 
-// var numbers = [1, 2, 3, 4, 5, 6, 7, 8];
+var numbers = [1, 2, 3, 4, 5, 6, 7, 8];
 
-// var total = numbers.reduce2(function (result, number) {
-// 	return result + number;
-// });
+var total = numbers.reduce2(function (result, number) {
+	return result + number;
+});
 
-// console.log(total);
+console.log(total);
