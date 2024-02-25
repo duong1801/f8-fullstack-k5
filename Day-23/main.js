@@ -36,7 +36,7 @@ console.log(getError("name.min"));
 console.log(getError("name.same"));
 
 console.log(getError("email"));
-console.log(getError("email.unique"));
+console.log(getError("email.unique"));  
 
 // Bài 2:
 
