@@ -105,7 +105,6 @@ function buildNestedMenu(arr, parentId = 0) {
 			result.push(item);
 		}
 	}
-	console.log(result);
 	return result;
 }
 
