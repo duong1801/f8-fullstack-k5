@@ -13,11 +13,7 @@ function calculateExpressionSum(...args) {
 
 // Bài 2 : Viết 1 phương thức Prototype có tên là getCurrency có đối số truyền vào là đơn vị tiền tệ cần hiển thị
 
-Number.prototype.getCurrency = function (currencyUnit) {
-	return this.toLocaleString("vi-VN") + " " + currencyUnit;
-};
-
-String.prototype.getCurrency = function (currencyUnit) {
+Object.prototype.getCurrency = function (currencyUnit) {
 	var numberValue = parseFloat(this);
 	if (!isNaN(numberValue)) {
 		return numberValue.toLocaleString("vi-VN") + " " + currencyUnit;
