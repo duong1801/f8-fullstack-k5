@@ -13,21 +13,29 @@ function calculateExpressionSum(...args) {
 }
 
 // Bài 2 : Viết 1 phương thức Prototype có tên là getCurrency có đối số truyền vào là đơn vị tiền tệ cần hiển thị
-
-Object.prototype.getCurrency = function (currencyUnit) {
-	var numberValue = parseFloat(this);
-	if (!isNaN(numberValue)) {
-		return numberValue.toLocaleString("vi-VN") + " " + currencyUnit;
-	} else {
-		return "Invalid number";
+Object.prototype.getCurrency = function (unit) {
+	console.log(this.constructor.name);
+	if (Array.isArray(this) || this.constructor.name === "Boolean") {
+		return `Số không hợp lệ`;
 	}
+	var value = +this;
+	if (
+		isNaN(value) ||
+		value === Infinity ||
+		typeof value !== "number" ||
+		value === -Infinity
+	) {
+		return `Số không hợp lệ`;
+	}
+	return value.toLocaleString("en-US") + " " + unit;
 };
+//Case 1
+var price = 12000;
+console.log(price.getCurrency("đ")); //Hiển thị: 12,000 đ
 
-var price1 = 12000;
-console.log(price1.getCurrency("đ")); // Hiển thị: 12,000 đ
-
-var price2 = "12000000";
-console.log(price2.getCurrency("đ")); // Hiển thị: 12,000,000 đ
+//Case 2
+var price = "12000000";
+console.log(price.getCurrency("đ")); //Hiển thị: 12,000,000 đ
 
 // Bài 3: Viết lại hàm push() trong Array. Đặt tên là push2()
 
@@ -122,17 +130,17 @@ var categories = [
 ];
 var box = document.getElementById("box");
 var htmls = "<option value='0'>Chọn chuyên mục</option>";
-function recusive(arr, depth = "") {
+function recursive(arr, depth = "") {
 	arr.forEach(function (item) {
 		htmls += `
 		<option value="${item.id}">${depth}${item.name}</option>
 		`;
 		if (item.children && item.children.length > 0) {
-			recusive(item.children, depth + "--|");
+			recursive(item.children, depth + "--|");
 		}
 	});
 	return htmls;
 }
 
-var htmls = recusive(categories);
+var htmls = recursive(categories);
 box.innerHTML = htmls;
