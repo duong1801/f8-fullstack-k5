@@ -55,8 +55,8 @@ console.log(arr);
 Array.prototype.filter2 = function (callback) {
 	var result = [];
 	for (var i = 0; i < this.length; i++) {
-		$check = callback(this[i], i, this);
-		if ($check) {
+		var check = callback(this[i], i, this);
+		if (check) {
 			result.push(this[i]);
 		}
 	}
