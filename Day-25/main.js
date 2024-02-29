@@ -131,7 +131,7 @@ var categories = [
 var box = document.getElementById("box");
 var htmls = "<option value='0'>Chọn chuyên mục</option>";
 function recursive(arr, depth = "") {
-	arr.forEach(function (item) {
+	arr?.forEach(function (item) {
 		htmls += `
 		<option value="${item.id}">${depth}${item.name}</option>
 		`;
