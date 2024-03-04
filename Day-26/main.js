@@ -10,6 +10,8 @@ var formLogin = document.querySelector(".form-login");
 var formRegister = document.querySelector(".form-register");
 var inputsLogin = formLogin.querySelectorAll("input");
 var inputRegister = formRegister.querySelectorAll("input");
+var iconShowPass = document.querySelectorAll(".icon-open");
+var iconClosePass = document.querySelectorAll(".icon-close");
 var isLogin = true;
 var isShowPass = false;
 
@@ -62,29 +64,47 @@ titleRegister.addEventListener("click", function () {
 	swichTap(isLogin);
 });
 
+//handle submit form
 formLogin.addEventListener("submit", function (e) {
 	e.preventDefault();
-	validation(
-		".form-login",
-		true,
-		'input[name="email"]',
-		'input[name="password"]'
-	);
+	validation(".form-login", 'input[name="email"]', 'input[name="password"]');
 });
 
 formRegister.addEventListener("submit", function (e) {
 	e.preventDefault();
 	validation(
 		".form-register",
-		true,
 		'input[name="name"]',
 		'input[name="email"]',
 		'input[name="password"]'
 	);
 });
 
-//handle submit form
+//handle show/hidden password fields
 
+for (let index = 0; index < iconShowPass.length; index++) {
+	const element = iconShowPass[index];
+	element.addEventListener("click", function () {
+		var iconClose = element.nextElementSibling;
+		var input = element.parentElement.nextElementSibling;
+		element.style.display = "none";
+		iconClose.style.display = "block";
+		input.type = "text";
+	});
+}
+
+for (let index = 0; index < iconClosePass.length; index++) {
+	const element = iconClosePass[index];
+	element.addEventListener("click", function () {
+		var iconOpen = element.previousElementSibling;
+		var input = element.parentElement.nextElementSibling;
+		element.style.display = "none";
+		iconOpen.style.display = "block";
+		input.type = "password";
+	});
+}
+
+//validate
 function validation(formSelector = "", ...inputSelectors) {
 	var formParent = document.querySelector(formSelector);
 	inputSelectors?.forEach(function (selector) {
@@ -96,6 +116,9 @@ function validation(formSelector = "", ...inputSelectors) {
 				if (!inputValue) {
 					inputName.classList.add("is-invalid");
 					validFeedback.innerHTML = "Vui lòng nhập tên";
+				} else {
+					inputName.classList.remove("is-invalid");
+					validFeedback.innerHTML = "";
 				}
 				break;
 
@@ -109,6 +132,9 @@ function validation(formSelector = "", ...inputSelectors) {
 				} else if (!inputValue.includes("@")) {
 					inputEmail.classList.add("is-invalid");
 					validFeedback.innerHTML = "Email không đúng định dạng";
+				} else {
+					inputEmail.classList.remove("is-invalid");
+					validFeedback.innerHTML = "";
 				}
 				break;
 
@@ -122,6 +148,9 @@ function validation(formSelector = "", ...inputSelectors) {
 				} else if (inputValue.length < 6) {
 					inputPass.classList.add("is-invalid");
 					validFeedback.innerHTML = "Mật khẩu phải có tối thiểu 6 kí tự";
+				} else {
+					inputPass.classList.remove("is-invalid");
+					validFeedback.innerHTML = "";
 				}
 				break;
 			default:
