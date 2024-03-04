@@ -11,6 +11,7 @@ var formRegister = document.querySelector(".form-register");
 var inputsLogin = formLogin.querySelectorAll("input");
 var inputRegister = formRegister.querySelectorAll("input");
 var isLogin = true;
+var isShowPass = false;
 
 //handle open and close modal
 function openModal() {
@@ -52,7 +53,6 @@ for (var i = 0; i < inputRegister.length; i++) {
 //handle swich tap
 
 titleLogin.addEventListener("click", function () {
-	console.log(this);
 	isLogin = true;
 	swichTap(isLogin);
 });
@@ -96,9 +96,6 @@ function validation(formSelector = "", ...inputSelectors) {
 				if (!inputValue) {
 					inputName.classList.add("is-invalid");
 					validFeedback.innerHTML = "Vui lòng nhập tên";
-				} else {
-					inputName.classList.remove("is-invalid");
-					validFeedback.innerHTML = "";
 				}
 				break;
 
@@ -106,16 +103,12 @@ function validation(formSelector = "", ...inputSelectors) {
 				var inputEmail = formParent.querySelector(selector);
 				var inputValue = inputEmail.value;
 				var validFeedback = inputEmail.nextElementSibling;
-				console.log(inputValue.includes("@"));
 				if (!inputValue) {
 					inputEmail.classList.add("is-invalid");
 					validFeedback.innerHTML = "Vui lòng nhập Email";
 				} else if (!inputValue.includes("@")) {
 					inputEmail.classList.add("is-invalid");
 					validFeedback.innerHTML = "Email không đúng định dạng";
-				} else {
-					inputEmail.classList.remove("is-invalid");
-					validFeedback.innerHTML = "";
 				}
 				break;
 
@@ -129,9 +122,6 @@ function validation(formSelector = "", ...inputSelectors) {
 				} else if (inputValue.length < 6) {
 					inputPass.classList.add("is-invalid");
 					validFeedback.innerHTML = "Mật khẩu phải có tối thiểu 6 kí tự";
-				} else {
-					inputPass.classList.remove("is-invalid");
-					validFeedback.innerHTML = "";
 				}
 				break;
 			default:
