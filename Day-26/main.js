@@ -30,14 +30,11 @@ document.onkeyup = function (e) {
 	}
 };
 
+//handle when blur input
+
 for (var i = 0; i < inputsLogin.length; i++) {
 	inputsLogin[i].addEventListener("blur", function () {
-		validation(
-			".form-login",
-			true,
-			'input[name="email"]',
-			'input[name="password"]'
-		);
+		validation(".form-login", 'input[name="email"]', 'input[name="password"]');
 	});
 }
 
@@ -45,7 +42,6 @@ for (var i = 0; i < inputRegister.length; i++) {
 	inputRegister[i].addEventListener("blur", function () {
 		validation(
 			".form-register",
-			true,
 			'input[name="name"]',
 			'input[name="email"]',
 			'input[name="password"]'
@@ -89,7 +85,7 @@ formRegister.addEventListener("submit", function (e) {
 
 //handle submit form
 
-function validation(formSelector = "", isInvalid = true, ...inputSelectors) {
+function validation(formSelector = "", ...inputSelectors) {
 	var formParent = document.querySelector(formSelector);
 	inputSelectors?.forEach(function (selector) {
 		switch (selector) {
@@ -97,7 +93,7 @@ function validation(formSelector = "", isInvalid = true, ...inputSelectors) {
 				var inputName = formParent.querySelector(selector);
 				var inputValue = inputName.value;
 				var validFeedback = inputName.nextElementSibling;
-				if (!inputValue && isInvalid) {
+				if (!inputValue) {
 					inputName.classList.add("is-invalid");
 					validFeedback.innerHTML = "Vui lòng nhập tên";
 				} else {
@@ -111,10 +107,10 @@ function validation(formSelector = "", isInvalid = true, ...inputSelectors) {
 				var inputValue = inputEmail.value;
 				var validFeedback = inputEmail.nextElementSibling;
 				console.log(inputValue.includes("@"));
-				if (!inputValue && isInvalid) {
+				if (!inputValue) {
 					inputEmail.classList.add("is-invalid");
 					validFeedback.innerHTML = "Vui lòng nhập Email";
-				} else if (!inputValue.includes("@") && isInvalid) {
+				} else if (!inputValue.includes("@")) {
 					inputEmail.classList.add("is-invalid");
 					validFeedback.innerHTML = "Email không đúng định dạng";
 				} else {
@@ -127,10 +123,10 @@ function validation(formSelector = "", isInvalid = true, ...inputSelectors) {
 				var inputPass = formParent.querySelector(selector);
 				var inputValue = inputPass.value;
 				var validFeedback = inputPass.nextElementSibling;
-				if (!inputValue && isInvalid) {
+				if (!inputValue) {
 					inputPass.classList.add("is-invalid");
 					validFeedback.innerHTML = "Vui lòng nhập mật khẩu";
-				} else if (inputValue.length < 6 && isInvalid) {
+				} else if (inputValue.length < 6) {
 					inputPass.classList.add("is-invalid");
 					validFeedback.innerHTML = "Mật khẩu phải có tối thiểu 6 kí tự";
 				} else {
@@ -144,6 +140,20 @@ function validation(formSelector = "", isInvalid = true, ...inputSelectors) {
 	});
 }
 
+function resetForm(formSelector = "") {
+	var formParent = document.querySelector(formSelector);
+	var inputsForm = formParent.querySelectorAll("input");
+	for (var i = 0; i < inputsForm.length; i++) {
+		var checkInValid = inputsForm[i].classList.contains("is-invalid");
+		var validFeedback = inputsForm[i].nextElementSibling;
+		inputsForm[i].value = "";
+		if (checkInValid) {
+			inputsForm[i].classList.remove("is-invalid");
+			validFeedback.innerHTML = "";
+		}
+	}
+}
+
 function swichTap(isLogin = false) {
 	if (isLogin) {
 		//swich color title
@@ -153,13 +163,7 @@ function swichTap(isLogin = false) {
 		//swich form
 		formRegister.classList.remove("d-block");
 		formLogin.classList.remove("d-none");
-		validation(
-			".form-register",
-			false,
-			'input[name="name"]',
-			'input[name="email"]',
-			'input[name="password"]'
-		);
+		resetForm(".form-register");
 	} else {
 		//swich color title
 		titleLogin.classList.remove(bgSecondary);
@@ -168,11 +172,6 @@ function swichTap(isLogin = false) {
 		//swich form
 		formLogin.classList.add("d-none");
 		formRegister.classList.add("d-block");
-		validation(
-			".form-login",
-			false,
-			'input[name="email"]',
-			'input[name="password"]'
-		);
+		resetForm(".form-login");
 	}
 }
