@@ -1,0 +1,114 @@
+<!-- @format -->
+
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<style></style>
+		<link
+			rel="stylesheet"
+			href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css"
+			integrity="sha512-jnSuA4Ss2PkkikSOLtYs8BlYIeeIK1h99ty4YfvRPAlzr377vr3CXDb7sb7eEEBYjDtcYj+AjBH3FLv5uSJuXg=="
+			crossorigin="anonymous"
+			referrerpolicy="no-referrer" />
+		<link rel="stylesheet" href="./css/style.css" />
+	</head>
+	<body>
+		<button class="open-modal btn btn-success m-4">Đăng nhập</button>
+		<div class="overlay">
+			<div class="modal" tabindex="-1">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="row justify-content-evenly align-items-center">
+							<div class="col-10">
+								<h1 class="title title-form text-center p-3 text-success">
+									Dân trí
+								</h1>
+							</div>
+							<div class="col">
+								<button
+									type="button"
+									class="btn-close close-modal"
+									aria-label="Close"></button>
+							</div>
+						</div>
+						<div class="modal-header p-0 overflow-hidden">
+							<div
+								class="title title-login col-6 text-center bg-secondary-subtle p-3">
+								Đăng nhập
+							</div>
+							<div class="title title-register col-6 text-center p-3">
+								Đăng ký
+							</div>
+						</div>
+
+						<form class="form-login">
+							<div class="modal-body">
+								<div class="mb-3">
+									<label for="exampleInputEmail1" class="form-label"
+										>Email</label
+									>
+									<input
+										type="email"
+										class="form-control"
+										id="exampleInputEmail1"
+										placeholder="Email" />
+								</div>
+								<div class="mb-3">
+									<label for="exampleInputPassword1" class="form-label"
+										>Mật khẩu</label
+									>
+									<input
+										type="password"
+										class="form-control"
+										id="exampleInputPassword1"
+										placeholder="Mật khẩu" />
+								</div>
+							</div>
+							<div class="modal-footer justify-content-around">
+								<button type="submit" class="btn btn-success px-4 py-2">
+									Đăng nhập
+								</button>
+							</div>
+						</form>
+
+						<form class="form-register">
+							<div class="modal-body">
+								<div class="mb-3">
+									<label for="exampleInputEmail1" class="form-label"
+										>Họ và tên</label
+									>
+									<input type="text" class="form-control" />
+								</div>
+								<div class="mb-3">
+									<label for="exampleInputEmail1" class="form-label"
+										>Email</label
+									>
+									<input type="email" name="email" class="form-control" />
+								</div>
+								<div class="mb-3">
+									<label for="exampleInputPassword1" class="form-label"
+										>Mật khẩu</label
+									>
+									<input
+										type="password"
+										class="form-control"
+										id="exampleInputPassword1" />
+								</div>
+							</div>
+							<div class="modal-footer justify-content-around">
+								<button type="submit" class="btn btn-success px-4 py-2">
+									Đăng ký
+								</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<script src="./main.js"></script>
+	</body>
+</html>

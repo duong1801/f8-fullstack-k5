@@ -1,0 +1,29 @@
+/** @format */
+
+body {
+	position: relative;
+}
+.overlay {
+	background-color: rgb(64 62 62 / 50%);
+	height: 100vh;
+	display: none;
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+}
+
+.overlay.open {
+	display: block;
+}
+.modal {
+	display: block;
+}
+
+.form-register {
+	display: none;
+}
+.title {
+	cursor: pointer;
+}
