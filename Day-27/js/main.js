@@ -5,7 +5,7 @@ var $$ = document.querySelectorAll.bind(document);
 
 var addTaskBtn = $(".add-task");
 var todoList = $(".todo-list");
-var data = [{ name: "play game" }, { name: "coding" }];
+var data = [{ name: "play game" }, { name: "code" }, { name: "sleep" }];
 var indexUpdates = [];
 
 function start() {
@@ -52,6 +52,7 @@ function renderTasks() {
 	});
 
 	todoList.innerHTML = htmls.join("");
+	console.log(indexUpdates);
 }
 
 function addTask(e) {
@@ -89,6 +90,14 @@ function updateTask(index) {
 }
 
 function removeTask(index) {
+	indexUpdates = indexUpdates.map((indexUpdate) => {
+		if (indexUpdate > index) {
+			return indexUpdate - 1;
+		}
+		return indexUpdate;
+	}, []);
 	data.splice(index, 1);
+
+	console.log(indexUpdates);
 	renderTasks();
 }
