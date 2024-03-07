@@ -73,13 +73,9 @@ function handleUpdateTask(index) {
 	indexUpdates.push(index);
 	var todo = $(`.todo-group-${index} .todo`);
 	var todoForm = $(`.todo-group-${index} .todo-form`);
-	var btnEdit = $(`.todo-group-${index} .edit-task`);
 	todo.style.display = "none";
 	todoForm.style.display = "block";
-
-	btnEdit.addEventListener("click", function (e) {
-		renderTasks();
-	});
+	renderTasks();
 }
 
 function updateTask(index) {
