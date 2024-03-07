@@ -59,7 +59,6 @@ function addTask(e) {
 
 	var inputEle = addTaskBtn.previousElementSibling;
 	var inputValue = inputEle.value;
-	console.log(inputValue);
 	if (inputValue) {
 		data.push({ name: inputValue });
 		inputEle.value = "";
@@ -71,10 +70,6 @@ function addTask(e) {
 
 function handleUpdateTask(index) {
 	indexUpdates.push(index);
-	var todo = $(`.todo-group-${index} .todo`);
-	var todoForm = $(`.todo-group-${index} .todo-form`);
-	todo.style.display = "none";
-	todoForm.style.display = "block";
 	renderTasks();
 }
 
