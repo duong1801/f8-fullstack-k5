@@ -98,6 +98,5 @@ function removeTask(index) {
 	});
 	data.splice(index, 1);
 
-	console.log(indexUpdates);
 	renderTasks();
 }
