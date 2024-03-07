@@ -79,8 +79,8 @@ function updateTask(index) {
 	var inputUpdateValue = btnUpdate.previousElementSibling.value;
 	if (inputUpdateValue) {
 		data[index].name = inputUpdateValue;
-		indexUpdates = indexUpdates.filter((indexupdate) => {
-			return index !== indexupdate;
+		indexUpdates = indexUpdates.filter((indexUpdate) => {
+			return index !== indexUpdate;
 		});
 		renderTasks();
 	} else {
