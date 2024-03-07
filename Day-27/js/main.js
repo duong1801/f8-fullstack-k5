@@ -95,7 +95,7 @@ function removeTask(index) {
 			return indexUpdate - 1;
 		}
 		return indexUpdate;
-	}, []);
+	});
 	data.splice(index, 1);
 
 	console.log(indexUpdates);
