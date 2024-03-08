@@ -46,7 +46,6 @@ function renderTasks() {
 						Add Task
 					</button>
 				</form>
-            
                 </div>
         `;
 	});
@@ -77,9 +76,9 @@ function handleUpdateTask(index) {
 function updateTask(index) {
 	var btnUpdate = $(`.todo-group-${index} .btn-update`);
 
-	var inputUpdateValue = btnUpdate.previousElementSibling.value.trim();
-	if (inputUpdateValue) {
-		data[index].name = inputUpdateValue;
+	var valueUpdate = btnUpdate.previousElementSibling.value.trim();
+	if (valueUpdate) {
+		data[index].name = valueUpdate;
 		indexUpdates = indexUpdates.filter((indexUpdate) => {
 			return index !== indexUpdate;
 		});
