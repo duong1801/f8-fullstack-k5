@@ -91,7 +91,6 @@ carousel.addEventListener("mousemove", function (e) {
 			carouselImages.style.translate = `${translateX + pullingDistance}px`;
 			if (Math.abs(pullingDistance) > distanceChange) {
 				indexActive++;
-
 				handleChangeSlide(indexActive);
 				isDrag = false;
 			}
@@ -99,7 +98,6 @@ carousel.addEventListener("mousemove", function (e) {
 			carouselImages.style.translate = `${translateX + pullingDistance}px`;
 			if (Math.abs(pullingDistance) > distanceChange) {
 				indexActive--;
-
 				handleChangeSlide(indexActive);
 				isDrag = false;
 			}
