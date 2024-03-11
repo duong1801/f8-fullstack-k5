@@ -20,7 +20,7 @@ var pullingDistance = 0;
 
 //Tính kích thước chiều rộng của 1 item
 var itemWidth = carouselImages.clientWidth;
-var distanceChange = (itemWidth / 100) * 15;
+var distanceChange = (itemWidth / 100) * 12;
 //Tính tổng kích thước các item
 var totalWidth = itemWidth * carouselItems.length;
 
@@ -40,17 +40,15 @@ handleChangeSlide();
 function handleChangeSlide(index = 0) {
 	var dotActive = $(`.dot-item-${index}`);
 	var dotLastActive = $(`.dot-item-${lastIndexActive}`);
+
 	dotLastActive.classList.remove("active");
 	dotActive.classList.add("active");
 	indexActive = index;
-
 	translateX += (lastIndexActive - indexActive) * itemWidth;
-
-	// console.log(translateX);
-	console.log(lastIndexActive, indexActive);
 	carouselImages.style.translate = `${translateX}px`;
 	lastIndexActive = indexActive;
 }
+
 //Lắng nghe sự kiện click vào nút next
 
 carouselNextBtn.addEventListener("click", function () {
@@ -108,5 +106,11 @@ document.addEventListener("mousemove", function (e) {
 
 carousel.addEventListener("mouseup", function (e) {
 	isDrag = false;
-	handleChangeSlide(indexActive);
+	if (indexActive < 0) {
+		handleChangeSlide(0);
+	} else if (indexActive > carouselImages.length) {
+		handleChangeSlide(carouselImages.length);
+	} else {
+		handleChangeSlide(indexActive);
+	}
 });
