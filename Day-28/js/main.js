@@ -63,7 +63,6 @@ carouselNextBtn.addEventListener("click", function () {
 	if (Math.abs(translateX) >= totalWidth - itemWidth) {
 		return; //Thoát hàm
 	}
-
 	indexActive++;
 	handleChangeSlide(indexActive);
 });
@@ -72,7 +71,6 @@ carouselPrevBtn.addEventListener("click", function () {
 	if (Math.abs(translateX) < itemWidth) {
 		return; //Thoát hàm
 	}
-
 	indexActive--;
 	handleChangeSlide(indexActive);
 });
@@ -84,8 +82,6 @@ carousel.addEventListener("mousedown", function (e) {
 
 carousel.addEventListener("mousemove", function (e) {
 	e.preventDefault();
-	var maxPosition = itemWidth * carouselItems.length;
-	var minPosition = 0;
 
 	if (isDrag) {
 		pullingDistance = e.clientX - potionsStartDrag;
@@ -109,11 +105,9 @@ carousel.addEventListener("mousemove", function (e) {
 });
 document.addEventListener("mousemove", function (e) {
 	e.preventDefault();
-	// e.stopPropagation;
 });
 
 carousel.addEventListener("mouseup", function (e) {
 	isDrag = false;
-	console.log(indexActive);
 	handleChangeSlide(indexActive);
 });
