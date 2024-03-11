@@ -53,6 +53,7 @@ function handleChangeSlide(index = 0) {
 	dotActive.classList.add("active");
 
 	translateX += (lastIndexActive - indexActive) * itemWidth;
+	carouselImages.style.transition = "0.3s translate linear";
 	carouselImages.style.translate = `${translateX}px`;
 	lastIndexActive = indexActive;
 }
@@ -85,20 +86,22 @@ carousel.addEventListener("mousemove", function (e) {
 
 	if (isDrag) {
 		pullingDistance = e.clientX - potionsStartDrag;
-
+		carouselImages.style.transition = "none";
 		if (pullingDistance < 0) {
 			carouselImages.style.translate = `${translateX + pullingDistance}px`;
 			if (Math.abs(pullingDistance) > distanceChange) {
 				indexActive++;
-				isDrag = false;
+
 				handleChangeSlide(indexActive);
+				isDrag = false;
 			}
 		} else {
 			carouselImages.style.translate = `${translateX + pullingDistance}px`;
 			if (Math.abs(pullingDistance) > distanceChange) {
 				indexActive--;
-				isDrag = false;
+
 				handleChangeSlide(indexActive);
+				isDrag = false;
 			}
 		}
 	}
