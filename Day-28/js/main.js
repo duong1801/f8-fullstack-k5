@@ -38,12 +38,20 @@ carouselDots.innerHTML = dotsHtmls.join("");
 handleChangeSlide();
 
 function handleChangeSlide(index = 0) {
-	var dotActive = $(`.dot-item-${index}`);
+	indexActive = index;
+
+	if (indexActive < 0) {
+		indexActive = 0;
+	} else if (indexActive > carouselItems.length - 1) {
+		indexActive = carouselItems.length - 1;
+	}
+
+	var dotActive = $(`.dot-item-${indexActive}`);
 	var dotLastActive = $(`.dot-item-${lastIndexActive}`);
 
 	dotLastActive.classList.remove("active");
 	dotActive.classList.add("active");
-	indexActive = index;
+
 	translateX += (lastIndexActive - indexActive) * itemWidth;
 	carouselImages.style.translate = `${translateX}px`;
 	lastIndexActive = indexActive;
@@ -106,11 +114,6 @@ document.addEventListener("mousemove", function (e) {
 
 carousel.addEventListener("mouseup", function (e) {
 	isDrag = false;
-	if (indexActive < 0) {
-		handleChangeSlide(0);
-	} else if (indexActive > carouselImages.length) {
-		handleChangeSlide(carouselImages.length);
-	} else {
-		handleChangeSlide(indexActive);
-	}
+	console.log(indexActive);
+	handleChangeSlide(indexActive);
 });
