@@ -42,7 +42,8 @@ function handleChangeSlide(index = 0) {
 
 	if (indexActive < 0) {
 		indexActive = 0;
-	} else if (indexActive > carouselItems.length - 1) {
+	}
+	if (indexActive > carouselItems.length - 1) {
 		indexActive = carouselItems.length - 1;
 	}
 
