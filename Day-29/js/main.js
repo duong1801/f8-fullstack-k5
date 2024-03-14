@@ -5,7 +5,6 @@ var progress = progressBar.querySelector(".progress");
 var progressSpan = progress.querySelector("span");
 var timer = document.querySelector(".timer");
 var isClickedProgressBar = false;
-var isShowTimer = true;
 var progressBarWidth = progressBar.clientWidth;
 
 progressBar.addEventListener("mousedown", function (e) {
