@@ -47,6 +47,10 @@ audio {
 	display: none;
 }
 
+.player-action {
+	cursor: pointer;
+}
+
 .timer {
 	font-size: 12px;
 	position: absolute;
