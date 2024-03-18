@@ -66,7 +66,11 @@ function handleAddToCart(event, id) {
 		totalAmountEl.innerText = totalAmount;
 		totalQuantityEl.innerText = totalQuantity;
 	} else {
-		var totalEl = document.querySelector(".total-quantity").parentElement;
+		var totalQuantityEl = document.querySelector(".total-quantity");
+		if (totalQuantityEl) {
+			var totalEl = totalQuantityEl.parentElement;
+		}
+
 		var check = cart.some((product) => product.id === id);
 		if (!check) {
 			cart.push(cartItem);
