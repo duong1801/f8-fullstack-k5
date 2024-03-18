@@ -1,8 +1,9 @@
 /** @format */
+var root = document.querySelector("#root");
 var tableProducts = document.querySelector(".list-product");
 var tableCart = document.querySelector(".cart");
-var cart = [];
-
+var cart = JSON.parse(localStorage.getItem("cart")) || [];
+console.log(cart);
 var products = [
 	{ id: 1, name: "Sản phẩm 1", price: 10000 },
 	{ id: 2, name: "Sản phẩm 2", price: 20000 },
@@ -55,7 +56,6 @@ function handleAddToCart(event, id) {
 		cart[index].quantity += +quantity;
 	}
 	localStorage.setItem("cart", JSON.stringify(cart));
-	console.table(JSON.parse(localStorage.getItem("cart")));
 }
 
 var productElement = products.map(function (product, index) {
@@ -92,3 +92,85 @@ var productElement = products.map(function (product, index) {
 
 var listProducts = Blue.createElement("tbody", {}, ...productElement);
 tableProducts.append(listProducts);
+
+if (!cart?.length || cart[0]?.quantity === 0) {
+	var text = Blue.createElement(
+		"p",
+		{ style: { textAlign: "center" } },
+		"Không có sản phẩm nào trong giỏ hàng"
+	);
+	root.appendChild(text);
+} else {
+	var cartElement = cart.map(function (product, index) {
+		return Blue.createElement(
+			"tr",
+			{},
+			Blue.createElement("td", {}, index + 1),
+			Blue.createElement("td", {}, product.name),
+			Blue.createElement("td", {}, product.price),
+			Blue.createElement(
+				"td",
+				{},
+				Blue.createElement("input", {
+					type: "number",
+					"data-id": "3",
+					value: product.quantity,
+				})
+			)
+		);
+	});
+	var tableCart = Blue.createElement(
+		"table",
+		{
+			cellpadding: "0",
+			cellspacing: "0",
+			width: "100%",
+			border: "1",
+		},
+		Blue.createElement(
+			"thead",
+			{},
+			Blue.createElement(
+				"tr",
+				{},
+				Blue.createElement("td", { width: "5%" }, "STT"),
+				Blue.createElement("td", {}, "Tên sản phẩm"),
+				Blue.createElement("td", { width: "20%" }, "Giá"),
+				Blue.createElement("td", { width: "20%" }, "Số lượng"),
+				Blue.createElement("td", { width: "20%" }, "Thành tiền"),
+				Blue.createElement("td", { width: "5%" }, "Xoá")
+			)
+		),
+		Blue.createElement("tbody", {}, ...cartElement)
+	);
+	root.appendChild(tableCart);
+}
+
+// <table class="cart" cellpadding="0" cellspacing="0" width="100%" border="1">
+// 	<thead>
+// 		<tr>
+// 			<th width="5%">STT</th>
+// 			<th>Tên sản phẩm</th>
+// 			<th width="20%">Giá</th>
+// 			<th width="20%">Số lượng</th>
+// 			<th width="20%">Thành tiền</th>
+// 			<th width="5%">Xoá</th>
+// 		</tr>
+// 	</thead>
+// 	<tbody>
+// 		<tr>
+// 			<td>2</td>
+// 			<td>Sản phẩm 3</td>
+// 			<td>3000</td>
+// 			<td>
+// 				<input type="number" class="quantity" data-id="3" value="2" />
+// 			</td>
+// 			<td>6000</td>
+// 			<td>
+// 				<button type="button" class="delete-item">
+// 					Xoá
+// 				</button>
+// 			</td>
+// 		</tr>
+// 	</tbody>
+// </table>;
