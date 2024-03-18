@@ -2,7 +2,8 @@
 var root = document.querySelector("#root");
 var tableProducts = document.querySelector(".list-product");
 var cart = JSON.parse(localStorage.getItem("cart")) || [];
-
+var totalAmount = 0;
+var totalQuantity = 0;
 var products = [
 	{ id: 1, name: "Sản phẩm 1", price: 10000 },
 	{ id: 2, name: "Sản phẩm 2", price: 20000 },
@@ -27,7 +28,7 @@ var Blue = {
 					var dataset = key.replace("data-", "");
 					element.dataset[dataset] = attributes[key];
 				} else {
-					element[key] = attributes[key];
+					element.setAttribute(key, attributes[key]);
 				}
 			});
 		}
@@ -36,7 +37,7 @@ var Blue = {
 };
 var textEmptyCart = Blue.createElement(
 	"p",
-	{ className: "text-empty-cart" },
+	{ class: "text-empty-cart" },
 	"Không có sản phẩm nào trong giỏ hàng"
 );
 function getProductById(id, arr = []) {
@@ -51,6 +52,7 @@ function handleAddToCart(event, id) {
 	var product = getProductById(id, products);
 	var quantity = +event.target.previousElementSibling.value;
 	var cartItem = { ...product, quantity: quantity };
+
 	console.log(cart.length);
 	if (cart.length === 0) {
 		cart.push(cartItem);
@@ -58,7 +60,14 @@ function handleAddToCart(event, id) {
 		if (textEmptyCart) {
 			textEmptyCart.remove();
 		}
+		var totalQuantityEl = document.querySelector(".total-quantity");
+		var totalAmountEl = totalQuantityEl.nextElementSibling;
+		totalAmount = cartItem.quantity * cartItem.price;
+		totalQuantity = cartItem.quantity;
+		totalAmountEl.innerText = totalAmount;
+		totalQuantityEl.innerText = totalQuantity;
 	} else {
+		var totalEl = document.querySelector(".total-quantity").parentElement;
 		var check = cart.some((product) => product.id === id);
 		if (!check) {
 			cart.push(cartItem);
@@ -67,7 +76,13 @@ function handleAddToCart(event, id) {
 				var tr = Blue.createElement(
 					"tr",
 					{},
-					Blue.createElement("td", {}, cart.length),
+					Blue.createElement(
+						"td",
+						{
+							class: "ordinal-number",
+						},
+						cart.length
+					),
 					Blue.createElement("td", {}, cartItem.name),
 					Blue.createElement("td", {}, cartItem.price),
 					Blue.createElement(
@@ -94,7 +109,7 @@ function handleAddToCart(event, id) {
 						)
 					)
 				);
-				tbodyCartTable.append(tr);
+				tbodyCartTable.insertBefore(tr, totalEl);
 			}
 		} else {
 			var productUpdate = getProductById(id, cart);
@@ -106,40 +121,68 @@ function handleAddToCart(event, id) {
 			var amount = inputUpdate.parentElement.nextElementSibling;
 			amount.innerText = newQuantity * productUpdate.price;
 		}
+		var totalQuantityEl = document.querySelector(".total-quantity");
+		var totalAmountEl = totalQuantityEl.nextElementSibling;
+		totalAmount += cartItem.quantity * cartItem.price;
+
+		totalQuantity += cartItem.quantity;
+		totalAmountEl.innerText = totalAmount;
+		totalQuantityEl.innerText = totalQuantity;
 	}
 	localStorage.setItem("cart", JSON.stringify(cart));
 }
 
 function handleRemoveItemCart(event, id) {
-	if (cart.length) {
-		var itemRemove = event.target.parentElement.parentElement;
-		var productRemove = getProductById(id, cart);
-		var indexProductRemove = cart.indexOf(productRemove);
-		cart.splice(indexProductRemove, 1);
-		itemRemove.remove();
-	}
-	if (cart.length === 0) {
-		var tableCart = document.querySelector(".table-cart");
-		var callToActionGroups = document.querySelector(".call-to-action-groups");
-		if (tableCart && callToActionGroups) {
-			tableCart.remove();
-			callToActionGroups.remove();
-			root.appendChild(textEmptyCart);
+	var checkRemoveItem = confirm("are you sure you want to remove?");
+	if (checkRemoveItem) {
+		if (cart.length) {
+			var itemRemove = event.target.parentElement.parentElement;
+			var productRemove = getProductById(id, cart);
+			totalAmount -= productRemove.price * productRemove.quantity;
+			totalQuantity -= productRemove.quantity;
+			var totalQuantityEl = document.querySelector(".total-quantity");
+			var totalAmountEl = totalQuantityEl.nextElementSibling;
+			totalAmountEl.innerText = totalAmount;
+			totalQuantityEl.innerText = totalQuantity;
+			var indexProductRemove = cart.indexOf(productRemove);
+			cart.splice(indexProductRemove, 1);
+			itemRemove.remove();
 		}
+		if (cart.length === 0) {
+			var tableCart = document.querySelector(".table-cart");
+			var callToActionGroups = document.querySelector(".call-to-action-groups");
+			if (tableCart && callToActionGroups) {
+				tableCart.remove();
+				callToActionGroups.remove();
+				root.appendChild(textEmptyCart);
+			}
+		}
+		var ordinalNumbers = document.querySelectorAll(".ordinal-number");
+		ordinalNumbers?.forEach(function (ordinalNumber, index) {
+			ordinalNumber.innerText = index + 1;
+		});
+		localStorage.setItem("cart", JSON.stringify(cart));
+		alert("remove item successfully!");
 	}
-	localStorage.setItem("cart", JSON.stringify(cart));
 }
 
 function handleRemoveCart() {
-	var tableCart = document.querySelector(".table-cart");
-	var callToActionGroups = document.querySelector(".call-to-action-groups");
-	if (tableCart && callToActionGroups) {
-		console.log("Xoas");
-		tableCart.remove();
-		callToActionGroups.remove();
-		cart = [];
-		localStorage.removeItem("cart");
-		root.appendChild(textEmptyCart);
+	var checkRemoveItemAll = confirm("are you sure you want to remove all?");
+	if (checkRemoveItemAll) {
+		var tableCart = document.querySelector(".table-cart");
+		var callToActionGroups = document.querySelector(".call-to-action-groups");
+		if (tableCart && callToActionGroups) {
+			console.log("Xoas");
+			tableCart.remove();
+			callToActionGroups.remove();
+			cart = [];
+			localStorage.removeItem("cart");
+			root.appendChild(textEmptyCart);
+			totalAmount = 0;
+			totalQuantity = 0;
+		}
+
+		alert("remove cart successfully!");
 	}
 }
 
@@ -147,18 +190,27 @@ function handleUpdateCart() {
 	var inputsWithDataId = document.querySelectorAll(
 		".table-cart input[data-id]"
 	);
-
+	totalAmount = 0;
+	totalQuantity = 0;
 	inputsWithDataId.forEach(function (input) {
 		var id = +input.dataset.id;
-		var newQuantity = input.value;
+		var newQuantity = +input.value;
 		var productUpdate = getProductById(id, cart);
-		var amount = input.parentElement.nextElementSibling;
+		var amountEl = input.parentElement.nextElementSibling;
+		var amount = productUpdate.price * newQuantity;
 		input.value = newQuantity;
-		amount.innerText = productUpdate.price * newQuantity;
+		amountEl.innerText = amount;
 		var indexUpdate = cart.indexOf(productUpdate);
-
-		// var productUpdate = getProductById(id, cart);
+		cart[indexUpdate].quantity = newQuantity;
+		totalAmount += amount;
+		totalQuantity += newQuantity;
+		localStorage.setItem("cart", JSON.stringify(cart));
 	});
+	var totalQuantityEl = document.querySelector(".total-quantity");
+	var totalAmountEl = totalQuantityEl.nextElementSibling;
+	totalAmountEl.innerText = totalAmount;
+	totalQuantityEl.innerText = totalQuantity;
+	alert("Updated cart successfully!");
 }
 
 var productElement = products.map(function (product, index) {
@@ -199,7 +251,7 @@ tableProducts.append(listProducts);
 if (!cart?.length || cart[0]?.quantity === 0) {
 	var textEmptyCart = Blue.createElement(
 		"p",
-		{ className: "text-empty-cart" },
+		{ class: "text-empty-cart" },
 		"Không có sản phẩm nào trong giỏ hàng"
 	);
 	root.appendChild(textEmptyCart);
@@ -209,10 +261,19 @@ if (!cart?.length || cart[0]?.quantity === 0) {
 
 function renderCart() {
 	var cartElement = cart.map(function (product, index) {
+		console.log(typeof product.quantity);
+		totalAmount += product.price * product.quantity;
+		totalQuantity += product.quantity;
 		return Blue.createElement(
 			"tr",
 			{},
-			Blue.createElement("td", {}, index + 1),
+			Blue.createElement(
+				"td",
+				{
+					class: "ordinal-number",
+				},
+				index + 1
+			),
 			Blue.createElement("td", {}, product.name),
 			Blue.createElement("td", {}, product.price),
 			Blue.createElement(
@@ -240,11 +301,19 @@ function renderCart() {
 			)
 		);
 	});
-	var tbodyEL = Blue.createElement("tbody", {}, ...cartElement);
+	console.log(totalAmount);
+	var totalAmountEl = Blue.createElement(
+		"tr",
+		{},
+		Blue.createElement("td", { colspan: 3 }, "Tổng"),
+		Blue.createElement("td", { class: "total-quantity" }, totalQuantity),
+		Blue.createElement("td", { colspan: 2 }, totalAmount)
+	);
+	var tbodyEL = Blue.createElement("tbody", {}, ...cartElement, totalAmountEl);
 	var tableCart = Blue.createElement(
 		"table",
 		{
-			className: "table-cart",
+			class: "table-cart",
 			cellpadding: "0",
 			cellspacing: "0",
 			width: "100%",
@@ -271,7 +340,7 @@ function renderCart() {
 	var callToActionGroups = Blue.createElement(
 		"div",
 		{
-			className: "call-to-action-groups",
+			class: "call-to-action-groups",
 		},
 		Blue.createElement("hr", {}),
 		Blue.createElement(
