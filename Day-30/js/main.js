@@ -43,14 +43,36 @@ function getProductById(id, arr = []) {
 function handleAddToCart(event, id) {
 	var product = getProductById(id, products);
 	var quantity = +event.target.previousElementSibling.value;
-	var itemCart = { ...product, quantity: quantity };
+	var cartItem = { ...product, quantity: quantity };
 	if (!cart.length) {
-		cart.push(itemCart);
+		cart.push(cartItem);
 		renderCart();
 	} else {
 		var check = cart.some((product) => product.id === id);
 		if (!check) {
-			cart.push(itemCart);
+			cart.push(cartItem);
+			tbodyCartTable = document.querySelector(".table-cart tbody");
+			if (tbodyCartTable) {
+				var tr = Blue.createElement(
+					"tr",
+					{},
+					Blue.createElement("td", {}, cart.length + 1),
+					Blue.createElement("td", {}, cartItem.name),
+					Blue.createElement("td", {}, cartItem.price),
+					Blue.createElement(
+						"td",
+						{},
+						Blue.createElement("input", {
+							type: "number",
+							"data-id": "3",
+							value: cartItem.quantity,
+						})
+					),
+					Blue.createElement("td", {}, cartItem.price * cartItem.quantity),
+					Blue.createElement("td", {}, Blue.createElement("button", {}, "Xoá"))
+				);
+				tbodyCartTable.append(tr);
+			}
 		} else {
 			var productUpdate = getProductById(id, cart);
 			index = cart.indexOf(productUpdate);
