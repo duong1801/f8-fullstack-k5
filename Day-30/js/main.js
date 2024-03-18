@@ -143,6 +143,24 @@ function handleRemoveCart() {
 	}
 }
 
+function handleUpdateCart() {
+	var inputsWithDataId = document.querySelectorAll(
+		".table-cart input[data-id]"
+	);
+
+	inputsWithDataId.forEach(function (input) {
+		var id = +input.dataset.id;
+		var newQuantity = input.value;
+		var productUpdate = getProductById(id, cart);
+		var amount = input.parentElement.nextElementSibling;
+		input.value = newQuantity;
+		amount.innerText = productUpdate.price * newQuantity;
+		var indexUpdate = cart.indexOf(productUpdate);
+
+		// var productUpdate = getProductById(id, cart);
+	});
+}
+
 var productElement = products.map(function (product, index) {
 	return Blue.createElement(
 		"tr",
