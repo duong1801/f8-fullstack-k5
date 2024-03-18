@@ -66,11 +66,6 @@ function handleAddToCart(event, id) {
 		totalAmountEl.innerText = totalAmount;
 		totalQuantityEl.innerText = totalQuantity;
 	} else {
-		var totalQuantityEl = document.querySelector(".total-quantity");
-		if (totalQuantityEl) {
-			var totalEl = totalQuantityEl.parentElement;
-		}
-
 		var check = cart.some((product) => product.id === id);
 		if (!check) {
 			cart.push(cartItem);
@@ -112,7 +107,11 @@ function handleAddToCart(event, id) {
 						)
 					)
 				);
-				tbodyCartTable.insertBefore(tr, totalEl);
+				var totalQuantityEl = document.querySelector(".total-quantity");
+				if (totalQuantityEl) {
+					var totalEl = totalQuantityEl.parentElement;
+					tbodyCartTable.insertBefore(tr, totalEl);
+				}
 			}
 		} else {
 			var productUpdate = getProductById(id, cart);
@@ -202,7 +201,7 @@ function handleUpdateCart() {
 		var amountEl = input.parentElement.nextElementSibling;
 		var amount = productUpdate.price * newQuantity;
 		var indexUpdate = cart.indexOf(productUpdate);
-		if (newQuantity !== 0) {
+		if (newQuantity > 0) {
 			input.value = newQuantity;
 			amountEl.innerText = amount;
 			cart[indexUpdate].quantity = newQuantity;
