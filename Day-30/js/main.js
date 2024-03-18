@@ -24,6 +24,9 @@ var Blue = {
 				if (key.startsWith("on")) {
 					var event = key.replace("on", "").toLocaleLowerCase();
 					element.addEventListener(event, attributes[key]);
+				} else if (key.startsWith("data")) {
+					var dataset = key.replace("data-", "");
+					element.dataset[dataset] = attributes[key];
 				} else {
 					element[key] = attributes[key];
 				}
@@ -47,6 +50,8 @@ function handleAddToCart(event, id) {
 	if (!cart.length) {
 		cart.push(cartItem);
 		renderCart();
+		textEmptyCart = document.querySelector("text-empty-cart");
+		textEmptyCart.remove();
 	} else {
 		var check = cart.some((product) => product.id === id);
 		if (!check) {
@@ -64,7 +69,7 @@ function handleAddToCart(event, id) {
 						{},
 						Blue.createElement("input", {
 							type: "number",
-							"data-id": "3",
+							"data-id": cartItem.id,
 							value: cartItem.quantity,
 						})
 					),
@@ -77,6 +82,11 @@ function handleAddToCart(event, id) {
 			var productUpdate = getProductById(id, cart);
 			index = cart.indexOf(productUpdate);
 			cart[index].quantity += +quantity;
+			var inputUpdate = document.querySelector(`[data-id="${id}"]`);
+			var newQuantity = cart[index].quantity;
+			inputUpdate.value = newQuantity;
+			var totalAmount = inputUpdate.parentElement.nextElementSibling;
+			totalAmount.innerText = newQuantity * productUpdate.price;
 		}
 	}
 	localStorage.setItem("cart", JSON.stringify(cart));
@@ -118,12 +128,12 @@ var listProducts = Blue.createElement("tbody", {}, ...productElement);
 tableProducts.append(listProducts);
 
 if (!cart?.length || cart[0]?.quantity === 0) {
-	var text = Blue.createElement(
+	var textEmptyCart = Blue.createElement(
 		"p",
-		{ style: { textAlign: "center" } },
+		{ className: "text-empty-cart" },
 		"Không có sản phẩm nào trong giỏ hàng"
 	);
-	root.appendChild(text);
+	root.appendChild(textEmptyCart);
 } else {
 	renderCart();
 }
@@ -141,7 +151,7 @@ function renderCart() {
 				{},
 				Blue.createElement("input", {
 					type: "number",
-					"data-id": "3",
+					"data-id": product.id,
 					value: product.quantity,
 				})
 			),
