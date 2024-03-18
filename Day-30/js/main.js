@@ -41,19 +41,21 @@ function getProductById(id, arr = []) {
 }
 
 function handleAddToCart(event, id) {
-	var check = cart.some((product) => product.id === id);
-
 	var product = getProductById(id, products);
-
 	var quantity = +event.target.previousElementSibling.value;
-
 	var itemCart = { ...product, quantity: quantity };
-	if (!check) {
+	if (!cart.length) {
 		cart.push(itemCart);
+		renderCart();
 	} else {
-		var productUpdate = getProductById(id, cart);
-		index = cart.indexOf(productUpdate);
-		cart[index].quantity += +quantity;
+		var check = cart.some((product) => product.id === id);
+		if (!check) {
+			cart.push(itemCart);
+		} else {
+			var productUpdate = getProductById(id, cart);
+			index = cart.indexOf(productUpdate);
+			cart[index].quantity += +quantity;
+		}
 	}
 	localStorage.setItem("cart", JSON.stringify(cart));
 }
@@ -101,6 +103,10 @@ if (!cart?.length || cart[0]?.quantity === 0) {
 	);
 	root.appendChild(text);
 } else {
+	renderCart();
+}
+
+function renderCart() {
 	var cartElement = cart.map(function (product, index) {
 		return Blue.createElement(
 			"tr",
@@ -116,12 +122,16 @@ if (!cart?.length || cart[0]?.quantity === 0) {
 					"data-id": "3",
 					value: product.quantity,
 				})
-			)
+			),
+			Blue.createElement("td", {}, product.price * product.quantity),
+			Blue.createElement("td", {}, Blue.createElement("button", {}, "Xoá"))
 		);
 	});
+	var tbodyEL = Blue.createElement("tbody", {}, ...cartElement);
 	var tableCart = Blue.createElement(
 		"table",
 		{
+			className: "table-cart",
 			cellpadding: "0",
 			cellspacing: "0",
 			width: "100%",
@@ -141,36 +151,7 @@ if (!cart?.length || cart[0]?.quantity === 0) {
 				Blue.createElement("td", { width: "5%" }, "Xoá")
 			)
 		),
-		Blue.createElement("tbody", {}, ...cartElement)
+		tbodyEL
 	);
 	root.appendChild(tableCart);
 }
-
-// <table class="cart" cellpadding="0" cellspacing="0" width="100%" border="1">
-// 	<thead>
-// 		<tr>
-// 			<th width="5%">STT</th>
-// 			<th>Tên sản phẩm</th>
-// 			<th width="20%">Giá</th>
-// 			<th width="20%">Số lượng</th>
-// 			<th width="20%">Thành tiền</th>
-// 			<th width="5%">Xoá</th>
-// 		</tr>
-// 	</thead>
-// 	<tbody>
-// 		<tr>
-// 			<td>2</td>
-// 			<td>Sản phẩm 3</td>
-// 			<td>3000</td>
-// 			<td>
-// 				<input type="number" class="quantity" data-id="3" value="2" />
-// 			</td>
-// 			<td>6000</td>
-// 			<td>
-// 				<button type="button" class="delete-item">
-// 					Xoá
-// 				</button>
-// 			</td>
-// 		</tr>
-// 	</tbody>
-// </table>;
