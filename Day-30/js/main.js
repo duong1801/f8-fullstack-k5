@@ -1,7 +1,6 @@
 /** @format */
 var root = document.querySelector("#root");
 var tableProducts = document.querySelector(".list-product");
-var tableCart = document.querySelector(".cart");
 var cart = JSON.parse(localStorage.getItem("cart")) || [];
 console.log(cart);
 var products = [
@@ -47,11 +46,15 @@ function handleAddToCart(event, id) {
 	var product = getProductById(id, products);
 	var quantity = +event.target.previousElementSibling.value;
 	var cartItem = { ...product, quantity: quantity };
-	if (!cart.length) {
+	console.log(cart.length);
+	if (cart.length === 0) {
 		cart.push(cartItem);
 		renderCart();
-		textEmptyCart = document.querySelector("text-empty-cart");
-		textEmptyCart.remove();
+		textEmptyCart = document.querySelector(".text-empty-cart");
+		console.log(textEmptyCart);
+		if (textEmptyCart) {
+			textEmptyCart.remove();
+		}
 	} else {
 		var check = cart.some((product) => product.id === id);
 		if (!check) {
@@ -61,7 +64,7 @@ function handleAddToCart(event, id) {
 				var tr = Blue.createElement(
 					"tr",
 					{},
-					Blue.createElement("td", {}, cart.length + 1),
+					Blue.createElement("td", {}, cart.length),
 					Blue.createElement("td", {}, cartItem.name),
 					Blue.createElement("td", {}, cartItem.price),
 					Blue.createElement(
@@ -74,7 +77,19 @@ function handleAddToCart(event, id) {
 						})
 					),
 					Blue.createElement("td", {}, cartItem.price * cartItem.quantity),
-					Blue.createElement("td", {}, Blue.createElement("button", {}, "Xoá"))
+					Blue.createElement(
+						"td",
+						{},
+						Blue.createElement(
+							"button",
+							{
+								onClick: function (event) {
+									handleRemoveItemCart(event, product.id);
+								},
+							},
+							"Xoá"
+						)
+					)
 				);
 				tbodyCartTable.append(tr);
 			}
@@ -85,10 +100,34 @@ function handleAddToCart(event, id) {
 			var inputUpdate = document.querySelector(`[data-id="${id}"]`);
 			var newQuantity = cart[index].quantity;
 			inputUpdate.value = newQuantity;
-			var totalAmount = inputUpdate.parentElement.nextElementSibling;
-			totalAmount.innerText = newQuantity * productUpdate.price;
+			var amount = inputUpdate.parentElement.nextElementSibling;
+			amount.innerText = newQuantity * productUpdate.price;
 		}
 	}
+	localStorage.setItem("cart", JSON.stringify(cart));
+}
+
+function handleRemoveItemCart(event, id) {
+	if (cart.length) {
+		var itemRemove = event.target.parentElement.parentElement;
+		var productRemove = getProductById(id, cart);
+		var indexProductRemove = cart.indexOf(productRemove);
+		cart.splice(indexProductRemove, 1);
+		itemRemove.remove();
+	}
+	if (cart.length === 0) {
+		var tableCart = document.querySelector(".table-cart");
+		if (tableCart) {
+			tableCart.remove();
+			var textEmptyCart = Blue.createElement(
+				"p",
+				{ className: "text-empty-cart" },
+				"Không có sản phẩm nào trong giỏ hàng"
+			);
+			root.appendChild(textEmptyCart);
+		}
+	}
+	console.log(cart);
 	localStorage.setItem("cart", JSON.stringify(cart));
 }
 
@@ -156,7 +195,19 @@ function renderCart() {
 				})
 			),
 			Blue.createElement("td", {}, product.price * product.quantity),
-			Blue.createElement("td", {}, Blue.createElement("button", {}, "Xoá"))
+			Blue.createElement(
+				"td",
+				{},
+				Blue.createElement(
+					"button",
+					{
+						onClick: function (event) {
+							handleRemoveItemCart(event, product.id);
+						},
+					},
+					"Xoá"
+				)
+			)
 		);
 	});
 	var tbodyEL = Blue.createElement("tbody", {}, ...cartElement);
@@ -185,5 +236,6 @@ function renderCart() {
 		),
 		tbodyEL
 	);
-	root.appendChild(tableCart);
+
+	root.append(tableCart);
 }
