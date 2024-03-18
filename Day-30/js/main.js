@@ -2,7 +2,7 @@
 var root = document.querySelector("#root");
 var tableProducts = document.querySelector(".list-product");
 var cart = JSON.parse(localStorage.getItem("cart")) || [];
-console.log(cart);
+
 var products = [
 	{ id: 1, name: "Sản phẩm 1", price: 10000 },
 	{ id: 2, name: "Sản phẩm 2", price: 20000 },
@@ -34,7 +34,11 @@ var Blue = {
 		return element;
 	},
 };
-
+var textEmptyCart = Blue.createElement(
+	"p",
+	{ className: "text-empty-cart" },
+	"Không có sản phẩm nào trong giỏ hàng"
+);
 function getProductById(id, arr = []) {
 	var product = arr.find(function (product) {
 		return product.id === id;
@@ -43,6 +47,7 @@ function getProductById(id, arr = []) {
 }
 
 function handleAddToCart(event, id) {
+	// var cart = JSON.parse(localStorage.getItem("cart")) || [];
 	var product = getProductById(id, products);
 	var quantity = +event.target.previousElementSibling.value;
 	var cartItem = { ...product, quantity: quantity };
@@ -50,8 +55,6 @@ function handleAddToCart(event, id) {
 	if (cart.length === 0) {
 		cart.push(cartItem);
 		renderCart();
-		textEmptyCart = document.querySelector(".text-empty-cart");
-		console.log(textEmptyCart);
 		if (textEmptyCart) {
 			textEmptyCart.remove();
 		}
@@ -117,18 +120,27 @@ function handleRemoveItemCart(event, id) {
 	}
 	if (cart.length === 0) {
 		var tableCart = document.querySelector(".table-cart");
-		if (tableCart) {
+		var callToActionGroups = document.querySelector(".call-to-action-groups");
+		if (tableCart && callToActionGroups) {
 			tableCart.remove();
-			var textEmptyCart = Blue.createElement(
-				"p",
-				{ className: "text-empty-cart" },
-				"Không có sản phẩm nào trong giỏ hàng"
-			);
+			callToActionGroups.remove();
 			root.appendChild(textEmptyCart);
 		}
 	}
-	console.log(cart);
 	localStorage.setItem("cart", JSON.stringify(cart));
+}
+
+function handleRemoveCart() {
+	var tableCart = document.querySelector(".table-cart");
+	var callToActionGroups = document.querySelector(".call-to-action-groups");
+	if (tableCart && callToActionGroups) {
+		console.log("Xoas");
+		tableCart.remove();
+		callToActionGroups.remove();
+		cart = [];
+		localStorage.removeItem("cart");
+		root.appendChild(textEmptyCart);
+	}
 }
 
 var productElement = products.map(function (product, index) {
@@ -238,4 +250,34 @@ function renderCart() {
 	);
 
 	root.append(tableCart);
+	var callToActionGroups = Blue.createElement(
+		"div",
+		{
+			className: "call-to-action-groups",
+		},
+		Blue.createElement("hr", {}),
+		Blue.createElement(
+			"button",
+			{
+				type: "button",
+				id: "update_cart",
+				onClick: function () {
+					handleUpdateCart();
+				},
+			},
+			"Cập nhật giỏ hàng"
+		),
+		Blue.createElement(
+			"button",
+			{
+				type: "button",
+				id: "delete_cart",
+				onClick: function () {
+					handleRemoveCart();
+				},
+			},
+			"Xoá giỏ hàng"
+		)
+	);
+	root.appendChild(callToActionGroups);
 }
