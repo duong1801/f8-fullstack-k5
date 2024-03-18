@@ -53,7 +53,6 @@ function handleAddToCart(event, id) {
 	var quantity = +event.target.previousElementSibling.value;
 	var cartItem = { ...product, quantity: quantity };
 
-	console.log(cart.length);
 	if (cart.length === 0) {
 		cart.push(cartItem);
 		renderCart();
@@ -172,7 +171,6 @@ function handleRemoveCart() {
 		var tableCart = document.querySelector(".table-cart");
 		var callToActionGroups = document.querySelector(".call-to-action-groups");
 		if (tableCart && callToActionGroups) {
-			console.log("Xoas");
 			tableCart.remove();
 			callToActionGroups.remove();
 			cart = [];
@@ -196,14 +194,21 @@ function handleUpdateCart() {
 		var id = +input.dataset.id;
 		var newQuantity = +input.value;
 		var productUpdate = getProductById(id, cart);
+		var item = input.parentElement.parentElement;
 		var amountEl = input.parentElement.nextElementSibling;
 		var amount = productUpdate.price * newQuantity;
-		input.value = newQuantity;
-		amountEl.innerText = amount;
 		var indexUpdate = cart.indexOf(productUpdate);
-		cart[indexUpdate].quantity = newQuantity;
-		totalAmount += amount;
-		totalQuantity += newQuantity;
+		if (newQuantity != 0) {
+			input.value = newQuantity;
+			amountEl.innerText = amount;
+			cart[indexUpdate].quantity = newQuantity;
+			totalAmount += amount;
+			totalQuantity += newQuantity;
+		} else {
+			item.remove();
+			cart.splice(indexUpdate, 1);
+		}
+
 		localStorage.setItem("cart", JSON.stringify(cart));
 	});
 	var totalQuantityEl = document.querySelector(".total-quantity");
@@ -261,7 +266,6 @@ if (!cart?.length || cart[0]?.quantity === 0) {
 
 function renderCart() {
 	var cartElement = cart.map(function (product, index) {
-		console.log(typeof product.quantity);
 		totalAmount += product.price * product.quantity;
 		totalQuantity += product.quantity;
 		return Blue.createElement(
@@ -301,7 +305,6 @@ function renderCart() {
 			)
 		);
 	});
-	console.log(totalAmount);
 	var totalAmountEl = Blue.createElement(
 		"tr",
 		{},
