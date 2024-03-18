@@ -1,138 +1,94 @@
 /** @format */
+var tableProducts = document.querySelector(".list-product");
+var tableCart = document.querySelector(".cart");
+var cart = [];
 
-var progressBar = document.querySelector(".progress-bar");
-var progress = progressBar.querySelector(".progress");
-var progressSpan = progress.querySelector("span");
-var timer = document.querySelector(".timer");
-var isClickedProgressBar = false;
-var progressBarWidth = progressBar.clientWidth;
+var products = [
+	{ id: 1, name: "Sản phẩm 1", price: 10000 },
+	{ id: 2, name: "Sản phẩm 2", price: 20000 },
+	{ id: 3, name: "Sản phẩm 3", price: 30000 },
+	{ id: 4, name: "Sản phẩm 4", price: 40000 },
+];
+var Blue = {
+	createElement: function (tag, attributes = {}, ...children) {
+		var element = document.createElement(tag);
+		if (children.length) {
+			children.forEach((item) => {
+				element.append(item);
+			});
+		}
 
-progressBar.addEventListener("mousedown", function (e) {
-	if (e.which === 1) {
-		timer.style.display = "none";
-		isClickedProgressBar = true;
-		var offsetX = e.offsetX;
-		var rate = (offsetX * 100) / progressBarWidth;
-		progress.style.width = `${rate}%`;
-		positionSpace = offsetX;
-		offsetWidth = offsetX;
-		initialClientX = e.clientX;
-		// audio.currentTime = (rate * audio.duration) / 100;
-		audio.removeEventListener("timeupdate", updatedTimer);
-		document.addEventListener("mousemove", handleDrag);
-	}
-});
-
-progressSpan.addEventListener("mousedown", function (e) {
-	e.stopPropagation();
-	isClickedProgressBar = true;
-
-	audio.removeEventListener("timeupdate", updatedTimer);
-	if (e.which === 1) {
-		document.addEventListener("mousemove", handleDrag);
-		initialClientX = e.clientX;
-	}
-});
-
-document.addEventListener("mouseup", function () {
-	if (isClickedProgressBar) {
-		document.removeEventListener("mousemove", handleDrag);
-		offsetWidth = positionSpace;
-		var rate = (offsetWidth / progressBarWidth) * 100;
-		audio.currentTime = (rate * audio.duration) / 100;
-		audio.addEventListener("timeupdate", updatedTimer);
-	}
-	isClickedProgressBar = false;
-});
-
-var initialClientX = 0;
-var offsetWidth = 0; //Khoảng cách ban đầu button so với progressBar
-var positionSpace = 0; //Khoảng cách kéo thêm tại vị trí ban đầu tới vị trí mới
-var handleDrag = function (e) {
-	timer.style.display = "none";
-	var clientX = e.clientX;
-
-	positionSpace = offsetWidth + (clientX - initialClientX);
-
-	var rate = (positionSpace * 100) / progressBarWidth;
-	if (rate < 0) {
-		rate = 0;
-	}
-	if (rate > 100) {
-		rate = 100;
-	}
-	progress.style.width = `${rate}%`;
+		if (Object.keys(attributes).length) {
+			Object.keys(attributes).forEach((key) => {
+				if (key.startsWith("on")) {
+					var event = key.replace("on", "").toLocaleLowerCase();
+					element.addEventListener(event, attributes[key]);
+				} else {
+					element[key] = attributes[key];
+				}
+			});
+		}
+		return element;
+	},
 };
 
-//Xây dựng trình phát nhạc
-var audio = document.querySelector("audio");
-var durationEl = progressBar.nextElementSibling;
-var currentTimeEl = progressBar.previousElementSibling;
-var playBtn = document.querySelector(".player .player-action i");
-var getTime = function (seconds) {
-	var mins = Math.floor(seconds / 60);
-	seconds = Math.floor(seconds - mins * 60);
-	return `${mins < 10 ? "0" + mins : mins}:${
-		seconds < 10 ? "0" + seconds : seconds
-	}`;
-};
+function getProductById(id, arr = []) {
+	var product = arr.find(function (product) {
+		return product.id === id;
+	});
+	return product;
+}
 
-//Lắng nghe sự kiện khi file mp3 được tải xong và trình duyệt lấy được thông tin
-durationEl.innerText = getTime(audio.duration);
-audio.addEventListener("loadeddata", function () {
-	durationEl.innerText = getTime(audio.duration);
-});
+function handleAddToCart(event, id) {
+	var check = cart.some((product) => product.id === id);
 
-//Khi người dùng click vào nút play
-playBtn.addEventListener("click", function () {
-	//Nếu nhạc đang dừng --> Phát nhạc
-	//Nếu nhạc đang chạy --> Dừng nhạc
-	if (audio.paused) {
-		audio.play();
-		this.classList.remove("fa-play");
-		this.classList.add("fa-pause");
+	var product = getProductById(id, products);
+
+	var quantity = +event.target.previousElementSibling.value;
+
+	var itemCart = { ...product, quantity: quantity };
+	if (!check) {
+		cart.push(itemCart);
 	} else {
-		audio.pause();
-		this.classList.remove("fa-pause");
-		this.classList.add("fa-play");
+		var productUpdate = getProductById(id, cart);
+		index = cart.indexOf(productUpdate);
+		cart[index].quantity += +quantity;
 	}
+	localStorage.setItem("cart", JSON.stringify(cart));
+	console.table(JSON.parse(localStorage.getItem("cart")));
+}
+
+var productElement = products.map(function (product, index) {
+	return Blue.createElement(
+		"tr",
+		{},
+		Blue.createElement("td", {}, index + 1),
+		Blue.createElement("td", {}, product.name),
+		Blue.createElement("td", {}, product.price),
+		Blue.createElement(
+			"td",
+			{},
+			Blue.createElement("input", {
+				type: "number",
+				id: "quantity_1",
+				value: "1",
+				style: "width: 90%; display: block; margin: 0 auto",
+			}),
+
+			Blue.createElement(
+				"button",
+				{
+					type: "button",
+					style: "width: 100%",
+					onClick: function (event) {
+						handleAddToCart(event, product.id);
+					},
+				},
+				"Thêm giỏ hàng"
+			)
+		)
+	);
 });
 
-var updatedTimer = function () {
-	currentTimeEl.innerText = getTime(audio.currentTime);
-	//Tính tỷ lệ phần trăm
-	var rate = (audio.currentTime / audio.duration) * 100;
-	offsetWidth = (progressBarWidth / 100) * rate;
-	progress.style.width = `${rate}%`;
-};
-
-//Khi nhạc đang phát
-audio.addEventListener("timeupdate", updatedTimer);
-
-audio.addEventListener("ended", function () {
-	audio.currentTime = 0;
-	playBtn.classList.remove("fa-pause");
-	playBtn.classList.add("fa-play");
-	progress.style.width = "0%";
-	currentTimeEl.innerText = getTime(audio.currentTime);
-});
-
-var handleShowTimer = function (e) {
-	var offsetX = e.offsetX;
-	var rate = (offsetX * 100) / progressBarWidth;
-	var timing = (audio.duration * rate) / 100;
-	timer.style.left = `${rate}%`;
-	timer.innerText = getTime(timing);
-	timer.style.display = "block";
-};
-
-progressBar.addEventListener("mousemove", handleShowTimer);
-
-progressBar.addEventListener("mouseleave", function () {
-	timer.style.display = "none";
-});
-
-progressSpan.addEventListener("mousemove", function (e) {
-	e.stopPropagation();
-	timer.style.display = "none";
-});
+var listProducts = Blue.createElement("tbody", {}, ...productElement);
+tableProducts.append(listProducts);
