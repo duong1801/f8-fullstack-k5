@@ -10,6 +10,7 @@ var products = [
 	{ id: 3, name: "Sản phẩm 3", price: 30000 },
 	{ id: 4, name: "Sản phẩm 4", price: 40000 },
 ];
+
 var Blue = {
 	createElement: function (tag, attributes = {}, ...children) {
 		var element = document.createElement(tag);
