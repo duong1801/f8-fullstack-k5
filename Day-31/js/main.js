@@ -173,7 +173,7 @@ function handleRenderLyrics() {
 				nextSentenceEl.innerText = dataNextSentence.sentence;
 				endTime = dataNextSentence.endTime;
 			}
-		} else {
+		} else if (currentTime > endTimeSong) {
 			endTime = 0;
 			sentenceEl.innerText = nameSong;
 			nextSentenceEl.innerText = singer;
