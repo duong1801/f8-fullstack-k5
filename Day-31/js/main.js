@@ -1,6 +1,5 @@
 /** @format */
 import lyrics from "./lyric.js";
-import Blue from "./createElement.js";
 var progressBar = document.querySelector(".progress-bar");
 var progress = progressBar.querySelector(".progress");
 var progressSpan = progress.querySelector("span");
@@ -174,7 +173,7 @@ function handleRenderLyrics() {
 				nextSentenceEl.innerText = dataNextSentence.sentence;
 				endTime = dataNextSentence.endTime;
 			}
-		} else if (currentTime > endTimeSong) {
+		} else {
 			endTime = 0;
 			sentenceEl.innerText = nameSong;
 			nextSentenceEl.innerText = singer;
