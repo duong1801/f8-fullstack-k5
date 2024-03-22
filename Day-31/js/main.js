@@ -16,7 +16,9 @@ var nextSentenceEl = document.querySelector(".next-sentence");
 var singer = nextSentenceEl.innerText;
 var sentences = lyrics.data.sentences;
 var sentencesEnd = sentences[sentences.length - 1].words;
-var endTimeSong = sentencesEnd[sentencesEnd.length - 1].endTime;
+var endTimeLyricSong = sentencesEnd[sentencesEnd.length - 1].endTime;
+var sentencesStart = sentences[0].words;
+var startTimeLyricSong = sentencesStart[0].endTime;
 var endTime = 0;
 
 progressBar.addEventListener("mousedown", function (e) {
@@ -166,14 +168,17 @@ function handleRenderLyrics() {
 
 	if (currentTime > endTime) {
 		var dataSentence = getSentence(currentTime);
-		if (Object.keys(dataSentence).length && currentTime < endTimeSong) {
+		if (Object.keys(dataSentence).length && currentTime < endTimeLyricSong) {
 			sentenceEl.innerText = dataSentence.sentence;
 			var dataNextSentence = getNextSentence(dataSentence.index);
 			if (dataNextSentence) {
 				nextSentenceEl.innerText = dataNextSentence.sentence;
 				endTime = dataNextSentence.endTime;
 			}
-		} else if (currentTime > endTimeSong) {
+		} else if (
+			currentTime > endTimeLyricSong ||
+			currentTime < startTimeLyricSong
+		) {
 			endTime = 0;
 			sentenceEl.innerText = nameSong;
 			nextSentenceEl.innerText = singer;
