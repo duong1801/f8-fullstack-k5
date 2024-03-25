@@ -17,6 +17,11 @@ var data = [
 		position: 11,
 	},
 	{
+		name: "Ngôn ngữ CSS",
+		isModule: true,
+		position: 18,
+	},
+	{
 		name: "Cấu trúc CSS - Bộ chọn (Selector) trong CSS - Phần 1",
 		isModule: false,
 		position: 12,
