@@ -30,10 +30,6 @@ function render(parentElement, arr) {
 					handleDragstart(e);
 				},
 
-				onDrag: function (e) {
-					handleDrag(e);
-				},
-
 				onDrop: function (e) {
 					handleDrop(e);
 				},
@@ -67,10 +63,6 @@ function handleDragstart(e) {
 	positionElementDrag = elementDrag.dataset.index;
 	clientY = e.clientY;
 	offsetY = e.offsetY;
-}
-
-function handleDrag(e) {
-	e.preventDefault();
 	e.target.classList.add("ghost");
 }
 
