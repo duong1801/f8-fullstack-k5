@@ -61,8 +61,8 @@ function render() {
 render();
 var elementDrag = null;
 var indexElementDrag = null;
-var clientY = null;
-var offsetY = null;
+var clientY = 0;
+var offsetY = 0;
 
 function handleDragstart(e) {
 	elementDrag = e.target;
@@ -83,43 +83,42 @@ function handleDragover(e) {
 	var elementTarget = e.target;
 	var indexElementTarget = elementTarget.dataset.index;
 	var clientYDrag = e.clientY;
-	// console.log(indexElementDrag);
 
-	// console.log(clientY);
-	// if (indexElementTarget !== indexElementDrag) {
-	if (clientYDrag < clientY) {
-		clientY = clientYDrag;
-		var spaceElTargetToTop =
-			elementTarget.getBoundingClientRect().top +
-			elementTarget.offsetHeight / 10;
-		var spaceElDragToTop = clientYDrag - offsetY;
-		if (spaceElDragToTop <= spaceElTargetToTop) {
-			listBox.insertBefore(elementDrag, elementTarget);
-		}
-	} else {
-		clientY = clientYDrag;
-		console.log("kéo ngược");
-		var spaceElDragBotToTop = clientYDrag - offsetY + elementDrag.offsetHeight;
-		var spaceElTargetBotToTop =
-			elementTarget.getBoundingClientRect().bottom -
-			elementTarget.offsetHeight / 10;
-		if (spaceElDragBotToTop >= spaceElTargetBotToTop) {
-			listBox.insertBefore(elementDrag, elementTarget.nextSibling);
+	if (indexElementTarget !== indexElementDrag) {
+		if (clientYDrag < clientY) {
+			clientY = clientYDrag;
+			var spaceElTargetToTop =
+				elementTarget.getBoundingClientRect().top +
+				elementTarget.offsetHeight / 10;
+			var spaceElDragToTop = clientYDrag - offsetY;
+			if (spaceElDragToTop <= spaceElTargetToTop) {
+				listBox.insertBefore(elementDrag, elementTarget);
+			}
+		} else {
+			clientY = clientYDrag;
+			var spaceElDragBotToTop =
+				clientYDrag - offsetY + elementDrag.offsetHeight;
+			var spaceElTargetBotToTop =
+				elementTarget.getBoundingClientRect().bottom -
+				elementTarget.offsetHeight / 10;
+			if (spaceElDragBotToTop >= spaceElTargetBotToTop) {
+				listBox.insertBefore(elementDrag, elementTarget.nextSibling);
+			}
 		}
 	}
-	// }
 }
 
 function handleDragleave(e) {
 	e.preventDefault();
-	// insertAfter(e.target, elementDrag);
 }
 
 function handleDragend(e) {
 	e.preventDefault();
 	e.target.classList.remove("ghost");
 	elementDrag = null;
-	indexElementDrag = null;
+	indexElementDrag = 0;
+	clientY = 0;
+	offsetY = 0;
 }
 
 function handleDrop(e) {}
