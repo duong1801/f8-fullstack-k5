@@ -88,20 +88,21 @@ function handleDragover(e) {
 	// console.log(clientY);
 	// if (indexElementTarget !== indexElementDrag) {
 	if (clientYDrag < clientY) {
-		console.log(clientYDrag);
+		clientY = clientYDrag;
 		var spaceElTargetToTop =
 			elementTarget.getBoundingClientRect().top +
-			elementTarget.clientHeight / 10;
+			elementTarget.offsetHeight / 10;
 		var spaceElDragToTop = clientYDrag - offsetY;
 		if (spaceElDragToTop <= spaceElTargetToTop) {
 			listBox.insertBefore(elementDrag, elementTarget);
 		}
 	} else {
-		console.log(clientYDrag);
-		var spaceElDragBotToTop = clientYDrag - offsetY + elementDrag.clientHeight;
+		clientY = clientYDrag;
+		console.log("kéo ngược");
+		var spaceElDragBotToTop = clientYDrag - offsetY + elementDrag.offsetHeight;
 		var spaceElTargetBotToTop =
 			elementTarget.getBoundingClientRect().bottom -
-			elementTarget.clientHeight / 10;
+			elementTarget.offsetHeight / 10;
 		if (spaceElDragBotToTop >= spaceElTargetBotToTop) {
 			listBox.insertBefore(elementDrag, elementTarget.nextSibling);
 		}
