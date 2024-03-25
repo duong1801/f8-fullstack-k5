@@ -1,13 +1,14 @@
 /** @format */
-import data from "./data.js";
+import dataDefault from "./data.js";
+var data = JSON.parse(localStorage.getItem("dataLesson")) || dataDefault;
 import Blue from "./createElement.js";
 var listBox = document.querySelector(".list");
-//render list-item
 
-function render() {
+function render(parentElement) {
 	data.sort(function (a, b) {
-		return a.index - b.index;
+		return a.position - b.position;
 	});
+
 	var countMoudle = 0;
 	var countLesson = 0;
 
@@ -22,7 +23,7 @@ function render() {
 			{
 				class: `list-item ${item.isModule ? "active" : ""}`,
 				draggable: "true",
-				"data-index": item.index,
+				"data-index": item.position,
 				onDragstart: function (e) {
 					handleDragstart(e);
 				},
@@ -40,9 +41,7 @@ function render() {
 				onDragend: function (e) {
 					handleDragend(e);
 				},
-				onDragenter: function (e) {
-					handleDragenter(e);
-				},
+
 				onDragover: function (e) {
 					handleDragover(e);
 				},
@@ -55,24 +54,22 @@ function render() {
 		);
 	});
 
-	listBox.append(...itemsArr);
+	parentElement.append(...itemsArr);
 }
 
-render();
+render(listBox);
 var elementDrag = null;
-var indexElementDrag = null;
+var positionElementDrag = null;
 var clientY = 0;
 var offsetY = 0;
 
 function handleDragstart(e) {
 	elementDrag = e.target;
-	indexElementDrag = elementDrag.dataset.index;
+	positionElementDrag = elementDrag.dataset.index;
 	clientY = e.clientY;
 	offsetY = e.offsetY;
 }
-function handleDragenter(e) {
-	// console.log(elementTarget);
-}
+
 function handleDrag(e) {
 	e.preventDefault();
 	e.target.classList.add("ghost");
@@ -84,7 +81,7 @@ function handleDragover(e) {
 	var indexElementTarget = elementTarget.dataset.index;
 	var clientYDrag = e.clientY;
 
-	if (indexElementTarget !== indexElementDrag) {
+	if (indexElementTarget !== positionElementDrag) {
 		if (clientYDrag < clientY) {
 			clientY = clientYDrag;
 			var spaceElTargetToTop =
@@ -116,9 +113,53 @@ function handleDragend(e) {
 	e.preventDefault();
 	e.target.classList.remove("ghost");
 	elementDrag = null;
-	indexElementDrag = 0;
+	positionElementDrag = 0;
 	clientY = 0;
 	offsetY = 0;
 }
 
-function handleDrop(e) {}
+function handleDrop(e) {
+	//update position and re-render
+	var indexPotionDrop = positionElementDrag - 1;
+
+	var listItem = document.querySelectorAll(".list .list-item");
+	console.log(listItem);
+	var newIndexItemDrop = Array.from(listItem).findIndex((item) => {
+		return item.dataset.index === positionElementDrag;
+	});
+
+	var arrItemChangePoition = Array.from(listItem).filter(function (
+		item,
+		index
+	) {
+		if (newIndexItemDrop > indexPotionDrop) {
+			return index >= indexPotionDrop && index <= newIndexItemDrop;
+		}
+		return index <= indexPotionDrop && index >= newIndexItemDrop;
+	});
+	var arrPositionsChange = arrItemChangePoition.map(function (item) {
+		return +item.dataset.index;
+	});
+	data.map(function (item, index) {
+		if (arrPositionsChange.includes(item.position)) {
+			if (positionElementDrag == item.position) {
+				data[index].position = newIndexItemDrop + 1;
+			} else {
+				data[index].position = getNewIndex(item.position) + 1;
+			}
+		}
+	});
+	function getNewIndex(position) {
+		var indexItem = Array.from(listItem).findIndex((item) => {
+			return +item.dataset.index === position;
+		});
+
+		return indexItem;
+	}
+	listBox.remove();
+	var newListBox = Blue.createElement("div", { class: "list" });
+	listBox = newListBox;
+	render(newListBox);
+	document.body.appendChild(newListBox);
+	localStorage.setItem("dataLesson", JSON.stringify(data));
+}
