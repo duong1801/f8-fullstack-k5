@@ -1,18 +1,23 @@
 /** @format */
 import dataDefault from "./data.js";
-var data = JSON.parse(localStorage.getItem("dataLesson")) || dataDefault;
+
+var data = dataDefault;
+//JSON.parse(localStorage.getItem("dataLesson")) ||
+// if (JSON.parse(localStorage.getItem("dataLesson"))) {
+// 	console.log(JSON.parse(localStorage.getItem("dataLesson")));
+// }
 import Blue from "./createElement.js";
 var listBox = document.querySelector(".list");
 
-function render(parentElement) {
-	data.sort(function (a, b) {
+function render(parentElement, arr) {
+	arr.sort(function (a, b) {
 		return a.position - b.position;
 	});
 
 	var countMoudle = 0;
 	var countLesson = 0;
 
-	var itemsArr = data.map(function (item) {
+	var itemsArr = arr.map(function (item) {
 		if (item.isModule) {
 			countMoudle++;
 		} else {
@@ -57,7 +62,7 @@ function render(parentElement) {
 	parentElement.append(...itemsArr);
 }
 
-render(listBox);
+render(listBox, data);
 var elementDrag = null;
 var positionElementDrag = null;
 var clientY = 0;
@@ -112,18 +117,17 @@ function handleDragleave(e) {
 function handleDragend(e) {
 	e.preventDefault();
 	e.target.classList.remove("ghost");
-	elementDrag = null;
-	positionElementDrag = 0;
-	clientY = 0;
-	offsetY = 0;
 }
 
 function handleDrop(e) {
+	e.stopPropagation();
+
+	e.preventDefault();
 	//update position and re-render
 	var indexPotionDrop = positionElementDrag - 1;
 
 	var listItem = document.querySelectorAll(".list .list-item");
-	console.log(listItem);
+
 	var newIndexItemDrop = Array.from(listItem).findIndex((item) => {
 		return item.dataset.index === positionElementDrag;
 	});
@@ -140,15 +144,13 @@ function handleDrop(e) {
 	var arrPositionsChange = arrItemChangePoition.map(function (item) {
 		return +item.dataset.index;
 	});
+	console.log(newIndexItemDrop);
 	data.map(function (item, index) {
 		if (arrPositionsChange.includes(item.position)) {
-			if (positionElementDrag == item.position) {
-				data[index].position = newIndexItemDrop + 1;
-			} else {
-				data[index].position = getNewIndex(item.position) + 1;
-			}
+			data[index].position = getNewIndex(item.position) + 1;
 		}
 	});
+
 	function getNewIndex(position) {
 		var indexItem = Array.from(listItem).findIndex((item) => {
 			return +item.dataset.index === position;
@@ -156,10 +158,5 @@ function handleDrop(e) {
 
 		return indexItem;
 	}
-	listBox.remove();
-	var newListBox = Blue.createElement("div", { class: "list" });
-	listBox = newListBox;
-	render(newListBox);
-	document.body.appendChild(newListBox);
-	localStorage.setItem("dataLesson", JSON.stringify(data));
+	console.log(data);
 }
