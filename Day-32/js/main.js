@@ -29,9 +29,6 @@ function render(parentElement, arr) {
 				onDragstart: function (e) {
 					handleDragstart(e);
 				},
-				onDragleave: function (e) {
-					handleDragleave(e);
-				},
 
 				onDrag: function (e) {
 					handleDrag(e);
@@ -109,11 +106,6 @@ function handleDragover(e) {
 	}
 }
 
-function handleDragleave(e) {
-	e.preventDefault();
-	e.preventDefault();
-}
-
 function handleDragend(e) {
 	e.preventDefault();
 	e.target.classList.remove("ghost");
@@ -127,8 +119,6 @@ document.addEventListener("dragover", function (event) {
 document.addEventListener("drop", function (e) {
 	e.preventDefault();
 
-	// Xử lý logic sau khi thả tại đây
-	console.log("Phần tử đã được thả!");
 	var indexPotionDrop = positionElementDrag - 1;
 
 	var listItem = document.querySelectorAll(".list .list-item");
@@ -149,7 +139,6 @@ document.addEventListener("drop", function (e) {
 	var arrPositionsChange = arrItemChangePoition.map(function (item) {
 		return +item.dataset.index;
 	});
-	console.log(newIndexItemDrop);
 	data.map(function (item, index) {
 		if (arrPositionsChange.includes(item.position)) {
 			data[index].position = getNewIndex(item.position) + 1;
@@ -163,14 +152,12 @@ document.addEventListener("drop", function (e) {
 
 		return indexItem;
 	}
-	console.log(data);
 
 	data.sort(function (a, b) {
 		return a.position - b.position;
 	});
 	var countMoudle = 0;
 	var countLesson = 0;
-	console.log(data);
 	listItem.forEach(function (item, index) {
 		if (data[index].isModule) {
 			countMoudle++;
@@ -185,5 +172,3 @@ document.addEventListener("drop", function (e) {
 		item.setAttribute("data-index", data[index].position);
 	});
 });
-
-listBox.addEventListener("onDrag", function (e) {});
