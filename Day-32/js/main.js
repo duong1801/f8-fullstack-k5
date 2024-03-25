@@ -2,10 +2,7 @@
 import dataDefault from "./data.js";
 
 var data = dataDefault;
-//JSON.parse(localStorage.getItem("dataLesson")) ||
-// if (JSON.parse(localStorage.getItem("dataLesson"))) {
-// 	console.log(JSON.parse(localStorage.getItem("dataLesson")));
-// }
+
 import Blue from "./createElement.js";
 var listBox = document.querySelector(".list");
 
@@ -86,31 +83,34 @@ function handleDragover(e) {
 	var indexElementTarget = elementTarget.dataset.index;
 	var clientYDrag = e.clientY;
 
-	if (indexElementTarget !== positionElementDrag) {
-		if (clientYDrag < clientY) {
-			clientY = clientYDrag;
-			var spaceElTargetToTop =
-				elementTarget.getBoundingClientRect().top +
-				elementTarget.offsetHeight / 10;
-			var spaceElDragToTop = clientYDrag - offsetY;
-			if (spaceElDragToTop <= spaceElTargetToTop) {
-				listBox.insertBefore(elementDrag, elementTarget);
-			}
-		} else {
-			clientY = clientYDrag;
-			var spaceElDragBotToTop =
-				clientYDrag - offsetY + elementDrag.offsetHeight;
-			var spaceElTargetBotToTop =
-				elementTarget.getBoundingClientRect().bottom -
-				elementTarget.offsetHeight / 10;
-			if (spaceElDragBotToTop >= spaceElTargetBotToTop) {
-				listBox.insertBefore(elementDrag, elementTarget.nextSibling);
+	if (elementTarget) {
+		if (indexElementTarget !== positionElementDrag) {
+			if (clientYDrag < clientY) {
+				clientY = clientYDrag;
+				var spaceElTargetToTop =
+					elementTarget.getBoundingClientRect().top +
+					elementTarget.offsetHeight / 10;
+				var spaceElDragToTop = clientYDrag - offsetY;
+				if (spaceElDragToTop <= spaceElTargetToTop) {
+					listBox.insertBefore(elementDrag, elementTarget);
+				}
+			} else {
+				clientY = clientYDrag;
+				var spaceElDragBotToTop =
+					clientYDrag - offsetY + elementDrag.offsetHeight;
+				var spaceElTargetBotToTop =
+					elementTarget.getBoundingClientRect().bottom -
+					elementTarget.offsetHeight / 10;
+				if (spaceElDragBotToTop >= spaceElTargetBotToTop) {
+					listBox.insertBefore(elementDrag, elementTarget.nextSibling);
+				}
 			}
 		}
 	}
 }
 
 function handleDragleave(e) {
+	e.preventDefault();
 	e.preventDefault();
 }
 
@@ -119,11 +119,16 @@ function handleDragend(e) {
 	e.target.classList.remove("ghost");
 }
 
-function handleDrop(e) {
-	e.stopPropagation();
+function handleDrop(e) {}
+document.addEventListener("dragover", function (event) {
+	event.preventDefault();
+});
 
+document.addEventListener("drop", function (e) {
 	e.preventDefault();
-	//update position and re-render
+
+	// Xử lý logic sau khi thả tại đây
+	console.log("Phần tử đã được thả!");
 	var indexPotionDrop = positionElementDrag - 1;
 
 	var listItem = document.querySelectorAll(".list .list-item");
@@ -159,4 +164,26 @@ function handleDrop(e) {
 		return indexItem;
 	}
 	console.log(data);
-}
+
+	data.sort(function (a, b) {
+		return a.position - b.position;
+	});
+	var countMoudle = 0;
+	var countLesson = 0;
+	console.log(data);
+	listItem.forEach(function (item, index) {
+		if (data[index].isModule) {
+			countMoudle++;
+		} else {
+			countLesson++;
+		}
+		item.innerText = `${
+			data[index].isModule
+				? "Module: " + countMoudle + ":"
+				: "Bài:" + countLesson + ":"
+		} ${data[index].name}`;
+		item.setAttribute("data-index", data[index].position);
+	});
+});
+
+listBox.addEventListener("onDrag", function (e) {});
