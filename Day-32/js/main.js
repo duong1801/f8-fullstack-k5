@@ -60,12 +60,15 @@ function render() {
 
 render();
 var elementDrag = null;
+var indexElementDrag = null;
+var clientY = null;
+var offsetY = null;
 
 function handleDragstart(e) {
-	var index = e.target.dataset.index;
-
 	elementDrag = e.target;
-	e.dataTransfer.setData("text", index);
+	indexElementDrag = elementDrag.dataset.index;
+	clientY = e.clientY;
+	offsetY = e.offsetY;
 }
 function handleDragenter(e) {
 	// console.log(elementTarget);
@@ -77,21 +80,45 @@ function handleDrag(e) {
 
 function handleDragover(e) {
 	e.preventDefault();
+	var elementTarget = e.target;
+	var indexElementTarget = elementTarget.dataset.index;
+	var clientYDrag = e.clientY;
+	// console.log(indexElementDrag);
+
+	// console.log(clientY);
+	// if (indexElementTarget !== indexElementDrag) {
+	if (clientYDrag < clientY) {
+		console.log(clientYDrag);
+		var spaceElTargetToTop =
+			elementTarget.getBoundingClientRect().top +
+			elementTarget.clientHeight / 10;
+		var spaceElDragToTop = clientYDrag - offsetY;
+		if (spaceElDragToTop <= spaceElTargetToTop) {
+			listBox.insertBefore(elementDrag, elementTarget);
+		}
+	} else {
+		console.log(clientYDrag);
+		var spaceElDragBotToTop = clientYDrag - offsetY + elementDrag.clientHeight;
+		var spaceElTargetBotToTop =
+			elementTarget.getBoundingClientRect().bottom -
+			elementTarget.clientHeight / 10;
+		if (spaceElDragBotToTop >= spaceElTargetBotToTop) {
+			listBox.insertBefore(elementDrag, elementTarget.nextSibling);
+		}
+	}
+	// }
 }
 
 function handleDragleave(e) {
 	e.preventDefault();
-	insertAfter(e.target, elementDrag);
+	// insertAfter(e.target, elementDrag);
 }
 
 function handleDragend(e) {
 	e.preventDefault();
 	e.target.classList.remove("ghost");
+	elementDrag = null;
+	indexElementDrag = null;
 }
 
 function handleDrop(e) {}
-
-function insertAfter(referenceNode, newNode) {
-	// console.log(referenceNode.parentNode);
-	referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling);
-}
