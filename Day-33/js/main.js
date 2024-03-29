@@ -15,6 +15,7 @@ var newContent = $(".new-content");
 var btnSaveTxt = $(".save-txt");
 var btnSavePdf = $(".save-pdf");
 var inputNameEl = $(".input-file-name");
+editorContent.focus();
 dropDownBtn.addEventListener("click", function (e) {
 	e.stopPropagation();
 	dropDownMenu.style.display = "block";
