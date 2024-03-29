@@ -11,6 +11,7 @@ var btnTextColor = $("#color-btn");
 var editorContent = $(".content");
 var countWordsEl = $(".count-words");
 var countCharsEl = $(".count-chars");
+var newContent = $(".new-content");
 
 dropDownBtn.addEventListener("click", function (e) {
 	e.stopPropagation();
@@ -61,4 +62,9 @@ editorContent.addEventListener("keyup", function () {
 	});
 	countCharsEl.textContent = countChars;
 	countWordsEl.textContent = countWords;
+});
+
+newContent.addEventListener("click", function () {
+	editorContent.textContent = "";
+	editorContent.focus();
 });
