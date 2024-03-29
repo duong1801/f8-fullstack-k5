@@ -12,7 +12,9 @@ var editorContent = $(".content");
 var countWordsEl = $(".count-words");
 var countCharsEl = $(".count-chars");
 var newContent = $(".new-content");
-
+var btnSaveTxt = $(".save-txt");
+var btnSavePdf = $(".save-pdf");
+var inputNameEl = $(".input-file-name");
 dropDownBtn.addEventListener("click", function (e) {
 	e.stopPropagation();
 	dropDownMenu.style.display = "block";
@@ -67,4 +69,24 @@ editorContent.addEventListener("keyup", function () {
 newContent.addEventListener("click", function () {
 	editorContent.textContent = "";
 	editorContent.focus();
+});
+console.log(inputNameEl);
+
+btnSaveTxt.addEventListener("click", function (e) {
+	e.preventDefault();
+	var content = editorContent.textContent;
+	var fileName = inputNameEl.value;
+	dropDownMenu.style.display = "none";
+	var blob = new Blob([content]);
+	var blobUrl = URL.createObjectURL(blob);
+	var a = document.createElement("a");
+	a.href = blobUrl;
+	a.download = `${fileName}.txt`;
+	a.click();
+});
+
+btnSavePdf.addEventListener("click", function () {
+	var content = editorContent.textContent;
+	var fileName = inputNameEl.value;
+	html2pdf().from(content).save(`${fileName}.pdf`);
 });
