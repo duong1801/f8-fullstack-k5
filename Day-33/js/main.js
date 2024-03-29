@@ -1,13 +1,17 @@
 /** @format */
-var dropDownBtn = document.querySelector(".dropdown-btn");
-var dropDownMenu = document.querySelector(".dropdown-menu");
-var btnTextBold = document.getElementById("bold-btn");
-var btnTextUnderline = document.getElementById("underline-btn");
-var btnTextItalic = document.getElementById("italic-btn");
-var btnTextColor = document.getElementById("color-btn");
-var editorContent = document.querySelector(".content");
-var countWordsEl = document.querySelector(".count-words");
-var countCharsEl = document.querySelector(".count-chars");
+var $ = document.querySelector.bind(document);
+var $$ = document.querySelectorAll.bind(document);
+
+var dropDownBtn = $(".dropdown-btn");
+var dropDownMenu = $(".dropdown-menu");
+var btnTextBold = $("#bold-btn");
+var btnTextUnderline = $("#underline-btn");
+var btnTextItalic = $("#italic-btn");
+var btnTextColor = $("#color-btn");
+var editorContent = $(".content");
+var countWordsEl = $(".count-words");
+var countCharsEl = $(".count-chars");
+
 dropDownBtn.addEventListener("click", function (e) {
 	e.stopPropagation();
 	dropDownMenu.style.display = "block";
@@ -38,13 +42,18 @@ editorContent.addEventListener("keyup", function () {
 	var countChars = textContent.trim().length;
 	var innerText = editorContent.innerText;
 	var countWords = 0;
-	var innerTextArr = innerText.split("\n");
-	console.log(innerTextArr);
+	var innerTextArr = innerText.trim().split("\n");
+	// console.log(innerTextArr);
 	innerTextArr.forEach(function (words) {
 		if (words) {
 			if (words.includes(" ")) {
-				var wordArr = words.split(" ");
-				countWords += wordArr.length;
+				var wordArr = words.trim().split(" ");
+				wordArr.forEach(function (word) {
+					if (word.trim()) {
+						console.log(word);
+						countWords++;
+					}
+				});
 			} else {
 				countWords++;
 			}
