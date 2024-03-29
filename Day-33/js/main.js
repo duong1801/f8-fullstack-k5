@@ -46,14 +46,12 @@ editorContent.addEventListener("keyup", function () {
 	var innerText = editorContent.innerText;
 	var countWords = 0;
 	var innerTextArr = innerText.trim().split("\n");
-	// console.log(innerTextArr);
 	innerTextArr.forEach(function (words) {
 		if (words) {
 			if (words.includes(" ")) {
 				var wordArr = words.trim().split(" ");
 				wordArr.forEach(function (word) {
 					if (word.trim()) {
-						console.log(word);
 						countWords++;
 					}
 				});
@@ -70,23 +68,37 @@ newContent.addEventListener("click", function () {
 	editorContent.textContent = "";
 	editorContent.focus();
 });
-console.log(inputNameEl);
 
 btnSaveTxt.addEventListener("click", function (e) {
 	e.preventDefault();
-	var content = editorContent.textContent;
-	var fileName = inputNameEl.value;
-	dropDownMenu.style.display = "none";
-	var blob = new Blob([content]);
-	var blobUrl = URL.createObjectURL(blob);
-	var a = document.createElement("a");
-	a.href = blobUrl;
-	a.download = `${fileName}.txt`;
-	a.click();
+	var file = getInfoFile();
+	if (file) {
+		dropDownMenu.style.display = "none";
+		var blob = new Blob([file.content]);
+		var blobUrl = URL.createObjectURL(blob);
+		var a = document.createElement("a");
+		a.href = blobUrl;
+		a.download = `${file.name}.txt`;
+		a.click();
+	}
 });
 
 btnSavePdf.addEventListener("click", function () {
+	var file = getInfoFile();
+	if (file) {
+		html2pdf().from(file.content).save(`${file.name}.pdf`);
+	}
+});
+
+function getInfoFile() {
 	var content = editorContent.textContent;
 	var fileName = inputNameEl.value;
-	html2pdf().from(content).save(`${fileName}.pdf`);
-});
+	console.log(fileName);
+	if (content && fileName) {
+		return {
+			name: fileName,
+			content: content,
+		};
+	}
+	return false;
+}
