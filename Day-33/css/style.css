@@ -1,0 +1,23 @@
+/** @format */
+
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+/* .dropdown-menu {
+	display: none;
+} */
+
+.content {
+	box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.5);
+	margin: 30px 0;
+	min-height: 300px;
+	outline: none;
+	padding: 20px;
+}
+
+#color-btn {
+	height: 100%;
+}

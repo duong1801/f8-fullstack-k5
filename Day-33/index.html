@@ -1,0 +1,74 @@
+<!-- @format -->
+
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<link
+			rel="stylesheet"
+			href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css"
+			integrity="sha512-jnSuA4Ss2PkkikSOLtYs8BlYIeeIK1h99ty4YfvRPAlzr377vr3CXDb7sb7eEEBYjDtcYj+AjBH3FLv5uSJuXg=="
+			crossorigin="anonymous"
+			referrerpolicy="no-referrer" />
+		<link rel="stylesheet" href="./css/style.css" />
+	</head>
+	<body>
+		<div class="container mt-4">
+			<div class="row">
+				<h3>Doc Editor</h3>
+			</div>
+			<hr />
+			<div class="row">
+				<div class="controls col-6">
+					<div class="main-controls d-flex">
+						<div class="dropdown me-2">
+							<button
+								class="btn btn-primary dropdown-btn dropdown-toggle"
+								type="button">
+								Flie
+							</button>
+							<ul class="dropdown-menu">
+								<li><a class="dropdown-item" href="#">New</a></li>
+								<li><a class="dropdown-item" href="#">Save TXT</a></li>
+								<li><a class="dropdown-item" href="#">Save as PDF</a></li>
+							</ul>
+						</div>
+						<div class="col-3">
+							<input
+								value="test"
+								type="email"
+								class="form-control col-3"
+								id="exampleInputEmail1"
+								aria-describedby="emailHelp" />
+						</div>
+					</div>
+				</div>
+				<div class="control-btn-container col-6 d-flex justify-content-end">
+					<button id="bold-btn" class="btn btn-dark px-4 me-2"><b>B</b></button>
+					<button id="underline-btn" class="btn btn-dark px-4 me-2">
+						<u>u</u>
+					</button>
+					<button id="italic-btn" class="btn btn-dark px-4 me-2">
+						<i>i</i>
+					</button>
+					<input id="color-btn" type="color" class="control-btn" />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-12">
+					<div class="content" contenteditable="true"></div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-12 d-flex justify-content-end">
+					<span class="me-3">Số kí tự: <span class="count-chars">0</span></span>
+					<span>Số từ: <span class="count-words">0</span></span>
+				</div>
+			</div>
+		</div>
+
+		<script src="./js/main.js"></script>
+	</body>
+</html>
