@@ -9,7 +9,6 @@ function redirectToLink() {
 }
 
 function updateCountdown() {
-	s;
 	const waitingTime = 30000;
 
 	const currentTime = Date.now();
@@ -31,7 +30,7 @@ let startTime = Date.now();
 let requestId = requestAnimationFrame(updateCountdown);
 
 document.addEventListener("visibilitychange", function () {
-	if (document.hidden) {
+	if (document.visibilityState === "hidden") {
 		lastTimeHidden = Date.now();
 		cancelAnimationFrame(requestId);
 	} else {
