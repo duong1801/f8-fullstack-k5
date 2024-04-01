@@ -1,0 +1,43 @@
+/** @format */
+
+let timer = document.querySelector(".timer");
+let counter = document.querySelector(".counter");
+let btn = document.querySelector(".btn");
+let urlTarget = "https://fullstack.edu.vn";
+function redirectToLink() {
+	window.location.href = urlTarget;
+}
+
+function updateCountdown() {
+	s;
+	const waitingTime = 30000;
+
+	const currentTime = Date.now();
+
+	const remainingTime = waitingTime - (currentTime - startTime);
+
+	if (remainingTime <= 0) {
+		btn.removeAttribute("disabled");
+		counter.innerText = 0;
+	} else {
+		requestId = requestAnimationFrame(updateCountdown);
+		counter.innerText = Math.ceil(remainingTime / 1000);
+	}
+}
+
+btn.addEventListener("click", redirectToLink);
+
+let startTime = Date.now();
+let requestId = requestAnimationFrame(updateCountdown);
+
+document.addEventListener("visibilitychange", function () {
+	if (document.hidden) {
+		lastTimeHidden = Date.now();
+		cancelAnimationFrame(requestId);
+	} else {
+		startTime += Date.now() - lastTimeHidden;
+		requestId = requestAnimationFrame(updateCountdown);
+	}
+});
+
+let lastTimeHidden = 0;
