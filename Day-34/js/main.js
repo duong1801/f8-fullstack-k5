@@ -18,17 +18,12 @@ function updateCountdown() {
 	if (remainingTime <= 0) {
 		btn.removeAttribute("disabled");
 		counter.innerText = 0;
+		return;
 	} else {
 		requestId = requestAnimationFrame(updateCountdown);
 		counter.innerText = Math.ceil(remainingTime / 1000);
 	}
 }
-
-btn.addEventListener("click", redirectToLink);
-
-let startTime = Date.now();
-let requestId = requestAnimationFrame(updateCountdown);
-
 document.addEventListener("visibilitychange", function () {
 	if (document.visibilityState === "hidden") {
 		lastTimeHidden = Date.now();
@@ -38,5 +33,10 @@ document.addEventListener("visibilitychange", function () {
 		requestId = requestAnimationFrame(updateCountdown);
 	}
 });
+
+btn.addEventListener("click", redirectToLink);
+
+let startTime = Date.now();
+let requestId = requestAnimationFrame(updateCountdown);
 
 let lastTimeHidden = 0;
