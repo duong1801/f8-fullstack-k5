@@ -45,8 +45,6 @@ class F8 {
 								const nodeName = arrtibute.nodeName;
 								const nodeValue = arrtibute.nodeValue;
 
-								const variables = nodeValue.match(/^[a-z]*/);
-
 								if (nodeName.startsWith("v-on")) {
 									const action = nodeName.match(/:(.+)/)[1];
 
@@ -85,7 +83,7 @@ F8.component("counter-app", {
    <p>{{name}}</p>
   <button v-on:click="count--">-</button>
   <button v-on:click="count++">+</button>
-  <button v-on:dblclick="title='Xin chào Quân bài này làm mệt quá ^^'">Change Title</button>
+  <button v-on:dblclick="title='Xin chào Quân, bài này làm mệt quá ^^'">Change Title</button>
     <button v-on:click="name='Nguyễn Đức Long'">Change name</button>
   `,
 });
