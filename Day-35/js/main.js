@@ -37,7 +37,6 @@ class F8 {
 					const childrenNode = templateNode.children;
 
 					for (let i = 0; i < childrenNode.length; i++) {
-						// console.log(childrenNode[i].attributes);
 						const children = childrenNode[i];
 						if (children.attributes.length) {
 							const arrtibutes = childrenNode[i].attributes;
@@ -59,7 +58,6 @@ class F8 {
 									children.addEventListener(action, function () {
 										eval(nodeValue);
 										const newValue = window[variable];
-										console.log(newValue);
 										elementsUpdate.forEach((element) => {
 											element.innerText = newValue;
 										});
@@ -78,29 +76,20 @@ F8.component("counter-app", {
 	data: () => ({
 		count: 0,
 		title: "Counter App",
+		name: "Lê Tùng Dương",
 	}),
 	template: `
   <h1> {{title}} </h1>
   <h2> {{count}} </h2>
    <p> {{count}} </p>
+   <p>{{name}}</p>
   <button v-on:click="count--">-</button>
   <button v-on:click="count++">+</button>
-  <button v-on:dblclick="title='Xin chào'">Change Title</button>
+  <button v-on:dblclick="title='Xin chào Quân bài này làm mệt quá ^^'">Change Title</button>
+    <button v-on:click="name='Nguyễn Đức Long'">Change name</button>
   `,
 });
 
 F8.component("header-component", {
 	template: `<h1>HEADER</h1>`,
 });
-
-// const template = `
-// <p>Hello F8</p>
-// <h2>Khoá học fullstack</h2>
-
-// `;
-// const templateEl = document.createElement("template");
-// templateEl.innerHTML = templateEl;
-// const templateNode = templateEl.content.cloneNode(true);
-// console.dir(templateNode);
-
-// customElements.define();
