@@ -1,0 +1,38 @@
+/** @format */
+
+* {
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box;
+}
+
+.search-box {
+	margin: 0 auto;
+	max-width: 80%;
+	padding: 30px 0;
+	text-align: center;
+}
+.search-box .btn {
+	background: red;
+	border: 0;
+	border-radius: 10px;
+	color: #fff;
+	cursor: pointer;
+	font-size: 1.5rem;
+	padding: 5px 30px;
+}
+.search-box .action.success {
+	color: green;
+}
+
+.search-box .action {
+	color: red;
+	margin-top: 15px;
+}
+
+.search-box .result {
+	border: 1px solid green;
+	border-radius: 10px;
+	margin-top: 15px;
+	padding: 10px 20px;
+}
