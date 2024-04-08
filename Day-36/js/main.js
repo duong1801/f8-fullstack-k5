@@ -5,7 +5,7 @@ const actionMessage = document.querySelector(".action");
 const messagePending = "Hãy nói nội dung bạn muốn";
 const messageResult = "Đã nói xong. Hy vọng kết quả như ý bạn";
 let resultEl = null;
-let isTarget = false;
+let isTarget = true;
 const SpeechRecognition =
 	window.SpeechRecognition || window.webkitSpeechRecognition;
 
