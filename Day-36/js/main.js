@@ -5,10 +5,11 @@ const actionMessage = document.querySelector(".action");
 const messagePending = "Hãy nói nội dung bạn muốn";
 const messageResult = "Đã nói xong. Hy vọng kết quả như ý bạn";
 let resultEl = null;
-let isShowResultVoice = false;
+const SpeechRecognition =
+	window.SpeechRecognition || window.webkitSpeechRecognition;
 
 // Tạo một thể hiện mới của SpeechRecognition
-const recognition = new webkitSpeechRecognition();
+const recognition = new SpeechRecognition();
 // Đặt một số thuộc tính cho việc nhận diện
 recognition.continuous = false;
 recognition.lang = "vi-VN"; // Sử dụng tiếng Việt
@@ -50,10 +51,11 @@ recognition.onresult = (event) => {
 			"https://www.google.com/maps/@21.0223341,105.8270062,13z?hl=vi-VN&entry=ttu";
 	} else if (textVoice.includes("bài hát")) {
 		const songName = getInfoByKeyword("bài hát", textVoice);
+		console.log(songName);
 		targetUrl = `https://zingmp3.vn/tim-kiem/tat-ca?q=${songName}`;
 	} else if (textVoice.includes("video")) {
-		const videoName = getInfoByKeyword("bài hát", textVoice);
-		targetUrl = `https://zingmp3.vn/tim-kiem/tat-ca?q=${videoName}`;
+		const videoName = getInfoByKeyword("video", textVoice);
+		targetUrl = `https://www.youtube.com/results?search_query=${videoName}`;
 	} else if (textVoice.includes("tới") || textVoice.includes("chỉ đường")) {
 		let keyword = "";
 		if (textVoice.includes("chỉ đường tới")) {
