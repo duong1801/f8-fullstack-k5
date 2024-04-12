@@ -137,6 +137,7 @@ class Todo {
 			const response = await fetch(this.todoApi, options);
 			if (response.ok) {
 				this.index();
+				alert("created successfully!");
 			}
 		} catch (e) {
 			alert(e.message);
