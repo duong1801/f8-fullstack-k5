@@ -5,18 +5,21 @@ const actionMessage = document.querySelector(".action");
 const messagePending = "Hãy nói nội dung bạn muốn";
 const messageResult = "Đã nói xong. Hy vọng kết quả như ý bạn";
 let resultEl = null;
-let isTarget = true;
 const SpeechRecognition =
 	window.SpeechRecognition || window.webkitSpeechRecognition;
 
+// Tạo một thể hiện mới của SpeechRecognition
 const recognition = new SpeechRecognition();
+// Đặt một số thuộc tính cho việc nhận diện
 recognition.continuous = false;
-recognition.lang = "vi-VN";
+recognition.lang = "vi-VN"; // Sử dụng tiếng Việt
 recognition.interimResults = false;
 recognition.maxAlternatives = 1;
 
+// Bắt đầu nhận diện khi màn hình được nhấp vào
 btn.onclick = () => {
 	recognition.start();
+	isShowResultVoice = true;
 	let message = actionMessage.innerText;
 	if (!message) {
 		actionMessage.innerText = messagePending;
@@ -31,6 +34,7 @@ btn.onclick = () => {
 	}
 };
 
+// Xử lý sự kiện kết quả
 recognition.onresult = (event) => {
 	const textVoice = event.results[0][0].transcript.toLowerCase();
 	let targetUrl = "";
@@ -66,15 +70,19 @@ recognition.onresult = (event) => {
 		targetUrl = `https://google.com/maps/search/${address}`;
 	}
 	resultEl = showResutVoiceAndGetResultEl(textVoice);
-
 	if (targetUrl) {
-		isTarget = true;
 		setTimeout(function () {
 			redirect(targetUrl);
+			const message = "Đã thực hiện xong";
+			resultEl.innerText = message;
 		}, 1500);
 	} else {
-		isTarget = false;
+		setTimeout(function () {
+			const messageCancelRequest = "Không thực hiện được yêu cầu";
+			resultEl.innerText = messageCancelRequest;
+		}, 1500);
 	}
+	isShowResultVoice = false;
 };
 
 function redirect(value) {
@@ -96,22 +104,7 @@ function showResutVoiceAndGetResultEl(textVoice) {
 	searchBox.appendChild(div);
 	return div;
 }
-
+// Dừng nhận diện khi giọng nói kết thúc
 recognition.onspeechend = () => {
 	recognition.stop();
-	console.log(isTarget);
-	const messageActionCompleted = "Đã nói xong. Hy vọng kết quả như ý bạn";
-	const messageResult = "Đã thực hiện xong";
-	const messageCancelRequest = "Không thực hiện được yêu cầu";
-	if (isTarget) {
-		setTimeout(function () {
-			actionMessage.innerText = messageActionCompleted;
-			console.log("123");
-			resultEl.innerText = messageResult;
-		}, 1500);
-	} else {
-		setTimeout(function () {
-			resultEl.innerText = messageCancelRequest;
-		}, 1500);
-	}
 };
