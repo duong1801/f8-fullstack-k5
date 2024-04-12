@@ -201,7 +201,6 @@ class Todo {
 		}
 	};
 	hightlight = (name, keywords) => {
-		console.log(keywords);
 		const keywordsLength = keywords.length;
 		const position = name.indexOf(keywords);
 
@@ -209,7 +208,6 @@ class Todo {
 			const firstword = name.slice(0, position);
 			const endWord = name.slice(position + keywordsLength);
 			const newName = `${firstword}<span class="bg-blue-100 font-bold">${keywords}</span>${endWord}`;
-			console.log(newName);
 			return newName;
 		}
 		return name;
