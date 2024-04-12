@@ -21,7 +21,7 @@ window.addEventListener("load", (event) => {
 	const loading = $(".loading");
 	setTimeout(() => {
 		loading.classList.add("hidden");
-	}, 700);
+	}, 1000);
 	//object initialization
 	const todo = new Todo(todoListEl, modal);
 
