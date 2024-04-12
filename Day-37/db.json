@@ -1,24 +1,12 @@
 {
   "task": [
     {
-      "name": "Code",
+      "name": "game",
       "id": 1
     },
     {
-      "name": "chơi game",
+      "name": "game cccc",
       "id": 2
-    },
-    {
-      "name": "ngủ",
-      "id": 3
-    },
-    {
-      "name": "ngur",
-      "id": 4
-    },
-    {
-      "name": "fdsfd",
-      "id": 5
     }
   ]
 }
