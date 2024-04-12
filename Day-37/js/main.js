@@ -18,7 +18,9 @@ let todoIdUpdate = null;
 const isCompleted = false;
 const loading = $(".loading");
 window.addEventListener("load", (event) => {
-	loading.classList.add("hidden");
+	setTimeout(() => {
+		loading.classList.add("hidden");
+	}, 700);
 	//object initialization
 	const todo = new Todo(todoListEl, modal);
 
