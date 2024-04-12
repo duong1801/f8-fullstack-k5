@@ -1,6 +1,7 @@
 /** @format */
 
 import Todo from "./todo.js";
+
 import helper from "./helper.js";
 const $ = document.querySelector.bind(document);
 const $$ = document.querySelectorAll.bind(document);
@@ -14,6 +15,9 @@ const inputFrom = form.querySelector("input");
 const btnCancel = $(".btn-cancel");
 let isUpdate = false;
 let todoIdUpdate = null;
+
+const isCompleted = false;
+
 //object initialization
 const todo = new Todo(todoListEl, modal);
 
@@ -29,9 +33,10 @@ btnAddTodo.addEventListener("click", function () {
 form.addEventListener("submit", function (e) {
 	e.preventDefault();
 	if (!isUpdate) {
-		const data = helper.encodeFormData(
+		let data = helper.encodeFormData(
 			Object.fromEntries([...new FormData(e.target)])
 		);
+		data = { ...data, isCompleted };
 		todo.add(data);
 		form.reset();
 		modal.classList.add("hidden");
@@ -53,21 +58,21 @@ btnCancel.addEventListener("click", function () {
 
 root.querySelector(".todo-list").addEventListener("click", (e) => {
 	let btnEl = null;
-	if (e.target.matches("i")) {
+	if (e.target.matches("i") || e.target.matches("span")) {
 		btnEl = e.target.parentElement;
 	} else {
 		btnEl = e.target;
 	}
 
 	if (btnEl.dataset.type === "completed" && btnEl.dataset.id) {
-		const userId = btnEl.dataset.id;
-		todo.completed(userId);
+		const todoIdCompleted = btnEl.dataset.id;
+		todo.completed(todoIdCompleted);
 	}
 
 	if (btnEl.dataset.type === "delete" && btnEl.dataset.id) {
 		if (confirm("Bạn có chắc chắn?")) {
-			const userId = btnEl.dataset.id;
-			todo.delete(userId);
+			const todoIdDelete = btnEl.dataset.id;
+			todo.completed(todoIdDelete);
 		}
 	}
 
@@ -77,5 +82,18 @@ root.querySelector(".todo-list").addEventListener("click", (e) => {
 		const nameValue = btnEl.parentElement.previousElementSibling.textContent;
 		inputFrom.value = nameValue;
 		modal.classList.remove("hidden");
+	}
+	if (btnEl.classList.contains("btn-show")) {
+		todo.isShowTasksCompleted = !todo.isShowTasksCompleted;
+
+		const fristChild = btnEl.querySelector("i:first-of-type");
+		const lastChild = btnEl.querySelector("i:last-of-type");
+		const todoCompleted = $(".todo-completed");
+		todoCompleted.classList.toggle("hidden");
+
+		btnEl.classList.toggle("bg-emerald-700");
+		btnEl.classList.toggle("bg-gray-400");
+		fristChild.classList.toggle("hidden");
+		lastChild.classList.toggle("hidden");
 	}
 });
