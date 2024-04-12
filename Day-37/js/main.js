@@ -2,8 +2,6 @@
 import Todo from "./todo.js";
 import helper from "./helper.js";
 
-const isCompleted = false;
-const loading = $(".loading");
 window.addEventListener("load", (event) => {
 	const $ = document.querySelector.bind(document);
 	const $$ = document.querySelectorAll.bind(document);
@@ -18,6 +16,9 @@ window.addEventListener("load", (event) => {
 	const btnSearch = $(".btn-search");
 	let isUpdate = false;
 	let todoIdUpdate = null;
+
+	const isCompleted = false;
+	const loading = $(".loading");
 	setTimeout(() => {
 		loading.classList.add("hidden");
 	}, 700);
