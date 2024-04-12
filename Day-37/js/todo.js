@@ -9,7 +9,7 @@ class Todo {
 	isCompleting = false;
 	parentEl = null;
 	modal = null;
-	todoApi = "http://localhost:3000/task";
+	todoApi = "https://fct976-8080.csb.app/tasks";
 	isShowTasksCompleted = false;
 
 	getOptions = (method, data = "") => {
@@ -34,16 +34,16 @@ class Todo {
 	};
 
 	getTaskCompleted = (tasks) => {
-		const taskCompleted = tasks.filter(({ isCompleted }) => isCompleted);
+		const taskCompleted = tasks?.filter(({ isCompleted }) => isCompleted);
 		return taskCompleted;
 	};
 	getTaskInCompleted = (tasks) => {
-		const taskInCompleted = tasks.filter(({ isCompleted }) => !isCompleted);
+		const taskInCompleted = tasks?.filter(({ isCompleted }) => !isCompleted);
 		return taskInCompleted;
 	};
 
 	getCountTasksCompleted = (tasks) => {
-		const count = tasks.reduce((count, task) => {
+		const count = tasks?.reduce((count, task) => {
 			if (task.isCompleted) {
 				return count + 1;
 			}
@@ -183,5 +183,7 @@ class Todo {
 		const newData = { ...rest, isCompleted: !isCompleted };
 		this.update(newData, id);
 	};
+
+	search = async () => {};
 }
 export default Todo;
