@@ -13,7 +13,14 @@
 .modal.open {
 	display: block;
 } */
-span.hightlight {
+/* span.hightlight {
 	font-weight: 700;
 	background-color: rgb(219 234 254 / var(--tw-bg-opacity));
+} */
+
+.loading {
+	height: 100vh;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 }
