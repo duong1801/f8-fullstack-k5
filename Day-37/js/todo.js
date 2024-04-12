@@ -10,6 +10,7 @@ class Todo {
 	parentEl = null;
 	modal = null;
 	todoApi = "https://fct976-8080.csb.app/tasks";
+	// todoApi = "http://localhost:3000/tasks";
 	isShowTasksCompleted = false;
 
 	getOptions = (method, data = "") => {
@@ -28,9 +29,13 @@ class Todo {
 	};
 
 	index = async () => {
-		const response = await fetch(this.todoApi);
-		const tasks = await response.json();
-		this.render(tasks);
+		try {
+			const response = await fetch(this.todoApi);
+			const tasks = await response.json();
+			this.render(tasks);
+		} catch (e) {
+			alert(e.message);
+		}
 	};
 
 	getTaskCompleted = (tasks) => {
@@ -59,7 +64,6 @@ class Todo {
 	};
 
 	render = (tasks) => {
-		console.log(this.isShowTasksCompleted);
 		this.parentEl.innerHTML = `
 			${this.getTaskInCompleted(tasks)
 				.map(
@@ -146,10 +150,6 @@ class Todo {
 		}
 	};
 
-	showTasksCompleted = () => {
-		console.log("1234");
-	};
-
 	update = async (data, id) => {
 		try {
 			const options = this.getOptions("PATCH", data);
@@ -185,6 +185,15 @@ class Todo {
 		this.update(newData, id);
 	};
 
-	search = async () => {};
+	search = async (kewords) => {
+		try {
+			const response = await fetch(`${this.todoApi}/?q=${kewords}`);
+			const tasks = await response.json();
+			this.render(tasks);
+		} catch (e) {
+			alert(e.message);
+		}
+	};
 }
+
 export default Todo;

@@ -99,3 +99,8 @@ root.querySelector(".todo-list").addEventListener("click", (e) => {
 });
 
 //search todo
+
+inputSearch.addEventListener("input", function (e) {
+	const keywords = e.target.value;
+	todo.search(keywords);
+});

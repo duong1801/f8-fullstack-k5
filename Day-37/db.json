@@ -11,24 +11,9 @@
       "id": 2
     },
     {
-      "name": "abc",
-      "isCompleted": true,
+      "name": "bị code chơi",
+      "isCompleted": false,
       "id": 3
-    },
-    {
-      "name": "b",
-      "isCompleted": true,
-      "id": 4
-    },
-    {
-      "name": "c",
-      "isCompleted": true,
-      "id": 5
-    },
-    {
-      "name": "play game",
-      "isCompleted": true,
-      "id": 6
     }
   ]
 }
