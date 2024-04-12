@@ -13,6 +13,7 @@ const modal = $(".modal");
 const form = $("form");
 const inputFrom = form.querySelector("input");
 const btnCancel = $(".btn-cancel");
+const btnSearch = $(".btn-search");
 let isUpdate = false;
 let todoIdUpdate = null;
 
@@ -102,6 +103,12 @@ root.querySelector(".todo-list").addEventListener("click", (e) => {
 
 inputSearch.addEventListener("input", function (e) {
 	const keywords = e.target.value.trim();
+	const replacedStr = keywords.replace(/\d+|true|false/g, "***");
+	todo.search(replacedStr);
+});
+
+btnSearch.addEventListener("click", function () {
+	const keywords = inputSearch.value.trim();
 	const replacedStr = keywords.replace(/\d+|true|false/g, "***");
 	todo.search(replacedStr);
 });
