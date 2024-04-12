@@ -9,7 +9,7 @@ class Todo {
 	isCompleting = false;
 	parentEl = null;
 	modal = null;
-	todoApi = "http://localhost:3000/tasks";
+	todoApi = "https://fct976-8080.csb.app/tasks";
 	isShowTasksCompleted = false;
 
 	getOptions = (method, data = "") => {
@@ -168,7 +168,6 @@ class Todo {
 	delete = async (id) => {
 		try {
 			const options = this.getOptions("DELETE");
-			console.log(options);
 			const response = await fetch(`${this.todoApi}/${id}`, options);
 			if (response.ok) {
 				this.index();
