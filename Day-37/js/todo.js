@@ -1,38 +1,46 @@
 /** @format */
 
 class Todo {
-	getOptions = (method, data = "") => {
-		const method = method.toLowerCase();
-		if (method === "get" || method === "delete") {
-			return {
-				method,
-				headers: {
-					"Content-Type": "application/json",
-				},
-				body: JSON.stringify(data),
-			};
-		} else {
-			return {
-				method,
-				headers: {
-					"Content-Type": "application/json",
-				},
-			};
-		}
-	};
+	constructor(parentEl, modal) {
+		this.parentEl = parentEl;
+		this.modal = modal;
+	}
+
+	parentEl = null;
+	modal = null;
 	todoApi = "http://localhost:3000/task";
-	index = async (parentEl = "") => {
+
+	getOptions = (method, data = "") => {
+		method = method.toLowerCase();
+		const options = {
+			method,
+			headers: {
+				"Content-Type": "application/json",
+			},
+		};
+		if (method !== "get" && method !== "delete" && data) {
+			options.body = JSON.stringify(data);
+			return options;
+		}
+		return options;
+	};
+
+	index = async () => {
 		const response = await fetch(this.todoApi);
 		const tasks = await response.json();
-		parentEl.innerHTML = `
+		this.render(tasks);
+	};
+
+	render = (tasks) => {
+		this.parentEl.innerHTML = `
 			${tasks
 				.map(
 					({ id, name }) => `
 						<div
-							class="mt-2.5 flex w-full items-center justify-between bg-white p-4 rounded-lg border border-gray-200 shadow">
+							class="todo mt-2.5 flex w-full items-center justify-between bg-white p-4 rounded-lg border border-gray-200 shadow">
 							<span class="font-normal text-gray-700">${name}</span>
 							<div class="flex gap-2">
-								<button
+								<button data-id="${id}" data-type="delete"
 									type="button"
 									class="flex h-10 w-10 items-center justify-center rounded-lg bg-rose-700 hover:bg-rose-800 focus:outline-none focus:ring-4 focus:ring-rose-300">
 									<svg
@@ -43,7 +51,7 @@ class Todo {
 											class="fill-white"
 											d="M170.5 51.6L151.5 80h145l-19-28.4c-1.5-2.2-4-3.6-6.7-3.6H177.1c-2.7 0-5.2 1.3-6.7 3.6zm147-26.6L354.2 80H368h48 8c13.3 0 24 10.7 24 24s-10.7 24-24 24h-8V432c0 44.2-35.8 80-80 80H112c-44.2 0-80-35.8-80-80V128H24c-13.3 0-24-10.7-24-24S10.7 80 24 80h8H80 93.8l36.7-55.1C140.9 9.4 158.4 0 177.1 0h93.7c18.7 0 36.2 9.4 46.6 24.9zM80 128V432c0 17.7 14.3 32 32 32H336c17.7 0 32-14.3 32-32V128H80zm80 64V400c0 8.8-7.2 16-16 16s-16-7.2-16-16V192c0-8.8 7.2-16 16-16s16 7.2 16 16zm80 0V400c0 8.8-7.2 16-16 16s-16-7.2-16-16V192c0-8.8 7.2-16 16-16s16 7.2 16 16zm80 0V400c0 8.8-7.2 16-16 16s-16-7.2-16-16V192c0-8.8 7.2-16 16-16s16 7.2 16 16z"></path>
 									</svg></button
-								><button
+								><button data-id="${id}" data-type="update"
 									type="button"
 									class="flex h-10 w-10 items-center justify-center rounded-lg bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300">
 									<svg
@@ -55,7 +63,7 @@ class Todo {
 											class="fill-white"
 											d="M471.6 21.7c-21.9-21.9-57.3-21.9-79.2 0L362.3 51.7l97.9 97.9 30.1-30.1c21.9-21.9 21.9-57.3 0-79.2L471.6 21.7zm-299.2 220c-6.1 6.1-10.8 13.6-13.5 21.9l-29.6 88.8c-2.9 8.6-.6 18.1 5.8 24.6s15.9 8.7 24.6 5.8l88.8-29.6c8.2-2.7 15.7-7.4 21.9-13.5L437.7 172.3 339.7 74.3 172.4 241.7zM96 64C43 64 0 107 0 160V416c0 53 43 96 96 96H352c53 0 96-43 96-96V320c0-17.7-14.3-32-32-32s-32 14.3-32 32v96c0 17.7-14.3 32-32 32H96c-17.7 0-32-14.3-32-32V160c0-17.7 14.3-32 32-32h96c17.7 0 32-14.3 32-32s-14.3-32-32-32H96z"></path>
 									</svg></button
-								><button
+								><button data-id="${id}" data-type="completed"
 									type="button"
 									class="bg-gray-400 flex h-10 w-10 items-center justify-center rounded-lg hover:bg-emerald-800 focus:outline-none focus:ring-4 focus:ring-emerald-300">
 									<svg
@@ -89,10 +97,31 @@ class Todo {
 	};
 
 	add = async (data) => {
-		const response = await fetch(data, this.getOptions("post"));
-		if (response.ok) {
-			this.index();
+		try {
+			const options = this.getOptions("POST", data);
+			const response = await fetch(this.todoApi, options);
+			if (response.ok) {
+				this.index();
+			}
+		} catch (e) {
+			alert(e.message);
+		} finally {
+			this.modal.classList.add("hidden");
+		}
+	};
+
+	update = async (data, id) => {
+		try {
+			const options = this.getOptions("PATCH", data);
+			const response = await fetch(`${this.todoApi}/${id}`, options);
+			if (response.ok) {
+				this.index();
+			}
+		} catch (e) {
+			alert(e.message);
+		} finally {
+			this.modal.classList.add("hidden");
 		}
 	};
 }
-export default new Todo();
+export default Todo;
