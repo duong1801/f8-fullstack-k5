@@ -1,23 +1,23 @@
 /** @format */
 import Todo from "./todo.js";
 import helper from "./helper.js";
-const $ = document.querySelector.bind(document);
-const $$ = document.querySelectorAll.bind(document);
-const root = $("#root");
-const todoListEl = $(".todo-list");
-const btnAddTodo = $(".btn-add-todo");
-const inputSearch = $(".input-search");
-const modal = $(".modal");
-const form = $("form");
-const inputFrom = form.querySelector("input");
-const btnCancel = $(".btn-cancel");
-const btnSearch = $(".btn-search");
-let isUpdate = false;
-let todoIdUpdate = null;
 
 const isCompleted = false;
 const loading = $(".loading");
 window.addEventListener("load", (event) => {
+	const $ = document.querySelector.bind(document);
+	const $$ = document.querySelectorAll.bind(document);
+	const root = $("#root");
+	const todoListEl = $(".todo-list");
+	const btnAddTodo = $(".btn-add-todo");
+	const inputSearch = $(".input-search");
+	const modal = $(".modal");
+	const form = $("form");
+	const inputFrom = form.querySelector("input");
+	const btnCancel = $(".btn-cancel");
+	const btnSearch = $(".btn-search");
+	let isUpdate = false;
+	let todoIdUpdate = null;
 	setTimeout(() => {
 		loading.classList.add("hidden");
 	}, 700);
