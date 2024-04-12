@@ -9,8 +9,8 @@ class Todo {
 	isCompleting = false;
 	parentEl = null;
 	modal = null;
-	// todoApi = "https://fct976-8080.csb.app/tasks";
-	todoApi = "http://localhost:3000/tasks";
+	todoApi = "https://fct976-8080.csb.app/tasks";
+	// todoApi = "http://localhost:3000/tasks";
 	isShowTasksCompleted = false;
 
 	getOptions = (method, data = "") => {
