@@ -121,10 +121,10 @@ class Todo {
 													type="button"
 													class="flex h-10 w-10 items-center justify-center rounded-lg bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300">
 													<i style="color:white" class="fa-solid fa-pen-to-square"></i></button
-												><button data-id="${id}" data-type="completed"
+												><button data-id="${id}" data-type="completed" 
 													type="button"
-													class="bg-gray-400 flex h-10 w-10 items-center justify-center rounded-lg hover:bg-emerald-800 focus:outline-none focus:ring-4 focus:ring-emerald-300">
-													<i style="color:white" class="fa-regular fa-rectangle-list"></i>
+													class="bg-emerald-700 flex h-10 w-10 items-center justify-center rounded-lg hover:bg-emerald-800 focus:outline-none focus:ring-4 focus:ring-emerald-300">
+													<i style="color:white"  class="fa-regular fa-rectangle-list"></i>
 												</button>
 											</div>
 										</div>

@@ -101,6 +101,6 @@ root.querySelector(".todo-list").addEventListener("click", (e) => {
 //search todo
 
 inputSearch.addEventListener("input", function (e) {
-	const keywords = e.target.value;
+	const keywords = e.target.value.trim();
 	todo.search(keywords);
 });
