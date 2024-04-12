@@ -72,7 +72,7 @@ root.querySelector(".todo-list").addEventListener("click", (e) => {
 	if (btnEl.dataset.type === "delete" && btnEl.dataset.id) {
 		if (confirm("Bạn có chắc chắn?")) {
 			const todoIdDelete = btnEl.dataset.id;
-			todo.completed(todoIdDelete);
+			todo.delete(todoIdDelete);
 		}
 	}
 
@@ -97,3 +97,5 @@ root.querySelector(".todo-list").addEventListener("click", (e) => {
 		lastChild.classList.toggle("hidden");
 	}
 });
+
+//search todo
