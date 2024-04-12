@@ -13,3 +13,7 @@
 .modal.open {
 	display: block;
 } */
+span.hightlight {
+	font-weight: 700;
+	background-color: rgb(219 234 254 / var(--tw-bg-opacity));
+}

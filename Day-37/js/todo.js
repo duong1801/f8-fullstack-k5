@@ -9,8 +9,8 @@ class Todo {
 	isCompleting = false;
 	parentEl = null;
 	modal = null;
-	todoApi = "https://fct976-8080.csb.app/tasks";
-	// todoApi = "http://localhost:3000/tasks";
+	// todoApi = "https://fct976-8080.csb.app/tasks";
+	todoApi = "http://localhost:3000/tasks";
 	isShowTasksCompleted = false;
 
 	getOptions = (method, data = "") => {
@@ -34,7 +34,7 @@ class Todo {
 			const tasks = await response.json();
 			this.render(tasks);
 		} catch (e) {
-			alert(e.message);
+			alert(e);
 		}
 	};
 
@@ -63,14 +63,17 @@ class Todo {
 		return tasks;
 	};
 
-	render = (tasks) => {
+	render = (tasks, keywords = "") => {
 		this.parentEl.innerHTML = `
 			${this.getTaskInCompleted(tasks)
 				.map(
 					({ id, name }) => `
 						<div
 							class="todo mt-2.5 flex w-full items-center justify-between bg-white p-4 rounded-lg border border-gray-200 shadow">
-							<span class="font-normal text-gray-700">${name}</span>
+							<span class="font-normal text-gray-700">${this.hightlight(
+								name,
+								keywords
+							)}</span>
 							<div class="flex gap-2">
 								<button data-id="${id}" data-type="delete"
 									type="button"
@@ -111,7 +114,10 @@ class Todo {
 									({ id, name }) => `
 										<div
 											class="mt-2.5 flex w-full items-center justify-between bg-white p-4 rounded-lg border border-gray-200 shadow">
-											<span class="font-normal text-gray-700">${name}</span>
+											<span class="font-normal text-gray-700">${this.hightlight(
+												name,
+												keywords
+											)}</span>
 											<div class="flex gap-2">
 												<button data-id="${id}" data-type="delete"
 													type="button"
@@ -189,10 +195,24 @@ class Todo {
 		try {
 			const response = await fetch(`${this.todoApi}/?q=${kewords}`);
 			const tasks = await response.json();
-			this.render(tasks);
+			this.render(tasks, kewords);
 		} catch (e) {
 			alert(e.message);
 		}
+	};
+	hightlight = (name, keywords) => {
+		console.log(keywords);
+		const keywordsLength = keywords.length;
+		const position = name.indexOf(keywords);
+
+		if (keywords && position != -1) {
+			const firstword = name.slice(0, position);
+			const endWord = name.slice(position + keywordsLength);
+			const newName = `${firstword}<span class="bg-blue-100 font-bold">${keywords}</span>${endWord}`;
+			console.log(newName);
+			return newName;
+		}
+		return name;
 	};
 }
 
