@@ -112,7 +112,7 @@ window.addEventListener("load", (event) => {
 
 	btnSearch.addEventListener("click", function () {
 		const keywords = inputSearch.value.trim();
-		const replacedStr = keywords.replace(/\d+|true|false/g, "***");
+		const replacedStr = keywords.replace(/|true|false/g, "***");
 		todo.search(replacedStr);
 	});
 });
