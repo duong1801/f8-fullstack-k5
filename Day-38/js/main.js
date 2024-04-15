@@ -28,11 +28,10 @@ window.addEventListener("DOMContentLoaded", function () {
 	scrollLoadMore();
 
 	window.addEventListener("scroll", () => {
-		const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
-		console.log(scrollTop, scrollHeight, clientHeight);
+		rootEl = document.querySelector("html");
+		const { scrollTop, scrollHeight, clientHeight } = rootEl;
 		if (scrollTop + clientHeight >= scrollHeight) {
 			loadingPage++;
-			console.log(loadingPage);
 			scrollLoadMore();
 		}
 	});
