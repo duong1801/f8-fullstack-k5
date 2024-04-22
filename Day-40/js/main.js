@@ -7,9 +7,35 @@ httpClient.serverApi = config.serverApi
 import validateForm from "./validate.js"
 const root = document.querySelector("#root")
 const app = {
+	isLogin: false,
 	start: function () {
-		root.innerHTML = this.loginForm()
+		this.render()
 		this.addEvent()
+	},
+	profile: function () {
+		return `<div class="container-fluid">
+				<div class="row">
+					<div class="col-12">
+						<h2 class="heading">Chào mừng bạn quay trở lại</h2>
+						<h3>Chào, <span class="profile-name">Loading...</span></h3>
+						<button class="logout-btn btn btn-warning">Đăng xuất</button>
+					</div>
+				</div>`
+	},
+	render: function () {
+		if (localStorage.getItem("tokens")) {
+			try {
+				const tokens = JSON.parse(localStorage.getItem("tokens"))
+				if (tokens.accessToken) {
+					this.isLogin = true
+					this.sendRequestProfile()
+				}
+			} catch (e) {
+				console.log(e.message)
+			}
+		}
+
+		root.innerHTML = this.isLogin ? this.profile() : this.loginForm()
 	},
 	registerForm: function () {
 		return `	<div class="container mt-4">
@@ -117,6 +143,11 @@ const app = {
 					</form>
 				</div>`
 	},
+	sendRequestLogout: async function () {
+		const { res, data } = await httpClient.post("/auth/logout")
+		localStorage.removeItem("tokens")
+		root.innerHTML = this.loginForm()
+	},
 
 	addEvent: function () {
 		root.addEventListener("click", (e) => {
@@ -126,6 +157,10 @@ const app = {
 			if (e.target.classList.contains("swich-register")) {
 				// console.log("object")
 				root.innerHTML = this.registerForm()
+			}
+
+			if (e.target.classList.contains("logout-btn")) {
+				this.sendRequestLogout()
 			}
 		})
 
@@ -161,7 +196,7 @@ const app = {
 	sendRequestLogin: async function (data, btnLogin, btnLoginLoading) {
 		//gọi api login
 
-		const { res: response, data: tokens } = await httpClient.post(
+		const { res: response, data: datas } = await httpClient.post(
 			"/auth/login",
 			data
 		)
@@ -174,6 +209,10 @@ const app = {
 			return
 		}
 		//Nếu thành công --> Lưu vào localStorage
+		const tokens = {
+			accessToken: datas.data.accessToken,
+			refreshToken: datas.data.refreshToken,
+		}
 		localStorage.setItem("tokens", JSON.stringify(tokens))
 		this.render()
 	},
@@ -193,29 +232,44 @@ const app = {
 		}
 		alert("Tạo tài khoản thành công")
 		this.start()
-
-		// if (response.ok) {
-		// 	alert("Đăng ký thành công")
-		// }
-		// //Nếu thành công --> Lưu vào localStorage
-		// localStorage.setItem("tokens", JSON.stringify(tokens))
-		// this.render()
 	},
-	render: function () {
-		let isLogin = false
-		if (localStorage.getItem("tokens")) {
-			try {
-				const tokens = JSON.parse(localStorage.getItem("tokens"))
-				if (tokens.access_token) {
-					isLogin = true
-					this.sendRequestProfile()
-				}
-			} catch (e) {
-				console.log(e.message)
-			}
-		}
+	sendRequestRefreshToken: async function (refreshToken) {
+		try {
+			const { res: response, data } = await httpClient.post(
+				"/auth/refresh-token",
+				{ refreshToken }
+			)
 
-		root.innerHTML = isLogin ? this.profile() : this.loginForm()
+			if (!response.ok) {
+				throw new Error("Refresh Token Invalid")
+			}
+			return data
+		} catch {
+			return false
+		}
+	},
+	sendRequestProfile: async function () {
+		const { accessToken, refreshToken } = JSON.parse(
+			localStorage.getItem("tokens")
+		)
+
+		httpClient.token = accessToken
+
+		const { res: response, data } = await httpClient.get("/users/profile")
+
+		if (!response.ok) {
+			const newToken = await this.sendRequestRefreshToken(refreshToken)
+			if (!newToken) {
+				localStorage.removeItem("tokens")
+				this.render()
+			} else {
+				localStorage.setItem("tokens", JSON.stringify(newToken))
+				this.sendRequestProfile()
+			}
+			return
+		}
+		const profileNameEl = root.querySelector(".profile-name")
+		profileNameEl.innerText = data.data.name
 	},
 }
 
