@@ -13,14 +13,46 @@ const app = {
 		this.addEvent()
 	},
 	profile: function () {
-		return `<div class="container-fluid">
+		return `<div class="container">
 				<div class="row">
 					<div class="col-12">
 						<h2 class="heading">Chào mừng bạn quay trở lại</h2>
 						<h3>Chào, <span class="profile-name">Loading...</span></h3>
 						<button class="logout-btn btn btn-warning">Đăng xuất</button>
 					</div>
-				</div>`
+				</div>
+        	<div class="row mt-4">
+          	<div class="col-5">
+            <form action="">
+            <div class="mb-3">
+							<label for="exampleInputEmail1" class="form-label"
+								>Title </label
+							>
+							<input
+								type="text"
+								class="form-control"
+								id="email"
+						    name="title" />
+                 <div class="invalid-feedback">
+        
+                 </div>
+						</div>
+              <div class="form-floating">
+                <textarea style="height: 200px" class="form-control" name="content" placeholder="Leave a comment here" id="floatingTextarea"></textarea>
+                <label for="floatingTextarea">Content</label>
+              </div>
+              <button type="submit" class="btn btn-primary btn-post-blog mt-4" >Đăng bài</button>
+            	<button class="btn btn-primary d-none post-blog-loading" type="button" disabled>
+                    <span
+                  class="spinner-grow spinner-grow-sm"
+                  role="status"
+                  aria-hidden="true"></span>
+                 Đăng bài
+	           	</button>
+            </form>
+            </div>
+        	</div>
+        `
 	},
 	render: function () {
 		if (localStorage.getItem("tokens")) {
