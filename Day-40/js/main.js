@@ -6,7 +6,6 @@ import config from "./config.js"
 httpClient.serverApi = config.serverApi
 import validateForm from "./validate.js"
 const root = document.querySelector("#root")
-console.log(root)
 const app = {
 	start: function () {
 		root.innerHTML = this.loginForm()
@@ -19,7 +18,7 @@ const app = {
 					<form class="mt-4 register-form">
              <div class="mb-3 form-group" >
 							<label for="exampleInputEmail1" class="form-label"
-								>Email </label
+								>Name </label
 							>
 							<input
 								type="name"
@@ -61,8 +60,15 @@ const app = {
                  </div>
 						</div>
 
-			
+            
 						<button type="submit" class="btn btn-primary btn-register">Đăng ký</button>
+            		<button class="btn btn-primary d-none register-loading" type="button" disabled>
+                    <span
+                  class="spinner-grow spinner-grow-sm"
+                  role="status"
+                  aria-hidden="true"></span>
+                   Đăng ký
+	           	</button>
             <button type="button" class="btn btn-success swich-login">Đăng nhập</button>
 					</form>
 				</div>`
@@ -99,7 +105,14 @@ const app = {
         
                  </div>
 						</div>
-						<button type="submit" class="btn btn-primary">Đăng nhập</button>
+						<button type="submit" class="btn btn-primary btn-login">Đăng nhập</button>
+            	<button class="btn btn-primary d-none register-loading" type="button" disabled>
+                    <span
+                  class="spinner-grow spinner-grow-sm"
+                  role="status"
+                  aria-hidden="true"></span>
+                   Đăng nhập
+	           	</button>
             	<button type="button" class="btn btn-success swich-register">Đăng ký</button>
 					</form>
 				</div>`
@@ -120,25 +133,89 @@ const app = {
 			e.preventDefault()
 			if (e.target.classList.contains("login-form")) {
 				if (validateForm()) {
-					console.log(e.target)
+					const btnLogin = document.querySelector(".btn-login")
+					const btnLoginLoading = btnLogin.nextElementSibling
 					const data = helper.encodeFormData(
 						Object.fromEntries([...new FormData(e.target)])
 					)
-					console.log(data)
+					btnLogin.classList.add("d-none")
+					btnLoginLoading.classList.remove("d-none")
+					this.sendRequestLogin(data, btnLogin, btnLoginLoading)
 				}
 			}
 
 			if (e.target.classList.contains("register-form")) {
-				console.log("object")
 				if (validateForm(true)) {
-					console.log(e.target)
+					const btnRegister = document.querySelector(".btn-register")
+					const btnRegisterLoading = btnRegister.nextElementSibling
 					const data = helper.encodeFormData(
 						Object.fromEntries([...new FormData(e.target)])
 					)
-					console.log(data)
+					btnRegister.classList.add("d-none")
+					btnRegisterLoading.classList.remove("d-none")
+					this.sendRequestRegister(data, btnRegister, btnRegisterLoading)
 				}
 			}
 		})
+	},
+	sendRequestLogin: async function (data, btnLogin, btnLoginLoading) {
+		//gọi api login
+
+		const { res: response, data: tokens } = await httpClient.post(
+			"/auth/login",
+			data
+		)
+
+		//Thất bại --> Thông báo lỗi
+		if (!response.ok) {
+			alert("Email hoặc mật khẩu không chính xác")
+			btnLogin.classList.remove("d-none")
+			btnLoginLoading.classList.add("d-none")
+			return
+		}
+		//Nếu thành công --> Lưu vào localStorage
+		localStorage.setItem("tokens", JSON.stringify(tokens))
+		this.render()
+	},
+
+	sendRequestRegister: async function (data, btnRegister, btnRegisterLoading) {
+		//gọi api login
+		const { res: response, data: datas } = await httpClient.post(
+			"/auth/register",
+			data
+		)
+
+		if (!response.ok) {
+			btnRegister.classList.remove("d-none")
+			btnRegisterLoading.classList.add("d-none")
+			alert("Có lỗi xảy ra,vui lòng thử lại")
+			return
+		}
+		alert("Tạo tài khoản thành công")
+		this.start()
+
+		// if (response.ok) {
+		// 	alert("Đăng ký thành công")
+		// }
+		// //Nếu thành công --> Lưu vào localStorage
+		// localStorage.setItem("tokens", JSON.stringify(tokens))
+		// this.render()
+	},
+	render: function () {
+		let isLogin = false
+		if (localStorage.getItem("tokens")) {
+			try {
+				const tokens = JSON.parse(localStorage.getItem("tokens"))
+				if (tokens.access_token) {
+					isLogin = true
+					this.sendRequestProfile()
+				}
+			} catch (e) {
+				console.log(e.message)
+			}
+		}
+
+		root.innerHTML = isLogin ? this.profile() : this.loginForm()
 	},
 }
 

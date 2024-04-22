@@ -38,8 +38,8 @@ function validateForm(isFieldName = false) {
 		password.nextElementSibling.innerText = "Mật khẩu không được để trống"
 		password.nextElementSibling.style.display = "block"
 		result = false
-	} else if (passwordValue.length < 6) {
-		password.nextElementSibling.innerText = "Mật khẩu phải chứa ít nhất 6 ký tự"
+	} else if (passwordValue.length < 8) {
+		password.nextElementSibling.innerText = "Mật khẩu phải chứa ít nhất 8 ký tự"
 		password.nextElementSibling.style.display = "block"
 		result = false
 	} else {

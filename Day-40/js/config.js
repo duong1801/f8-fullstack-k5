@@ -1,6 +1,6 @@
 /** @format */
 const config = {
-	serverApi: `https://api.escuelajs.co/api/v1`,
+	serverApi: `https://api-auth-two.vercel.app`,
 }
 
 export default config
