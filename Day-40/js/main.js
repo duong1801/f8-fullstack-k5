@@ -6,6 +6,46 @@ import config from "./config.js"
 httpClient.serverApi = config.serverApi
 import validateForm from "./validate.js"
 const root = document.querySelector("#root")
+
+function showPost() {
+	window.addEventListener("DOMContentLoaded", function () {
+		const apiTodo = "https://api-auth-two.vercel.app/blogs"
+		const usersListEl = document.querySelector(".comments-list")
+
+		let loadingPage = 1
+
+		const scrollLoadMore = async () => {
+			try {
+				const response = await fetch(`${apiTodo}?_page=${loadingPage}`)
+				const data = await response.json()
+				console.log(data.data)
+				data?.data.forEach(({ title, content, userId }) => {
+					const liEl = document.createElement("li")
+					liEl.innerHTML = `
+                    <h3>Tiêu đề: ${title}</h3>
+                    <p>Nội dung: ${content}</p>
+                    <p>tác giả: ${userId.name}</p>
+                `
+
+					usersListEl.appendChild(liEl)
+				})
+			} catch (error) {
+				alert(error.message)
+			}
+		}
+
+		scrollLoadMore()
+
+		window.addEventListener("scroll", () => {
+			rootEl = document.querySelector("html")
+			const { scrollTop, scrollHeight, clientHeight } = rootEl
+			if (scrollTop + clientHeight >= scrollHeight) {
+				loadingPage++
+				scrollLoadMore()
+			}
+		})
+	})
+}
 const app = {
 	isLogin: false,
 	start: function () {
@@ -23,7 +63,7 @@ const app = {
 				</div>
         	<div class="row mt-4">
           	<div class="col-5">
-            <form action="">
+            <form action="" class="form-post-blog">
             <div class="mb-3">
 							<label for="exampleInputEmail1" class="form-label"
 								>Title </label
@@ -42,7 +82,7 @@ const app = {
                 <label for="floatingTextarea">Content</label>
               </div>
               <button type="submit" class="btn btn-primary btn-post-blog mt-4" >Đăng bài</button>
-            	<button class="btn btn-primary d-none post-blog-loading" type="button" disabled>
+            	<button class="btn btn-primary d-none post-blog-loading mt-4" type="button" disabled>
                     <span
                   class="spinner-grow spinner-grow-sm"
                   role="status"
@@ -223,7 +263,31 @@ const app = {
 					this.sendRequestRegister(data, btnRegister, btnRegisterLoading)
 				}
 			}
+
+			if (e.target.classList.contains("form-post-blog")) {
+				const btnPostBlog = document.querySelector(".btn-post-blog")
+				const btnPostLoading = btnPostBlog.nextElementSibling
+				const data = helper.encodeFormData(
+					Object.fromEntries([...new FormData(e.target)])
+				)
+				console.log(data)
+				btnPostBlog.classList.add("d-none")
+				btnPostLoading.classList.remove("d-none")
+				this.sendRequestPostBlog(data, btnPostBlog, btnPostLoading)
+			}
 		})
+	},
+	sendRequestPostBlog: async function (data, btnPostBlog, btnPostLoading) {
+		const { res: response, data: datas } = await httpClient.post("/blogs", data)
+
+		if (!response.ok) {
+			alert("Đã có lỗi xảy ra, vui lòng thử lại")
+			btnPostBlog.classList.remove("d-none")
+			btnPostLoading.classList.add("d-none")
+			return
+		}
+		alert("Thêm mới bài viết thành công")
+		location.reload()
 	},
 	sendRequestLogin: async function (data, btnLogin, btnLoginLoading) {
 		//gọi api login
@@ -304,5 +368,4 @@ const app = {
 		profileNameEl.innerText = data.data.name
 	},
 }
-
 app.start()
